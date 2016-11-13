@@ -19,6 +19,4 @@ public abstract class DownloadImageResult {
 
     public abstract void onResult(String filePath);
 
-    public abstract void onFail();
-
 }

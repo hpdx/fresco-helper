@@ -1,12 +1,15 @@
 package com.android.fresco.demo;
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.ImageLoader;
+import com.facebook.fresco.helper.Phoenix;
 import com.facebook.fresco.helper.photo.entity.PhotoInfo;
 import com.facebook.fresco.helper.utils.DensityUtil;
 
@@ -71,7 +74,20 @@ public class PhotoWallAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         public void bind(final PhotoInfo photoInfo) {
-            ImageLoader.loadImage((SimpleDraweeView)itemView, photoInfo.thumbnailUrl);
+            // 如果照片墙图片特多，使用这种方式，滚动时会卡，不流畅
+//            ImageLoader.loadImage((SimpleDraweeView)itemView, photoInfo.thumbnailUrl);
+            // 建议使用使用下面的这种加载方式，请求显示指定宽高的图片
+
+            Uri uri = Uri.parse(photoInfo.thumbnailUrl);
+            if (UriUtil.isNetworkUri(uri)) {
+                // ImageLoader.loadImage((SimpleDraweeView)itemView, photoInfo.thumbnailUrl, itemDimensionSize, itemDimensionSize);
+                Phoenix.with((SimpleDraweeView)itemView)
+                        .setWidth(itemDimensionSize)
+                        .setHeight(itemDimensionSize)
+                        .load(photoInfo.thumbnailUrl);
+            } else {
+                ImageLoader.loadFile((SimpleDraweeView)itemView, photoInfo.thumbnailUrl, itemDimensionSize, itemDimensionSize);
+            }
         }
     }
 

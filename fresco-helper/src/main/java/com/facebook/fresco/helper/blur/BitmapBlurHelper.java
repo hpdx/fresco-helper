@@ -52,4 +52,13 @@ public final class BitmapBlurHelper {
         return scaledBitmap;
     }
 
+    /**
+     * 做高斯模糊处理
+     * @param source Bitmap
+     * @param radius 值越大越模糊，取值范围1~100
+     */
+    public static void blur(Bitmap source, int radius) {
+        FastBlur.blur(source, radius, true);
+    }
+
 }

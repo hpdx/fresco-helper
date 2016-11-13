@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.fresco.demo">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,10 +18,16 @@
         </activity>
 
         <activity android:name=".PhotoWallActivity"/>
-
-        <activity android:name="com.facebook.fresco.helper.photo.PictureBrowseActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/picture_browse_activity_style"/>
+        <activity android:name=".FrescoBaseUseActivity"/>
+        <activity android:name=".UseDataBindingActivity"/>
+        <activity android:name=".BlurActivity"/>
+        <activity android:name=".Blur2Activity"/>
+        <activity android:name=".PhotoAlbumActivity"/>
+        <activity android:name=".GifActivity"/>
+        <activity android:name=".MeiziActivity"/>
+        <activity android:name=".WebpActivity"/>
+        <activity android:name=".BigImageActivity"/>
+        <activity android:name=".ImageSizeActivity"/>
 
     </application>
 

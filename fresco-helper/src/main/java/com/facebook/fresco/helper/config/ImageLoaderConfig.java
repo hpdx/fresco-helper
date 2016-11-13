@@ -15,6 +15,9 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.fresco.helper.utils.MLog;
 import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.facebook.imagepipeline.decoder.ProgressiveJpegConfig;
+import com.facebook.imagepipeline.image.ImmutableQualityInfo;
+import com.facebook.imagepipeline.image.QualityInfo;
 import com.facebook.imagepipeline.listener.RequestListener;
 import com.facebook.imagepipeline.listener.RequestLoggingListener;
 
@@ -52,6 +55,9 @@ public class ImageLoaderConfig {
              * 2、一些内存清理软件可以扫描出来，进行内存的清理
              */
             File fileCacheDir = context.getApplicationContext().getCacheDir();
+//            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+//                fileCacheDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Fresco");
+//            }
 
             DiskCacheConfig mainDiskCacheConfig = DiskCacheConfig.newBuilder(context)
                     .setBaseDirectoryName(IMAGE_PIPELINE_CACHE_DIR)
@@ -75,7 +81,7 @@ public class ImageLoaderConfig {
                 @Override
                 public void trim(MemoryTrimType trimType) {
                     final double suggestedTrimRatio = trimType.getSuggestedTrimRatio();
-                    MLog.i("Fresco onCreate suggestedTrimRatio : %d", suggestedTrimRatio);
+                    MLog.i(String.format("Fresco onCreate suggestedTrimRatio : %d", suggestedTrimRatio));
 
                     if (MemoryTrimType.OnCloseToDalvikHeapLimit.getSuggestedTrimRatio() == suggestedTrimRatio
                             || MemoryTrimType.OnSystemLowMemoryWhileAppInBackground.getSuggestedTrimRatio() == suggestedTrimRatio
@@ -91,19 +97,32 @@ public class ImageLoaderConfig {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor)
+//                    .retryOnConnectionFailure(false)
                     .build();
 
             sImagePipelineConfig = OkHttpImagePipelineConfigFactory.newBuilder(context, okHttpClient)
 //            sImagePipelineConfig = ImagePipelineConfig.newBuilder(context)
-                    .setBitmapsConfig(Bitmap.Config.RGB_565)
-                    .setDownsampleEnabled(true)
-                    .setResizeAndRotateEnabledForNetwork(true)
+                    .setBitmapsConfig(Bitmap.Config.RGB_565) // 若不是要求忒高清显示应用，就用使用RGB_565吧（默认是ARGB_8888)
+                    .setDownsampleEnabled(true) // 在解码时改变图片的大小，支持PNG、JPG以及WEBP格式的图片，与ResizeOptions配合使用
+                    // 设置Jpeg格式的图片支持渐进式显示
+                    .setProgressiveJpegConfig(new ProgressiveJpegConfig() {
+                        @Override
+                        public int getNextScanNumberToDecode(int scanNumber) {
+                            return scanNumber + 2;
+                        }
+
+                        public QualityInfo getQualityInfo(int scanNumber) {
+                            boolean isGoodEnough = (scanNumber >= 5);
+                            return ImmutableQualityInfo.of(scanNumber, isGoodEnough, false);
+                        }
+                    })
                     .setRequestListeners(requestListeners)
-                    .setMemoryTrimmableRegistry(memoryTrimmableRegistry)
+                    .setMemoryTrimmableRegistry(memoryTrimmableRegistry) // 报内存警告时的监听
+                    // 设置内存配置
                     .setBitmapMemoryCacheParamsSupplier(new BitmapMemoryCacheParamsSupplier(
                             (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE)))
-                    .setMainDiskCacheConfig(mainDiskCacheConfig)
-                    .setSmallImageDiskCacheConfig(smallDiskCacheConfig)
+                    .setMainDiskCacheConfig(mainDiskCacheConfig) // 设置主磁盘配置
+                    .setSmallImageDiskCacheConfig(smallDiskCacheConfig) // 设置小图的磁盘配置
                     .build();
         }
         return sImagePipelineConfig;

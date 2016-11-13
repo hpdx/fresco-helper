@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_1"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            app:actualImageScaleType="centerCrop" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_2"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="15dp"
+            app:actualImageScaleType="centerCrop"
+            app:roundAsCircle="true" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_3"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="15dp"
+            app:actualImageScaleType="centerCrop"
+            app:roundAsCircle="true"
+            app:roundingBorderColor="#fff3cf44"
+            app:roundingBorderWidth="2dp" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_4"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="15dp"
+            app:actualImageScaleType="centerCrop"
+            app:roundAsCircle="false"
+            app:roundedCornerRadius="10dp" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_5"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="15dp"
+            app:actualImageScaleType="centerCrop"
+            app:roundAsCircle="false"
+            app:roundBottomLeft="true"
+            app:roundBottomRight="true"
+            app:roundTopLeft="false"
+            app:roundTopRight="false"
+            app:roundedCornerRadius="10dp" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_6"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="15dp"
+            app:actualImageScaleType="centerCrop"
+            app:roundAsCircle="false"
+            app:roundBottomLeft="false"
+            app:roundBottomRight="true"
+            app:roundTopLeft="true"
+            app:roundTopRight="false"
+            app:roundedCornerRadius="10dp" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_7"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="15dp"
+            app:actualImageScaleType="centerCrop"
+            app:placeholderImage="@mipmap/ic_launcher"
+            app:placeholderImageScaleType="centerCrop" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_8"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="15dp"
+            app:actualImageScaleType="centerCrop"
+            app:fadeDuration="3000" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_9"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="15dp"
+            app:actualImageScaleType="centerCrop"
+            app:pressedStateOverlayImage="@color/colorAccent" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_10"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="15dp"
+            app:actualImageScaleType="centerCrop"
+            app:overlayImage="@mipmap/ic_launcher" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_11"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="15dp"
+            app:actualImageScaleType="centerCrop"
+            app:failureImage="@mipmap/ic_launcher"
+            app:failureImageScaleType="centerInside"
+            app:progressBarAutoRotateInterval="5000"
+            app:progressBarImage="@mipmap/ic_launcher"
+            app:progressBarImageScaleType="centerCrop"
+            app:retryImage="@mipmap/ic_launcher"
+            app:retryImageScaleType="centerCrop" />
+
+    </LinearLayout>
+</ScrollView>

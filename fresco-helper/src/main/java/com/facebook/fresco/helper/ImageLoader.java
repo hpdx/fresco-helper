@@ -27,6 +27,7 @@ import com.facebook.fresco.helper.listener.DownloadImageResult;
 import com.facebook.fresco.helper.listener.LoadImageResult;
 import com.facebook.fresco.helper.utils.StreamTool;
 import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.common.RotationOptions;
 import com.facebook.imagepipeline.core.ImagePipeline;
 import com.facebook.imagepipeline.image.CloseableBitmap;
 import com.facebook.imagepipeline.image.CloseableImage;
@@ -61,6 +62,26 @@ public class ImageLoader {
         DraweeController controller = Fresco.newDraweeControllerBuilder()
                 .setOldController(simpleDraweeView.getController())
                 .setUri(uri)
+                .setTapToRetryEnabled(true) // 开启重试功能
+                .setAutoPlayAnimations(true) // 自动播放gif动画
+                .build();
+        simpleDraweeView.setController(controller);
+    }
+
+    public static void loadImage(SimpleDraweeView simpleDraweeView, String url, final int reqWidth, final int reqHeight) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+
+        Uri uri = Uri.parse(url);
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setResizeOptions(new ResizeOptions(reqWidth, reqHeight))
+                .build();
+
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setOldController(simpleDraweeView.getController())
+                .setImageRequest(request)
+                .setTapToRetryEnabled(true) // 开启重试功能
                 .setAutoPlayAnimations(true) // 自动播放gif动画
                 .build();
         simpleDraweeView.setController(controller);
@@ -80,6 +101,80 @@ public class ImageLoader {
                 .setOldController(simpleDraweeView.getController())
                 .build();
         simpleDraweeView.setController(controller);
+    }
+
+    public static void loadImageSmall(SimpleDraweeView simpleDraweeView, String url, final int reqWidth, final int reqHeight) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+
+        Uri uri = Uri.parse(url);
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setResizeOptions(new ResizeOptions(reqWidth, reqHeight))
+                .setCacheChoice(ImageRequest.CacheChoice.SMALL)
+                .build();
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setImageRequest(request)
+                .setOldController(simpleDraweeView.getController())
+                .build();
+        simpleDraweeView.setController(controller);
+    }
+
+    public static void loadImage(SimpleDraweeView simpleDraweeView, String url, BasePostprocessor processor) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+
+        Uri uri = Uri.parse(url);
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setRotationOptions(RotationOptions.autoRotate())
+                .setPostprocessor(processor)
+                .build();
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setImageRequest(request)
+                .setOldController(simpleDraweeView.getController())
+                .build();
+        simpleDraweeView.setController(controller);
+    }
+
+    public static void loadImage(SimpleDraweeView simpleDraweeView, String url,
+                                 final int reqWidth, final int reqHeight, BasePostprocessor processor) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+
+        Uri uri = Uri.parse(url);
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setResizeOptions(new ResizeOptions(reqWidth, reqHeight))
+                .setRotationOptions(RotationOptions.autoRotate())
+                .setPostprocessor(processor)
+                .build();
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setImageRequest(request)
+                .setOldController(simpleDraweeView.getController())
+                .build();
+        simpleDraweeView.setController(controller);
+    }
+
+    public static void loadImage(SimpleDraweeView draweeView, String url, ControllerListener<ImageInfo> controllerListener) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+
+        Uri uri = Uri.parse(url);
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setRotationOptions(RotationOptions.autoRotate())
+                .build();
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setImageRequest(request)
+                .setOldController(draweeView.getController())
+                .setControllerListener(controllerListener)
+                .build();
+        draweeView.setController(controller);
+    }
+
+    public static void loadImage(Context context, String url, final LoadImageResult loadImageResult) {
+        loadOriginalImage(context, url, loadImageResult, UiThreadImmediateExecutorService.getInstance());
     }
 
     /**
@@ -192,7 +287,7 @@ public class ImageLoader {
                         StreamTool.write(photoPath, data);
                         loadFileResult.onResult(photoPath);
                     } catch (IOException e) {
-                        loadFileResult.onFail();
+                        loadFileResult.onResult(null);
                         e.printStackTrace();
                     } finally {
                         imageReference.close();
@@ -204,7 +299,7 @@ public class ImageLoader {
             @Override
             public void onFailureImpl(DataSource dataSource) {
                 if (loadFileResult != null) {
-                    loadFileResult.onFail();
+                    loadFileResult.onResult(null);
                 }
 
                 Throwable throwable = dataSource.getFailureCause();
@@ -213,151 +308,6 @@ public class ImageLoader {
                 }
             }
         }, Executors.newSingleThreadExecutor());
-    }
-
-    public static void loadImage(SimpleDraweeView simpleDraweeView, String url, BasePostprocessor processor) {
-        if (TextUtils.isEmpty(url)) {
-            return;
-        }
-
-        Uri uri = Uri.parse(url);
-        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
-                .setAutoRotateEnabled(true)
-                .setPostprocessor(processor)
-                .build();
-        DraweeController controller = Fresco.newDraweeControllerBuilder()
-                .setImageRequest(request)
-                .setOldController(simpleDraweeView.getController())
-                .build();
-        simpleDraweeView.setController(controller);
-    }
-
-    public static void loadFile(final SimpleDraweeView draweeView, String filePath, final int reqWidth, final int reqHeight) {
-        Uri uri = new Uri.Builder()
-                .scheme(UriUtil.LOCAL_FILE_SCHEME)
-                .path(filePath)
-                .build();
-        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
-                .setAutoRotateEnabled(true)
-                .setLocalThumbnailPreviewsEnabled(true)
-                .setResizeOptions(new ResizeOptions(reqWidth, reqHeight))
-                .build();
-        DraweeController controller = Fresco.newDraweeControllerBuilder()
-                .setImageRequest(request)
-                .setOldController(draweeView.getController())
-                .setControllerListener(new BaseControllerListener<ImageInfo>() {
-                    @Override
-                    public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable anim) {
-                        if (imageInfo == null) {
-                            return;
-                        }
-
-                        ViewGroup.LayoutParams vp = draweeView.getLayoutParams();
-                        vp.width = reqWidth;
-                        vp.height = reqHeight;
-                        draweeView.requestLayout();
-                    }
-                })
-                .build();
-        draweeView.setController(controller);
-    }
-
-    public static void loadFile(final SimpleDraweeView draweeView, String filePath) {
-        Uri uri = new Uri.Builder()
-                .scheme(UriUtil.LOCAL_FILE_SCHEME)
-                .path(filePath)
-                .build();
-        DraweeController controller = Fresco.newDraweeControllerBuilder()
-                .setUri(uri)
-                .setOldController(draweeView.getController())
-                .build();
-        draweeView.setController(controller);
-    }
-
-    public static void loadFile(Context context, String filePath, final int reqWidth, final int reqHeight,
-                                final LoadImageResult loadImageResult) {
-        Uri uri = new Uri.Builder()
-                .scheme(UriUtil.LOCAL_FILE_SCHEME)
-                .path(filePath)
-                .build();
-        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
-                .setAutoRotateEnabled(true)
-                .setLocalThumbnailPreviewsEnabled(true)
-                .setResizeOptions(new ResizeOptions(reqWidth, reqHeight))
-                .build();
-
-        ImagePipeline imagePipeline = Fresco.getImagePipeline();
-        // 获取已解码的图片，返回的是Bitmap
-        DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(request, context);
-        DataSubscriber dataSubscriber = new BaseDataSubscriber<CloseableReference<CloseableBitmap>>() {
-            @Override
-            public void onNewResultImpl(DataSource<CloseableReference<CloseableBitmap>> dataSource) {
-                if (!dataSource.isFinished()) {
-                    return;
-                }
-
-                CloseableReference<CloseableBitmap> imageReference = dataSource.getResult();
-                if (imageReference != null) {
-                    final CloseableReference<CloseableBitmap> closeableReference = imageReference.clone();
-                    try {
-                        CloseableBitmap closeableBitmap = closeableReference.get();
-                        Bitmap bitmap = closeableBitmap.getUnderlyingBitmap();
-                        if (bitmap != null && !bitmap.isRecycled()) {
-                            final Bitmap tempBitmap = bitmap.copy(bitmap.getConfig(), false);
-                            loadImageResult.onResult(tempBitmap);
-                        }
-                    } finally {
-                        imageReference.close();
-                        closeableReference.close();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailureImpl(DataSource dataSource) {
-                Throwable throwable = dataSource.getFailureCause();
-                if (throwable != null) {
-                    Log.e("ImageLoader", "onFailureImpl = " + throwable.toString());
-                }
-            }
-        };
-        dataSource.subscribe(dataSubscriber, UiThreadImmediateExecutorService.getInstance());
-    }
-
-    public static void loadDrawable(SimpleDraweeView draweeView, int resId, int width, int height) {
-        Uri uri = new Uri.Builder()
-                .scheme(UriUtil.LOCAL_RESOURCE_SCHEME)
-                .path(String.valueOf(resId))
-                .build();
-        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
-                .setResizeOptions(new ResizeOptions(width, height))
-                .build();
-        DraweeController controller = Fresco.newDraweeControllerBuilder()
-                .setImageRequest(request)
-                .setOldController(draweeView.getController())
-                .build();
-        draweeView.setController(controller);
-    }
-
-    public static void loadImage(SimpleDraweeView draweeView, String url, ControllerListener<ImageInfo> controllerListener) {
-        if (TextUtils.isEmpty(url)) {
-            return;
-        }
-
-        Uri uri = Uri.parse(url);
-        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
-                .setAutoRotateEnabled(true)
-                .build();
-        DraweeController controller = Fresco.newDraweeControllerBuilder()
-                .setImageRequest(request)
-                .setOldController(draweeView.getController())
-                .setControllerListener(controllerListener)
-                .build();
-        draweeView.setController(controller);
-    }
-
-    public static void loadImage(Context context, String url, final LoadImageResult loadImageResult) {
-        loadOriginalImage(context, url, loadImageResult, UiThreadImmediateExecutorService.getInstance());
     }
 
     public static void loadImage(Context context, String url, final int reqWidth, final int reqHeight, final LoadImageResult loadImageResult) {
@@ -409,20 +359,166 @@ public class ImageLoader {
         dataSource.subscribe(dataSubscriber, UiThreadImmediateExecutorService.getInstance());
     }
 
+    public static void loadFile(final SimpleDraweeView draweeView, String filePath) {
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_FILE_SCHEME)
+                .path(filePath)
+                .build();
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setUri(uri)
+                .setOldController(draweeView.getController())
+                .build();
+        draweeView.setController(controller);
+    }
+
+    public static void loadFile(final SimpleDraweeView draweeView, String filePath, final int reqWidth, final int reqHeight) {
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_FILE_SCHEME)
+                .path(filePath)
+                .build();
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setRotationOptions(RotationOptions.autoRotate())
+                .setLocalThumbnailPreviewsEnabled(true)
+                .setResizeOptions(new ResizeOptions(reqWidth, reqHeight))
+                .build();
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setImageRequest(request)
+                .setOldController(draweeView.getController())
+                .setControllerListener(new BaseControllerListener<ImageInfo>() {
+                    @Override
+                    public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable anim) {
+                        if (imageInfo == null) {
+                            return;
+                        }
+
+                        ViewGroup.LayoutParams vp = draweeView.getLayoutParams();
+                        vp.width = reqWidth;
+                        vp.height = reqHeight;
+                        draweeView.requestLayout();
+                    }
+                })
+                .build();
+        draweeView.setController(controller);
+    }
+
+    public static void loadFile(Context context, String filePath, final int reqWidth, final int reqHeight,
+                                final LoadImageResult loadImageResult) {
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_FILE_SCHEME)
+                .path(filePath)
+                .build();
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setRotationOptions(RotationOptions.autoRotate())
+                .setLocalThumbnailPreviewsEnabled(true)
+                .setResizeOptions(new ResizeOptions(reqWidth, reqHeight))
+                .build();
+
+        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+        // 获取已解码的图片，返回的是Bitmap
+        DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(request, context);
+        DataSubscriber dataSubscriber = new BaseDataSubscriber<CloseableReference<CloseableBitmap>>() {
+            @Override
+            public void onNewResultImpl(DataSource<CloseableReference<CloseableBitmap>> dataSource) {
+                if (!dataSource.isFinished()) {
+                    return;
+                }
+
+                CloseableReference<CloseableBitmap> imageReference = dataSource.getResult();
+                if (imageReference != null) {
+                    final CloseableReference<CloseableBitmap> closeableReference = imageReference.clone();
+                    try {
+                        CloseableBitmap closeableBitmap = closeableReference.get();
+                        Bitmap bitmap = closeableBitmap.getUnderlyingBitmap();
+                        if (bitmap != null && !bitmap.isRecycled()) {
+                            final Bitmap tempBitmap = bitmap.copy(bitmap.getConfig(), false);
+                            loadImageResult.onResult(tempBitmap);
+                        }
+                    } finally {
+                        imageReference.close();
+                        closeableReference.close();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailureImpl(DataSource dataSource) {
+                Throwable throwable = dataSource.getFailureCause();
+                if (throwable != null) {
+                    Log.e("ImageLoader", "onFailureImpl = " + throwable.toString());
+                }
+            }
+        };
+        dataSource.subscribe(dataSubscriber, UiThreadImmediateExecutorService.getInstance());
+    }
+
+    public static void loadDrawable(SimpleDraweeView draweeView, int resId) {
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_RESOURCE_SCHEME)
+                .path(String.valueOf(resId))
+                .build();
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setUri(uri)
+                .setOldController(draweeView.getController())
+                .build();
+        draweeView.setController(controller);
+    }
+
+    public static void loadDrawable(SimpleDraweeView draweeView, int resId, int width, int height) {
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_RESOURCE_SCHEME)
+                .path(String.valueOf(resId))
+                .build();
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setResizeOptions(new ResizeOptions(width, height))
+                .build();
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setImageRequest(request)
+                .setOldController(draweeView.getController())
+                .build();
+        draweeView.setController(controller);
+    }
+
     /**
      * 从网络加载图片，并对图片进行高斯模糊处理
      *
-     * @param context Context
-     * @param url URL
      * @param view View
+     * @param url URL
      */
-    public static void loadImageBlur(final Context context, String url, final View view) {
-        loadImage(context, url, new LoadImageResult() {
+    public static void loadImageBlur(final View view, String url) {
+        loadImage(view.getContext(), url, new LoadImageResult() {
 
             @Override
             public void onResult(Bitmap source) {
-                Bitmap blurBitmap = BitmapBlurHelper.blur(context, source);
-                view.setBackground(new BitmapDrawable(context.getResources(), blurBitmap));
+                Bitmap blurBitmap = BitmapBlurHelper.blur(view.getContext(), source);
+                view.setBackground(new BitmapDrawable(view.getContext().getResources(), blurBitmap));
+            }
+        });
+    }
+
+    public static void loadImageBlur(final SimpleDraweeView draweeView, String url) {
+        loadImage(draweeView, url, new BasePostprocessor() {
+            @Override
+            public String getName() {
+                return "blurPostprocessor";
+            }
+
+            @Override
+            public void process(Bitmap bitmap) {
+                BitmapBlurHelper.blur(bitmap, 35);
+            }
+        });
+    }
+
+    public static void loadImageBlur(final SimpleDraweeView draweeView, String url, final int reqWidth, final int reqHeight) {
+        loadImage(draweeView, url, reqWidth, reqHeight, new BasePostprocessor() {
+            @Override
+            public String getName() {
+                return "blurPostprocessor";
+            }
+
+            @Override
+            public void process(Bitmap bitmap) {
+                BitmapBlurHelper.blur(bitmap, 35);
             }
         });
     }
