@@ -48,6 +48,21 @@ compile 'com.facebook.fresco.helper:fresco-helper:1.0.2' // 暂时可能不可�
 * 支持单击关闭大图浏览
 * 支持手势缩放功能
 
+Demo运行后的效果如下：
+<img src="images/image_1.png" width="480px" />
+
+在进行高斯模糊前的照片
+<img src="images/image_2.png" width="480px" />
+
+对照片进行高斯模糊后的效果
+<img src="images/image_3.png" width="480px" />
+
+从网络加载的图片墙
+<img src="images/image_4.png" width="480px" />
+
+点击图片墙中的照片后，打开的浏览大图界面
+<img src="images/image_5.png" width="480px" />
+
 ## 示例：
 
 ###第一种用法
