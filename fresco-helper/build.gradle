@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
 android {
     compileSdkVersion 24
@@ -7,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
     }
 
     buildTypes {
@@ -17,6 +19,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+
 }
 
 dependencies {
@@ -31,4 +39,75 @@ dependencies {
     compile 'com.facebook.fresco:animated-webp:0.14.1'
     compile 'com.facebook.fresco:imagepipeline-okhttp3:0.14.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+}
+
+// Maven Group ID
+group = "com.facebook.fresco.helper"
+// library的版本号，后面每次更新都需要更改这个值
+version = "1.0.2"
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name 'fresco-helper'
+            description 'Android上图片加载库Fresco的使用帮助类'
+            url 'https://github.com/hpdx/fresco-helper'
+            inceptionYear '2016'
+
+            packaging 'aar'
+            groupId 'com.facebook.fresco.helper'
+            artifactId 'fresco-helper'
+            version '1.0.2'
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+
+            scm {
+                connection 'https://github.com/hpdx/fresco-helper.git' // Git仓库地址。
+                developerConnection 'https://github.com/hpdx/fresco-helper.git' // Git仓库地址。
+                url 'https://github.com/hpdx/fresco-helper' // 项目主页。
+            }
+
+            developers {
+                developer {
+                    id 'android_ls'
+                    name 'android_ls'
+                    email 'android_ls@163.com'
+                }
+            }
+        }
+    }
+}
+
+Properties properties = new Properties()
+// 读取properties的配置信息
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        repo = 'maven'
+        name = 'fresco-helper'
+        userOrg = user
+        licenses = ['Apache-2.0']
+        websiteUrl = 'https://github.com/hpdx/fresco-helper'
+        vcsUrl = 'https://github.com/hpdx/fresco-helper.git'
+        publish = true
+    }
 }
