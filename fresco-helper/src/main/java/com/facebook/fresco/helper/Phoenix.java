@@ -71,6 +71,50 @@ public final class Phoenix {
                 return;
             }
 
+            if(!mNeedBlur) {
+                loadNormal(url);
+            } else {
+                loadBlur(url);
+            }
+        }
+
+        public void load(int resId) {
+            if(resId == 0 || mSimpleDraweeView == null) {
+                return;
+            }
+
+            if(!mNeedBlur) {
+                if (mWidth > 0 && mHeight > 0) {
+                    ImageLoader.loadDrawable(mSimpleDraweeView, resId, mWidth, mHeight);
+                } else {
+                    if (mAspectRatio > 0 && (mWidth > 0 || mHeight > 0)) {
+                        ViewGroup.LayoutParams lvp = mSimpleDraweeView.getLayoutParams();
+                        lvp.width = mWidth;
+                        lvp.height = mHeight;
+                        // 设置宽高比
+                        mSimpleDraweeView.setAspectRatio(mAspectRatio);
+                    }
+
+                    ImageLoader.loadDrawable(mSimpleDraweeView, resId);
+                }
+            } else {
+                if (mWidth > 0 && mHeight > 0) {
+                    ImageLoader.loadDrawableBlur(mSimpleDraweeView, resId, mWidth, mHeight);
+                } else {
+                    if (mAspectRatio > 0 && (mWidth > 0 || mHeight > 0)) {
+                        ViewGroup.LayoutParams lvp = mSimpleDraweeView.getLayoutParams();
+                        lvp.width = mWidth;
+                        lvp.height = mHeight;
+                        // 设置宽高比
+                        mSimpleDraweeView.setAspectRatio(mAspectRatio);
+                    }
+
+                    ImageLoader.loadDrawableBlur(mSimpleDraweeView, resId);
+                }
+            }
+        }
+
+        private void loadNormal(String url) {
             Uri uri = Uri.parse(url);
             if(mWidth > 0 && mHeight > 0) {
                 if (UriUtil.isNetworkUri(uri)) {
@@ -95,13 +139,14 @@ public final class Phoenix {
             }
         }
 
-        public void load(int resId) {
-            if(resId == 0 || mSimpleDraweeView == null) {
-                return;
-            }
-
+        private void loadBlur(String url) {
+            Uri uri = Uri.parse(url);
             if(mWidth > 0 && mHeight > 0) {
-                ImageLoader.loadDrawable(mSimpleDraweeView, resId, mWidth, mHeight);
+                if (UriUtil.isNetworkUri(uri)) {
+                    ImageLoader.loadImageBlur(mSimpleDraweeView, url, mWidth, mHeight);
+                } else if(UriUtil.isLocalFileUri(uri)) {
+                    ImageLoader.loadFileBlur(mSimpleDraweeView, url, mWidth, mHeight);
+                }
             } else {
                 if(mAspectRatio > 0 && (mWidth > 0 || mHeight > 0)) {
                     ViewGroup.LayoutParams lvp = mSimpleDraweeView.getLayoutParams();
@@ -111,7 +156,11 @@ public final class Phoenix {
                     mSimpleDraweeView.setAspectRatio(mAspectRatio);
                 }
 
-                ImageLoader.loadDrawable(mSimpleDraweeView, resId);
+                if (UriUtil.isNetworkUri(uri)) {
+                    ImageLoader.loadImageBlur(mSimpleDraweeView, url);
+                } else if(UriUtil.isLocalFileUri(uri)) {
+                    ImageLoader.loadFileBlur(mSimpleDraweeView, url);
+                }
             }
         }
 

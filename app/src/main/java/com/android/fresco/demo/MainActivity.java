@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         long startTime = currentTimeMillis();
-        Phoenix.init(this);
+        Phoenix.init(this); // Context
         long result = System.currentTimeMillis() - startTime;
         ((TextView)findViewById(R.id.tv_init_count_time)).setText("初始化耗时：" + result + "ms");
 

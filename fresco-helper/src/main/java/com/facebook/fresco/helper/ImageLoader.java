@@ -53,8 +53,11 @@ import java.util.concurrent.Executors;
  */
 public class ImageLoader {
 
+    /*******************************************************************************************
+     *                                         加载网络图片相关的方法                              *
+     *******************************************************************************************/
     public static void loadImage(SimpleDraweeView simpleDraweeView, String url) {
-        if (TextUtils.isEmpty(url)) {
+        if (TextUtils.isEmpty(url) || simpleDraweeView == null) {
             return;
         }
 
@@ -69,7 +72,7 @@ public class ImageLoader {
     }
 
     public static void loadImage(SimpleDraweeView simpleDraweeView, String url, final int reqWidth, final int reqHeight) {
-        if (TextUtils.isEmpty(url)) {
+        if (TextUtils.isEmpty(url) || simpleDraweeView == null) {
             return;
         }
 
@@ -88,7 +91,7 @@ public class ImageLoader {
     }
 
     public static void loadImageSmall(SimpleDraweeView simpleDraweeView, String url) {
-        if (TextUtils.isEmpty(url)) {
+        if (TextUtils.isEmpty(url) || simpleDraweeView == null) {
             return;
         }
 
@@ -104,7 +107,7 @@ public class ImageLoader {
     }
 
     public static void loadImageSmall(SimpleDraweeView simpleDraweeView, String url, final int reqWidth, final int reqHeight) {
-        if (TextUtils.isEmpty(url)) {
+        if (TextUtils.isEmpty(url) || simpleDraweeView == null) {
             return;
         }
 
@@ -121,7 +124,7 @@ public class ImageLoader {
     }
 
     public static void loadImage(SimpleDraweeView simpleDraweeView, String url, BasePostprocessor processor) {
-        if (TextUtils.isEmpty(url)) {
+        if (TextUtils.isEmpty(url) || simpleDraweeView == null) {
             return;
         }
 
@@ -139,7 +142,7 @@ public class ImageLoader {
 
     public static void loadImage(SimpleDraweeView simpleDraweeView, String url,
                                  final int reqWidth, final int reqHeight, BasePostprocessor processor) {
-        if (TextUtils.isEmpty(url)) {
+        if (TextUtils.isEmpty(url) || simpleDraweeView == null) {
             return;
         }
 
@@ -157,7 +160,7 @@ public class ImageLoader {
     }
 
     public static void loadImage(SimpleDraweeView draweeView, String url, ControllerListener<ImageInfo> controllerListener) {
-        if (TextUtils.isEmpty(url)) {
+        if (TextUtils.isEmpty(url) || draweeView == null) {
             return;
         }
 
@@ -359,7 +362,16 @@ public class ImageLoader {
         dataSource.subscribe(dataSubscriber, UiThreadImmediateExecutorService.getInstance());
     }
 
+
+    /*******************************************************************************************
+     *                                         加载本地文件相关的方法                              *
+     *******************************************************************************************/
+
     public static void loadFile(final SimpleDraweeView draweeView, String filePath) {
+        if (TextUtils.isEmpty(filePath)) {
+            return;
+        }
+
         Uri uri = new Uri.Builder()
                 .scheme(UriUtil.LOCAL_FILE_SCHEME)
                 .path(filePath)
@@ -372,6 +384,10 @@ public class ImageLoader {
     }
 
     public static void loadFile(final SimpleDraweeView draweeView, String filePath, final int reqWidth, final int reqHeight) {
+        if (TextUtils.isEmpty(filePath)) {
+            return;
+        }
+
         Uri uri = new Uri.Builder()
                 .scheme(UriUtil.LOCAL_FILE_SCHEME)
                 .path(filePath)
@@ -399,6 +415,48 @@ public class ImageLoader {
                 })
                 .build();
         draweeView.setController(controller);
+    }
+
+    public static void loadFile(SimpleDraweeView simpleDraweeView, String filePath,
+                                 final int reqWidth, final int reqHeight, BasePostprocessor processor) {
+        if (TextUtils.isEmpty(filePath)) {
+            return;
+        }
+
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_FILE_SCHEME)
+                .path(filePath)
+                .build();
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setResizeOptions(new ResizeOptions(reqWidth, reqHeight))
+                .setRotationOptions(RotationOptions.autoRotate())
+                .setPostprocessor(processor)
+                .build();
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setImageRequest(request)
+                .setOldController(simpleDraweeView.getController())
+                .build();
+        simpleDraweeView.setController(controller);
+    }
+
+    public static void loadFile(SimpleDraweeView simpleDraweeView, String filePath, BasePostprocessor processor) {
+        if (TextUtils.isEmpty(filePath)) {
+            return;
+        }
+
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_FILE_SCHEME)
+                .path(filePath)
+                .build();
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setRotationOptions(RotationOptions.autoRotate())
+                .setPostprocessor(processor)
+                .build();
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setImageRequest(request)
+                .setOldController(simpleDraweeView.getController())
+                .build();
+        simpleDraweeView.setController(controller);
     }
 
     public static void loadFile(Context context, String filePath, final int reqWidth, final int reqHeight,
@@ -451,19 +509,32 @@ public class ImageLoader {
         dataSource.subscribe(dataSubscriber, UiThreadImmediateExecutorService.getInstance());
     }
 
-    public static void loadDrawable(SimpleDraweeView draweeView, int resId) {
+
+    /*******************************************************************************************
+     *                                   加载本地res下面资源相关的方法                             *
+     *******************************************************************************************/
+
+    public static void loadDrawable(SimpleDraweeView simpleDraweeView, int resId) {
+        if(resId == 0 || simpleDraweeView == null) {
+            return;
+        }
+
         Uri uri = new Uri.Builder()
                 .scheme(UriUtil.LOCAL_RESOURCE_SCHEME)
                 .path(String.valueOf(resId))
                 .build();
         DraweeController controller = Fresco.newDraweeControllerBuilder()
                 .setUri(uri)
-                .setOldController(draweeView.getController())
+                .setOldController(simpleDraweeView.getController())
                 .build();
-        draweeView.setController(controller);
+        simpleDraweeView.setController(controller);
     }
 
-    public static void loadDrawable(SimpleDraweeView draweeView, int resId, int width, int height) {
+    public static void loadDrawable(SimpleDraweeView simpleDraweeView, int resId, int width, int height) {
+        if(resId == 0 || simpleDraweeView == null) {
+            return;
+        }
+
         Uri uri = new Uri.Builder()
                 .scheme(UriUtil.LOCAL_RESOURCE_SCHEME)
                 .path(String.valueOf(resId))
@@ -473,10 +544,56 @@ public class ImageLoader {
                 .build();
         DraweeController controller = Fresco.newDraweeControllerBuilder()
                 .setImageRequest(request)
-                .setOldController(draweeView.getController())
+                .setOldController(simpleDraweeView.getController())
                 .build();
-        draweeView.setController(controller);
+        simpleDraweeView.setController(controller);
     }
+
+    public static void loadDrawable(SimpleDraweeView simpleDraweeView, int resId,
+                                final int reqWidth, final int reqHeight, BasePostprocessor processor) {
+        if(resId == 0 || simpleDraweeView == null) {
+            return;
+        }
+
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_RESOURCE_SCHEME)
+                .path(String.valueOf(resId))
+                .build();
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setResizeOptions(new ResizeOptions(reqWidth, reqHeight))
+                .setRotationOptions(RotationOptions.autoRotate())
+                .setPostprocessor(processor)
+                .build();
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setImageRequest(request)
+                .setOldController(simpleDraweeView.getController())
+                .build();
+        simpleDraweeView.setController(controller);
+    }
+
+    public static void loadDrawable(SimpleDraweeView simpleDraweeView, int resId, BasePostprocessor processor) {
+        if(resId == 0 || simpleDraweeView == null) {
+            return;
+        }
+
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_RESOURCE_SCHEME)
+                .path(String.valueOf(resId))
+                .build();
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setRotationOptions(RotationOptions.autoRotate())
+                .setPostprocessor(processor)
+                .build();
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setImageRequest(request)
+                .setOldController(simpleDraweeView.getController())
+                .build();
+        simpleDraweeView.setController(controller);
+    }
+
+    /*******************************************************************************************
+     *                                         高斯模糊相关的方法                                 *
+     *******************************************************************************************/
 
     /**
      * 从网络加载图片，并对图片进行高斯模糊处理
@@ -511,6 +628,62 @@ public class ImageLoader {
 
     public static void loadImageBlur(final SimpleDraweeView draweeView, String url, final int reqWidth, final int reqHeight) {
         loadImage(draweeView, url, reqWidth, reqHeight, new BasePostprocessor() {
+            @Override
+            public String getName() {
+                return "blurPostprocessor";
+            }
+
+            @Override
+            public void process(Bitmap bitmap) {
+                BitmapBlurHelper.blur(bitmap, 35);
+            }
+        });
+    }
+
+    public static void loadFileBlur(final SimpleDraweeView draweeView, String filePath) {
+        loadFile(draweeView, filePath, new BasePostprocessor() {
+            @Override
+            public String getName() {
+                return "blurPostprocessor";
+            }
+
+            @Override
+            public void process(Bitmap bitmap) {
+                BitmapBlurHelper.blur(bitmap, 35);
+            }
+        });
+    }
+
+    public static void loadFileBlur(final SimpleDraweeView draweeView, String filePath, final int reqWidth, final int reqHeight) {
+        loadFile(draweeView, filePath, reqWidth, reqHeight, new BasePostprocessor() {
+            @Override
+            public String getName() {
+                return "blurPostprocessor";
+            }
+
+            @Override
+            public void process(Bitmap bitmap) {
+                BitmapBlurHelper.blur(bitmap, 35);
+            }
+        });
+    }
+
+    public static void loadDrawableBlur(SimpleDraweeView simpleDraweeView, int resId, final int reqWidth, final int reqHeight) {
+        loadDrawable(simpleDraweeView, resId, reqWidth, reqHeight, new BasePostprocessor() {
+            @Override
+            public String getName() {
+                return "blurPostprocessor";
+            }
+
+            @Override
+            public void process(Bitmap bitmap) {
+                BitmapBlurHelper.blur(bitmap, 35);
+            }
+        });
+    }
+
+    public static void loadDrawableBlur(SimpleDraweeView simpleDraweeView, int resId) {
+        loadDrawable(simpleDraweeView, resId, new BasePostprocessor() {
             @Override
             public String getName() {
                 return "blurPostprocessor";
