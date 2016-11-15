@@ -44,14 +44,29 @@ dependencies {
 // Maven Group ID
 group = "com.facebook.fresco.helper"
 // library的版本号，后面每次更新都需要更改这个值
-version = "1.0.2"
+version = "1.0.3"
 
+// 生成jar包的task
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
 }
 
+// 生成jarDoc的task
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    failOnError false // 忽略注释语法错误，如果用jdk1.8你的注释写的不规范就编译不过。
+}
+
+// 生成javaDoc的jar
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
 artifacts {
+    archives javadocJar
     archives sourcesJar
 }
 
@@ -66,7 +81,7 @@ install {
             packaging 'aar'
             groupId 'com.facebook.fresco.helper'
             artifactId 'fresco-helper'
-            version '1.0.2'
+            version '1.0.3'
 
             licenses {
                 license {
