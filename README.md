@@ -7,7 +7,7 @@ Fresco在GitHub上的项目地址：https://github.com/facebook/fresco
 
 在使用到fresco-helper库的Module中的build.gradle文件里，添加以下依赖：
 ```
-compile 'com.facebook.fresco.helper:fresco-helper:1.0.2' // 暂时可能不可用，今天刚传的，需要jcenter那边审核过了才可以使用。
+compile 'com.facebook.fresco.helper:fresco-helper:1.0.3'
 ```
 
 ## 目前对以下需求进行了封装
