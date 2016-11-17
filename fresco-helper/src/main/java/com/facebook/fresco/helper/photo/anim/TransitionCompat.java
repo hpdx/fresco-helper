@@ -4,6 +4,7 @@ import android.animation.TimeInterpolator;
 import android.app.Activity;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -14,15 +15,13 @@ import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.utils.DensityUtil;
 
-import java.util.ArrayList;
-
 /**
  * Created by android_ls on 16/9/20.
  */
 public class TransitionCompat {
 
     private Activity mActivity;
-    private ArrayList<ViewOptions> mViewOptions;
+    private SparseArray<ViewOptions> mViewOptions;
     private int mCurrentPosition;
 
     private static TimeInterpolator mInterpolator = new AccelerateDecelerateInterpolator();
@@ -32,7 +31,7 @@ public class TransitionCompat {
     public TransitionCompat(final Activity activity) {
         mActivity = activity;
         Bundle bundle = activity.getIntent().getExtras();
-        mViewOptions = bundle.getParcelableArrayList(ViewOptionsCompat.KEY_VIEW_OPTION_LIST);
+        mViewOptions = bundle.getSparseParcelableArray(ViewOptionsCompat.KEY_VIEW_OPTION_LIST);
     }
 
     public void setCurrentPosition(int mCurrentPosition) {
@@ -40,12 +39,9 @@ public class TransitionCompat {
     }
 
     public void startTransition() {
-        if(mCurrentPosition < 0 || mCurrentPosition >= mViewOptions.size()) {
-           return;
-        }
-
         ViewOptions viewOptions = mViewOptions.get(mCurrentPosition);
-        if(viewOptions.thumbnail == null
+        if(viewOptions == null
+                || viewOptions.thumbnail == null
                 || !viewOptions.isInTheScreen
                 || !viewOptions.isVerticalScreen) {
             return;
@@ -54,15 +50,12 @@ public class TransitionCompat {
     }
 
     public void finishAfterTransition() {
-        // 由于用户头像是包含在查看大图相册中的，而照片墙中不包含它，所以其在照片墙中的下标为-1
-        if(mCurrentPosition > -1 && mCurrentPosition < mViewOptions.size()) {
-            ViewOptions viewOptions = mViewOptions.get(mCurrentPosition);
-            if (viewOptions.isInTheScreen && viewOptions.isVerticalScreen) {
-                // 照片墙中的View，在屏幕上是可见的并且当前的屏幕是竖屏，才会有动画效果
-                thumbnailScaleUpAnimation(viewOptions, false);
-            } else {
-                mActivity.finish();
-            }
+        ViewOptions viewOptions = mViewOptions.get(mCurrentPosition);
+        if (viewOptions != null
+                && viewOptions.isInTheScreen
+                && viewOptions.isVerticalScreen) {
+            // 照片墙中的View，在屏幕上是可见的并且当前的屏幕是竖屏，才会有动画效果
+            thumbnailScaleUpAnimation(viewOptions, false);
         } else {
             mActivity.finish();
         }

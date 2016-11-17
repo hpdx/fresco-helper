@@ -41,7 +41,7 @@ public class PhotoWallAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             @Override
             public void onClick(View v) {
                 if(mOnItemClickListener != null) {
-                    mOnItemClickListener.onItemClick(parent, mPhotos, photoViewHolder.getAdapterPosition());
+                    mOnItemClickListener.onItemClick(mPhotos, photoViewHolder.getAdapterPosition());
                 }
             }
         });

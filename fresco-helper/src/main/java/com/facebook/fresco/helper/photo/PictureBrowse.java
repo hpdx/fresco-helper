@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.facebook.fresco.helper.photo.anim.ViewOptionsCompat;
 import com.facebook.fresco.helper.photo.entity.PhotoInfo;
@@ -30,7 +30,7 @@ public class PictureBrowse {
     public static class Builder {
         private Intent mIntent;
         private boolean isAnimation;
-        private ViewGroup mViewGroup;
+        private GridLayoutManager mLayoutManager;
         private ArrayList<String> mThumbnailList;
         private View mThumbnailView;
         private String mThumbnail;
@@ -89,8 +89,8 @@ public class PictureBrowse {
             return this;
         }
 
-        public Builder setParentView(ViewGroup viewGroup) {
-            this.mViewGroup = viewGroup;
+        public Builder setLayoutManager(GridLayoutManager layoutManager) {
+            this.mLayoutManager = layoutManager;
             return this;
         }
 
@@ -101,8 +101,8 @@ public class PictureBrowse {
 
         public Builder build() {
             if (isAnimation) {
-                if (mViewGroup != null && mThumbnailList != null && mThumbnailList.size() > 0) {
-                    Bundle bundle = ViewOptionsCompat.makeScaleUpAnimation(mViewGroup, mThumbnailList);
+                if (mLayoutManager != null && mThumbnailList != null && mThumbnailList.size() > 0) {
+                    Bundle bundle = ViewOptionsCompat.makeScaleUpAnimation(mLayoutManager, mThumbnailList);
                     mIntent.putExtras(bundle);
                 } else if (mThumbnailView != null && mThumbnail != null) {
                     Bundle bundle = ViewOptionsCompat.makeScaleUpAnimation(mThumbnailView, mThumbnail);

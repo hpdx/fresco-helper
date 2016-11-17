@@ -3,8 +3,9 @@ package com.facebook.fresco.helper.photo.anim;
 import android.app.Activity;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.util.SparseArray;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
@@ -13,16 +14,20 @@ public class ViewOptionsCompat {
 
     public static final String KEY_VIEW_OPTION_LIST = "view_option_list";
 
-    public static Bundle makeScaleUpAnimation(ViewGroup parentView, ArrayList<String> thumbnailList) {
-        ArrayList<ViewOptions> viewOptionses = new ArrayList<>();
-        int childCount = parentView.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View childView = parentView.getChildAt(i);
-            viewOptionses.add(createViewOptions(childView, thumbnailList.get(i)));
+    public static Bundle makeScaleUpAnimation(GridLayoutManager layoutManager, ArrayList<String> thumbnailList) {
+        SparseArray<ViewOptions> sparseArray = new SparseArray<>();
+        int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+        for (int i = 0; i < thumbnailList.size(); i++) {
+            if (i <= lastVisibleItemPosition) {
+                View childView = layoutManager.findViewByPosition(i);
+                if(childView != null) {
+                    sparseArray.put(i, createViewOptions(childView, thumbnailList.get(i)));
+                }
+            }
         }
 
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(KEY_VIEW_OPTION_LIST, viewOptionses);
+        bundle.putSparseParcelableArray(KEY_VIEW_OPTION_LIST, sparseArray);
         return bundle;
     }
 

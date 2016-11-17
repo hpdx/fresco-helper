@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.ViewGroup;
 
 import com.facebook.fresco.helper.photo.PictureBrowse;
 import com.facebook.fresco.helper.photo.entity.PhotoInfo;
@@ -20,6 +19,7 @@ public class PhotoWallActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private PhotoWallAdapter mPhotoWallAdapter;
+    private GridLayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,16 +86,17 @@ public class PhotoWallActivity extends AppCompatActivity {
         }
 
         mRecyclerView = (RecyclerView)findViewById(R.id.rv_photo_wall);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        mLayoutManager = new GridLayoutManager(this, 4);
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mPhotoWallAdapter = new PhotoWallAdapter(data, new OnItemClickListener<PhotoInfo>() {
 
             @Override
-            public void onItemClick(ViewGroup parent, ArrayList<PhotoInfo> photos, int position) {
+            public void onItemClick(ArrayList<PhotoInfo> photos, int position) {
 //                MLog.i("position = " + position);
 //                MLog.i("photos.get(position).thumbnailUrl = " + photos.get(position).thumbnailUrl);
 
                 PictureBrowse.newBuilder(PhotoWallActivity.this)
-                        .setParentView(parent)
+                        .setLayoutManager(mLayoutManager)
                         .setCurrentPosition(position)
                         .setPhotoList(photos)
                         .enabledAnimation(true)

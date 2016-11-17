@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.ViewGroup;
 
 import com.facebook.fresco.helper.photo.PictureBrowse;
 import com.facebook.fresco.helper.photo.entity.PhotoInfo;
@@ -36,6 +35,7 @@ public class PhotoAlbumActivity extends AppCompatActivity implements LoaderManag
     private ArrayList<PhotoInfo> mImageList = new ArrayList<>();
     private PhotoWallAdapter mPhotoWallAdapter;
     private RecyclerView mRecyclerView;
+    private GridLayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,16 +43,17 @@ public class PhotoAlbumActivity extends AppCompatActivity implements LoaderManag
         setContentView(R.layout.activity_photo_wall);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_photo_wall);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        mLayoutManager = new GridLayoutManager(this, 4);
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mPhotoWallAdapter = new PhotoWallAdapter(mImageList, new OnItemClickListener<PhotoInfo>() {
 
             @Override
-            public void onItemClick(ViewGroup parent, ArrayList<PhotoInfo> photos, int position) {
+            public void onItemClick(ArrayList<PhotoInfo> photos, int position) {
 //                MLog.i("position = " + position);
 //                MLog.i("photos.get(position).thumbnailUrl = " + photos.get(position).thumbnailUrl);
 
                 PictureBrowse.newBuilder(PhotoAlbumActivity.this)
-                        .setParentView(parent)
+                        .setLayoutManager(mLayoutManager)
                         .setCurrentPosition(position)
                         .setPhotoList(photos)
                         .enabledAnimation(false) // 关闭动画效果

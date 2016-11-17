@@ -62,9 +62,13 @@ public class ImageLoader {
         }
 
         Uri uri = Uri.parse(url);
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setRotationOptions(RotationOptions.autoRotate())
+                .build();
+
         DraweeController controller = Fresco.newDraweeControllerBuilder()
                 .setOldController(simpleDraweeView.getController())
-                .setUri(uri)
+                .setImageRequest(request)
                 .setTapToRetryEnabled(true) // 开启重试功能
                 .setAutoPlayAnimations(true) // 自动播放gif动画
                 .build();
@@ -78,6 +82,7 @@ public class ImageLoader {
 
         Uri uri = Uri.parse(url);
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setRotationOptions(RotationOptions.autoRotate())
                 .setResizeOptions(new ResizeOptions(reqWidth, reqHeight))
                 .build();
 
@@ -97,6 +102,7 @@ public class ImageLoader {
 
         Uri uri = Uri.parse(url);
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setRotationOptions(RotationOptions.autoRotate())
                 .setCacheChoice(ImageRequest.CacheChoice.SMALL)
                 .build();
         DraweeController controller = Fresco.newDraweeControllerBuilder()
@@ -114,6 +120,7 @@ public class ImageLoader {
         Uri uri = Uri.parse(url);
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
                 .setResizeOptions(new ResizeOptions(reqWidth, reqHeight))
+                .setRotationOptions(RotationOptions.autoRotate())
                 .setCacheChoice(ImageRequest.CacheChoice.SMALL)
                 .build();
         DraweeController controller = Fresco.newDraweeControllerBuilder()
