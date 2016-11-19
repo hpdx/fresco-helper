@@ -7,7 +7,7 @@ Fresco在GitHub上的项目地址：https://github.com/facebook/fresco
 
 在使用到fresco-helper库的Module中的build.gradle文件里，添加以下依赖：
 ```
-compile 'com.facebook.fresco.helper:fresco-helper:1.0.3'
+compile 'com.facebook.fresco.helper:fresco-helper:1.0.4'
 ```
 
 ## 目前对以下需求进行了封装
@@ -15,17 +15,16 @@ compile 'com.facebook.fresco.helper:fresco-helper:1.0.3'
 * 从网络加载图片并显示
 * 从本地文件加载图片并显示
 * 从本地res中加载图片并显示
-* 加载并显示gif格式的图片
-* 加载并显示webp格式的图片
+* **加载并显示gif格式的图片**
+* **加载并显示webp格式的图片**
 
 * 只知道要显示图片的高或者宽的值，另一个值可以从设置的比例得出
 * 解码指定尺寸大小的图片，图片数据来源支持网络、本地文件和本地res中的，并显示
-* 支持不知道图片原始尺寸，也不知道要显示的图片尺寸，加载并显示
-* 根据url下载图片，并保存到本地指定的路径
-* 根据url获取已解码的对象（bitmap）
-
-* 图片的高斯模糊处理
-* 根据url下载图片，并对其进行高斯模糊处理，之后显示为任意View的背景
+* **支持不知道图片原始尺寸，也不知道要显示的图片尺寸，加载并显示**
+* **根据url下载图片（未解码），并保存到本地指定的路径**
+* **根据url获取已解码的对象（bitmap）**
+* **图片的高斯模糊处理**
+* **根据url下载图片，并对其进行高斯模糊处理，之后显示为任意View的背景**
 
 * 查找一张图片在已解码的缓存中是否存在
 * 查找一张图片在磁盘缓存中是否存在，若配有两个磁盘缓存，则只要其中一个存在，就会返回true
@@ -214,27 +213,43 @@ ImageLoader.loadDrawable(simpleDraweeView, R.drawable.meizi_webp);
 
 
 ###大图浏览器
-带动画的效果打开方式，详细细节请查看`PhotoWallActivity`中的使用
+详细细节请查看`PhotoWallActivity`中的示例
+带动画的效果打开方式（多图）
+```
+ArrayList<PhotoInfo> photos = null;
+PictureBrowse.newBuilder(PhotoWallActivity.this)
+             .setLayoutManager(mLayoutManager)
+             .setPhotoList(photos)
+             .setCurrentPosition(position)
+             .enabledAnimation(true)
+             .start();
+```
+
+无动画效果的打开方式（多图）
 ```
  ArrayList<PhotoInfo> photos = null;
  PictureBrowse.newBuilder(PhotoWallActivity.this)
-              .setParentView(parent)
-              .setCurrentPosition(position)
               .setPhotoList(photos)
-              .enabledAnimation(true)
-              .build()
+              .setCurrentPosition(position)
               .start();
 ```
 
-无动画效果的打开方式
+带动画效果的打开方式（只有一张图片）
 ```
- ArrayList<PhotoInfo> photos = null;
- PictureBrowse.newBuilder(PhotoWallActivity.this)
-              .setParentView(parent)
-              .setCurrentPosition(position)
-              .setPhotoList(photos)
-              .build()
-              .start();
+String originalUrl = photos.get(position).originalUrl;
+PictureBrowse.newBuilder(PhotoWallActivity.this)
+             .setThumbnailView(view)
+             .setOriginalUrl(originalUrl)
+             .enabledAnimation(true)
+             .start();
+```
+
+无动画效果的打开方式（只有一张图片）
+```
+String originalUrl = photos.get(position).originalUrl;
+PictureBrowse.newBuilder(PhotoWallActivity.this)
+             .setOriginalUrl(originalUrl)
+             .start();
 ```
 
 我提供了两种图片加载使用方式，你想使用那种图片加载方式，全看个人爱好（推荐使用第一种方式）。
@@ -242,6 +257,3 @@ ImageLoader.loadDrawable(simpleDraweeView, R.drawable.meizi_webp);
 更详细的讲解，请查阅我的这篇博客：[Android图片加载神器之Fresco，基于各种使用场景的讲解。](http://blog.csdn.net/android_ls/article/details/53137867)
 
 在使用过程中有满足不了的使用场景或遇到bug，欢迎提issuse ! 若你觉得还不错，请点Star, 谢谢！
-
-
-

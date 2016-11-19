@@ -39,7 +39,7 @@ dependencies {
 // Maven Group ID
 group = "com.facebook.fresco.helper"
 // library的版本号，后面每次更新都需要更改这个值
-version = "1.0.4"
+version = "1.0.6"
 
 // 生成jar包的task
 task sourcesJar(type: Jar) {
@@ -68,15 +68,15 @@ artifacts {
 install {
     repositories.mavenInstaller {
         pom.project {
-            name 'fresco-helper'
-            description 'Android上图片加载库Fresco的使用帮助类'
+            name 'photoview'
+            description '基于Fresco的大图浏览库'
             url 'https://github.com/hpdx/fresco-helper'
             inceptionYear '2016'
 
             packaging 'aar'
             groupId 'com.facebook.fresco.helper'
             artifactId 'photoview'
-            version '1.0.4'
+            version '1.0.5'
 
             licenses {
                 license {
@@ -113,7 +113,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = 'maven'
-        name = 'fresco-helper'
+        name = 'photoview'
         userOrg = user
         licenses = ['Apache-2.0']
         websiteUrl = 'https://github.com/hpdx/fresco-helper'

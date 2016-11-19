@@ -28,7 +28,9 @@ dependencies {
     compile project(':fresco-helper')
     compile project(':fresco-photoview')
 
-//    compile 'com.facebook.fresco.helper:fresco-helper:1.0.2'
+//    compile 'com.facebook.fresco.helper:photoview:1.0.6'
+//    compile 'com.facebook.fresco.helper:phoenix:1.0.6'
+
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
 }

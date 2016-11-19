@@ -108,10 +108,10 @@ public class PhotoWallActivity extends AppCompatActivity {
 //                        .setCurrentPosition(position)
 //                        .start();
 
-//                String thumbnailUrl = photos.get(position).thumbnailUrl;
+//                String originalUrl = photos.get(position).originalUrl;
 //                PictureBrowse.newBuilder(PhotoWallActivity.this)
 //                        .setThumbnailView(view)
-//                        .setOriginalUrl(thumbnailUrl)
+//                        .setOriginalUrl(originalUrl)
 //                        .enabledAnimation(true)
 //                        .start();
 
@@ -121,12 +121,10 @@ public class PhotoWallActivity extends AppCompatActivity {
 //                        .enabledAnimation(true)
 //                        .start();
 
-//                String thumbnailUrl = photos.get(position).thumbnailUrl;
+//                String originalUrl = photos.get(position).originalUrl;
 //                PictureBrowse.newBuilder(PhotoWallActivity.this)
-//                        .setThumbnailView(view)
-//                        .setOriginalUrl(thumbnailUrl)
+//                        .setOriginalUrl(originalUrl)
 //                        .start();
-
 
             }
         });
