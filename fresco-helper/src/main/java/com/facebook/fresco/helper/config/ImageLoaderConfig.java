@@ -26,7 +26,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  *
@@ -93,10 +92,10 @@ public class ImageLoaderConfig {
                 }
             });
 
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+//            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .addInterceptor(loggingInterceptor)
+//                    .addInterceptor(loggingInterceptor)
 //                    .retryOnConnectionFailure(false)
                     .build();
 

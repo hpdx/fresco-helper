@@ -1,18 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.facebook.fresco.helper">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <application
-        android:allowBackup="true"
-        android:supportsRtl="true">
-
-        <activity android:name="com.facebook.fresco.helper.photo.PictureBrowseActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/picture_browse_activity_style"/>
-
-    </application>
-
-</manifest>
+<manifest package="com.facebook.fresco.helper"/>

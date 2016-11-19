@@ -11,9 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 
-import com.facebook.fresco.helper.photo.PictureBrowse;
-import com.facebook.fresco.helper.photo.entity.PhotoInfo;
+import com.facebook.fresco.helper.photoview.PictureBrowse;
+import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,16 +49,13 @@ public class PhotoAlbumActivity extends AppCompatActivity implements LoaderManag
         mPhotoWallAdapter = new PhotoWallAdapter(mImageList, new OnItemClickListener<PhotoInfo>() {
 
             @Override
-            public void onItemClick(ArrayList<PhotoInfo> photos, int position) {
+            public void onItemClick(View view, ArrayList<PhotoInfo> photos, int position) {
 //                MLog.i("position = " + position);
 //                MLog.i("photos.get(position).thumbnailUrl = " + photos.get(position).thumbnailUrl);
 
                 PictureBrowse.newBuilder(PhotoAlbumActivity.this)
-                        .setLayoutManager(mLayoutManager)
-                        .setCurrentPosition(position)
                         .setPhotoList(photos)
-                        .enabledAnimation(false) // 关闭动画效果
-                        .build()
+                        .setCurrentPosition(position)
                         .start();
             }
         });

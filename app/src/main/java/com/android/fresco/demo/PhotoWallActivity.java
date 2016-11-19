@@ -5,9 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
-import com.facebook.fresco.helper.photo.PictureBrowse;
-import com.facebook.fresco.helper.photo.entity.PhotoInfo;
+import com.facebook.fresco.helper.photoview.PictureBrowse;
+import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
 
 import java.util.ArrayList;
 
@@ -91,17 +92,42 @@ public class PhotoWallActivity extends AppCompatActivity {
         mPhotoWallAdapter = new PhotoWallAdapter(data, new OnItemClickListener<PhotoInfo>() {
 
             @Override
-            public void onItemClick(ArrayList<PhotoInfo> photos, int position) {
+            public void onItemClick(View view, ArrayList<PhotoInfo> photos, int position) {
 //                MLog.i("position = " + position);
 //                MLog.i("photos.get(position).thumbnailUrl = " + photos.get(position).thumbnailUrl);
 
                 PictureBrowse.newBuilder(PhotoWallActivity.this)
                         .setLayoutManager(mLayoutManager)
-                        .setCurrentPosition(position)
                         .setPhotoList(photos)
+                        .setCurrentPosition(position)
                         .enabledAnimation(true)
-                        .build()
                         .start();
+
+//                PictureBrowse.newBuilder(PhotoWallActivity.this)
+//                        .setPhotoList(photos)
+//                        .setCurrentPosition(position)
+//                        .start();
+
+//                String thumbnailUrl = photos.get(position).thumbnailUrl;
+//                PictureBrowse.newBuilder(PhotoWallActivity.this)
+//                        .setThumbnailView(view)
+//                        .setOriginalUrl(thumbnailUrl)
+//                        .enabledAnimation(true)
+//                        .start();
+
+//                PictureBrowse.newBuilder(PhotoWallActivity.this)
+//                        .setThumbnailView(view)
+//                        .setPhotoInfo(photos.get(position))
+//                        .enabledAnimation(true)
+//                        .start();
+
+//                String thumbnailUrl = photos.get(position).thumbnailUrl;
+//                PictureBrowse.newBuilder(PhotoWallActivity.this)
+//                        .setThumbnailView(view)
+//                        .setOriginalUrl(thumbnailUrl)
+//                        .start();
+
+
             }
         });
         mRecyclerView.setAdapter(mPhotoWallAdapter);

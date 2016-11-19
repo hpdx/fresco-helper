@@ -1,5 +1,7 @@
 package com.android.fresco.demo;
 
+import android.view.View;
+
 import java.util.ArrayList;
 
 /**
@@ -8,6 +10,6 @@ import java.util.ArrayList;
 
 public interface OnItemClickListener<T> {
 
-    void onItemClick(ArrayList<T> photos, int position);
+    void onItemClick(View view, ArrayList<T>photos, int position);
 
 }

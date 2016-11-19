@@ -4,13 +4,13 @@ apply plugin: 'com.jfrog.bintray'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         minSdkVersion 17
-        targetSdkVersion 22
-        versionCode 2
-        versionName "1.0.1"
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
     }
 
     buildTypes {
@@ -19,16 +19,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    lintOptions {
-        abortOnError false
-        checkReleaseBuilds false
-    }
-
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
 
     compile 'com.facebook.fresco:fresco:0.14.1'
     compile 'com.facebook.fresco:animated-base-support:0.14.1'
@@ -37,6 +33,7 @@ dependencies {
     compile 'com.facebook.fresco:animated-webp:0.14.1'
     compile 'com.facebook.fresco:imagepipeline-okhttp3:0.14.1'
 //    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+
 }
 
 // Maven Group ID
@@ -78,7 +75,7 @@ install {
 
             packaging 'aar'
             groupId 'com.facebook.fresco.helper'
-            artifactId 'fresco-helper'
+            artifactId 'photoview'
             version '1.0.4'
 
             licenses {
@@ -124,3 +121,6 @@ bintray {
         publish = true
     }
 }
+
+
+

@@ -10,7 +10,7 @@ import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.ImageLoader;
 import com.facebook.fresco.helper.Phoenix;
-import com.facebook.fresco.helper.photo.entity.PhotoInfo;
+import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
 import com.facebook.fresco.helper.utils.DensityUtil;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class PhotoWallAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             @Override
             public void onClick(View v) {
                 if(mOnItemClickListener != null) {
-                    mOnItemClickListener.onItemClick(mPhotos, photoViewHolder.getAdapterPosition());
+                    mOnItemClickListener.onItemClick(v, mPhotos, photoViewHolder.getAdapterPosition());
                 }
             }
         });
