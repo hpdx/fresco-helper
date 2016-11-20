@@ -3,6 +3,7 @@ package com.facebook.fresco.helper.photoview.anim;
 import android.animation.TimeInterpolator;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -20,7 +21,7 @@ public abstract class TransitionAnimator {
 
     public TransitionAnimator(Activity activity) {
         mActivity = activity;
-        mBackground = activity.getResources().getDrawable(R.drawable.transparent);
+        mBackground = ContextCompat.getDrawable(activity, R.drawable.transparent);
         mSceneRoot = ((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0);
         mActivity.getWindow().setBackgroundDrawable(mBackground);
     }

@@ -42,7 +42,7 @@ dependencies {
 // Maven Group ID
 group = "com.facebook.fresco.helper"
 // library的版本号，后面每次更新都需要更改这个值
-version = "1.0.6"
+version = "1.1.1"
 
 // 生成jar包的task
 task sourcesJar(type: Jar) {
@@ -54,6 +54,7 @@ task sourcesJar(type: Jar) {
 task javadoc(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    options.encoding = "UTF-8"
     failOnError false // 忽略注释语法错误，如果用jdk1.8你的注释写的不规范就编译不过。
 }
 
@@ -71,15 +72,15 @@ artifacts {
 install {
     repositories.mavenInstaller {
         pom.project {
-            name 'phoenix'
+            name 'fresco-helper'
             description 'Android上图片加载库Fresco的使用帮助类'
             url 'https://github.com/hpdx/fresco-helper'
             inceptionYear '2016'
 
             packaging 'aar'
             groupId 'com.facebook.fresco.helper'
-            artifactId 'phoenix'
-            version '1.0.5'
+            artifactId 'fresco-helper'
+            version '1.1.1'
 
             licenses {
                 license {
@@ -116,11 +117,12 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = 'maven'
-        name = 'phoenix'
+        name = 'fresco-helper'
         userOrg = user
         licenses = ['Apache-2.0']
         websiteUrl = 'https://github.com/hpdx/fresco-helper'
         vcsUrl = 'https://github.com/hpdx/fresco-helper.git'
         publish = true
+        publicDownloadNumbers = true
     }
 }

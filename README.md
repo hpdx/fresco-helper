@@ -7,7 +7,8 @@ Fresco在GitHub上的项目地址：https://github.com/facebook/fresco
 
 在使用到fresco-helper库的Module中的build.gradle文件里，添加以下依赖：
 ```
-compile 'com.facebook.fresco.helper:fresco-helper:1.0.4'
+ compile 'com.facebook.fresco.helper:fresco-helper:1.1.1'
+ compile 'com.facebook.fresco.helper:fresco-photoview:1.1.1'
 ```
 
 ## 目前对以下需求进行了封装
@@ -214,6 +215,7 @@ ImageLoader.loadDrawable(simpleDraweeView, R.drawable.meizi_webp);
 
 ###大图浏览器
 详细细节请查看`PhotoWallActivity`中的示例
+
 带动画的效果打开方式（多图）
 ```
 ArrayList<PhotoInfo> photos = null;

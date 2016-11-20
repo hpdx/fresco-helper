@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="#40000000">
+        android:background="@color/transparent_40">
 
         <TextView
             android:id="@+id/tv_photo_count"
