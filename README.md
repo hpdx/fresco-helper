@@ -7,8 +7,18 @@ Fresco在GitHub上的项目地址：https://github.com/facebook/fresco
 
 在使用到fresco-helper库的Module中的build.gradle文件里，添加以下依赖：
 ```
- compile 'com.facebook.fresco.helper:fresco-helper:1.1.1'
- compile 'com.facebook.fresco.helper:fresco-photoview:1.1.1'
+ allprojects {
+    repositories {
+        jcenter()
+
+        maven {
+            url 'https://dl.bintray.com/hpdx/maven/'
+        }
+    }
+ }
+
+ compile 'com.facebook.fresco.helper:fresco-helper:1.1.2'
+ compile 'com.facebook.fresco.helper:fresco-photoview:1.1.2'
 ```
 
 ## 目前对以下需求进行了封装

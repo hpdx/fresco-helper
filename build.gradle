@@ -1,5 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+//./gradlew install
+//./gradlew bintrayUpload
+
 buildscript {
     repositories {
         jcenter()
@@ -18,9 +21,9 @@ allprojects {
         jcenter()
 //        mavenCentral()
 
-//        maven {
-//            url 'https://dl.bintray.com/hpdx/maven/'
-//        }
+        maven {
+            url 'https://dl.bintray.com/hpdx/maven/'
+        }
     }
 }
 

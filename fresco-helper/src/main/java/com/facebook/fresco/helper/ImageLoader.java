@@ -64,6 +64,7 @@ public class ImageLoader {
         Uri uri = Uri.parse(url);
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
                 .setRotationOptions(RotationOptions.autoRotate())
+//                .setProgressiveRenderingEnabled(true)// 支持图片渐进式加载
                 .build();
 
         DraweeController controller = Fresco.newDraweeControllerBuilder()
@@ -610,6 +611,17 @@ public class ImageLoader {
      */
     public static void loadImageBlur(final View view, String url) {
         loadImage(view.getContext(), url, new LoadImageResult() {
+
+            @Override
+            public void onResult(Bitmap source) {
+                Bitmap blurBitmap = BitmapBlurHelper.blur(view.getContext(), source);
+                view.setBackground(new BitmapDrawable(view.getContext().getResources(), blurBitmap));
+            }
+        });
+    }
+
+    public static void loadImageBlur(final View view, String url, final int reqWidth, final int reqHeight) {
+        loadImage(view.getContext(), url, reqWidth, reqHeight, new LoadImageResult() {
 
             @Override
             public void onResult(Bitmap source) {
