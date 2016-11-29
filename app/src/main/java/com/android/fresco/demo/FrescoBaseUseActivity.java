@@ -5,10 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.anbetter.log.MLog;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.ImageLoader;
 import com.facebook.fresco.helper.Phoenix;
-import com.facebook.fresco.helper.utils.MLog;
 
 /**
  * Created by android_ls on 16/11/10.

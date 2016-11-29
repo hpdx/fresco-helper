@@ -6,7 +6,7 @@
 buildscript {
     repositories {
         jcenter()
-//        mavenCentral()
+        mavenCentral()
     }
 
     dependencies {
@@ -19,11 +19,11 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-//        mavenCentral()
+        mavenCentral()
 
-//        maven {
-//            url 'https://dl.bintray.com/hpdx/maven/'
-//        }
+        maven {
+            url 'https://dl.bintray.com/hpdx/maven/'
+        }
     }
 }
 

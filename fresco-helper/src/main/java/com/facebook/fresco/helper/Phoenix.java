@@ -5,12 +5,15 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.view.ViewGroup;
 
+import com.anbetter.log.MLog;
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.config.ImageLoaderConfig;
-import com.facebook.fresco.helper.utils.MLog;
 import com.facebook.imagepipeline.core.ImagePipeline;
+import com.facebook.imagepipeline.image.ImageInfo;
+import com.facebook.imagepipeline.request.BasePostprocessor;
 import com.facebook.imagepipeline.request.ImageRequest;
 
 /**
@@ -41,6 +44,10 @@ public final class Phoenix {
         private int mHeight;
         private float mAspectRatio;
         private boolean mNeedBlur;
+        private boolean mSmallDiskCache;
+        private BasePostprocessor mPostprocessor;
+        private ControllerListener<ImageInfo> mControllerListener;
+
         public Builder build(SimpleDraweeView simpleDraweeView) {
             this.mSimpleDraweeView = simpleDraweeView;
             return this;
@@ -57,12 +64,27 @@ public final class Phoenix {
         }
 
         public Builder setAspectRatio(float aspectRatio) {
-            mAspectRatio = aspectRatio;
+            this.mAspectRatio = aspectRatio;
             return this;
         }
 
         public Builder setNeedBlur(boolean needBlur) {
-            mNeedBlur = needBlur;
+            this.mNeedBlur = needBlur;
+            return this;
+        }
+
+        public Builder setSmallDiskCache(boolean smallDiskCache) {
+            this.mSmallDiskCache = smallDiskCache;
+            return this;
+        }
+
+        public Builder setBasePostprocessor(BasePostprocessor postprocessor) {
+            this.mPostprocessor = postprocessor;
+            return this;
+        }
+
+        public Builder setControllerListener(ControllerListener<ImageInfo> controllerListener) {
+            this.mControllerListener = controllerListener;
             return this;
         }
 
@@ -117,11 +139,20 @@ public final class Phoenix {
         private void loadNormal(String url) {
             Uri uri = Uri.parse(url);
             if(mWidth > 0 && mHeight > 0) {
-                if (UriUtil.isNetworkUri(uri)) {
-                    ImageLoader.loadImage(mSimpleDraweeView, url, mWidth, mHeight);
-                } else if(UriUtil.isLocalFileUri(uri)) {
-                    ImageLoader.loadFile(mSimpleDraweeView, url, mWidth, mHeight);
+               if(!UriUtil.isNetworkUri(uri)) {
+                   uri = new Uri.Builder()
+                            .scheme(UriUtil.LOCAL_FILE_SCHEME)
+                            .path(url)
+                            .build();
                 }
+
+                ImageLoader.loadImage(mSimpleDraweeView,
+                        uri,
+                        mWidth,
+                        mHeight,
+                        mPostprocessor,
+                        mControllerListener,
+                        mSmallDiskCache);
             } else {
                 if(mAspectRatio > 0 && (mWidth > 0 || mHeight > 0)) {
                     ViewGroup.LayoutParams lvp = mSimpleDraweeView.getLayoutParams();
@@ -132,9 +163,9 @@ public final class Phoenix {
                 }
 
                 if (UriUtil.isNetworkUri(uri)) {
-                    ImageLoader.loadImage(mSimpleDraweeView, url);
-                } else if(UriUtil.isLocalFileUri(uri)) {
-                    ImageLoader.loadFile(mSimpleDraweeView, url);
+                    ImageLoader.loadImage(mSimpleDraweeView, url, mPostprocessor);
+                } else {
+                    ImageLoader.loadFile(mSimpleDraweeView, url, mPostprocessor);
                 }
             }
         }
@@ -144,7 +175,7 @@ public final class Phoenix {
             if(mWidth > 0 && mHeight > 0) {
                 if (UriUtil.isNetworkUri(uri)) {
                     ImageLoader.loadImageBlur(mSimpleDraweeView, url, mWidth, mHeight);
-                } else if(UriUtil.isLocalFileUri(uri)) {
+                } else {
                     ImageLoader.loadFileBlur(mSimpleDraweeView, url, mWidth, mHeight);
                 }
             } else {
@@ -158,7 +189,7 @@ public final class Phoenix {
 
                 if (UriUtil.isNetworkUri(uri)) {
                     ImageLoader.loadImageBlur(mSimpleDraweeView, url);
-                } else if(UriUtil.isLocalFileUri(uri)) {
+                } else {
                     ImageLoader.loadFileBlur(mSimpleDraweeView, url);
                 }
             }

@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
+import com.anbetter.log.MLog;
 import com.facebook.fresco.helper.photoview.anim.TransitionCompat;
 import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
 import com.facebook.fresco.helper.photoview.photodraweeview.OnPhotoTapListener;

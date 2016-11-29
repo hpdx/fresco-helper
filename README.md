@@ -84,8 +84,6 @@ Demo运行后的效果如下：
 
 ## 示例：
 
-###第一种用法
-
 初始化
 ```
  Phoenix.init(this); // Context
@@ -157,72 +155,6 @@ Phoenix.with(simpleDraweeView)
 ......
 
 
-###第二种用法
-
-初始化
-```
- Fresco.initialize(context, ImageLoaderConfig.getImagePipelineConfig(context));
-```
-
-从网络加载一张图片
-```
-String url = "http://ww3.sinaimg.cn/large/610dc034jw1f6m4aj83g9j20zk1hcww3.jpg";
-SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
-ImageLoader.loadImage(simpleDraweeView, url);
-```
-
-从本地加载一张图片
-```
-String filePath = "/sdcard/image/test.jpg";
-SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
-ImageLoader.loadFile(simpleDraweeView, filePath);
-```
-
-从res下面加载一张图片
-```
-SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
-ImageLoader.loadDrawable(simpleDraweeView, R.drawable.meizi, 100, 100);
-```
-
-在写布局文件xml时，我不知道要显示的图片尺寸，需要根据业务逻辑动态的设置要显示的图片的大小，可以像下面这样写：
-```
-String url = "http://ww3.sinaimg.cn/large/610dc034jw1f6m4aj83g9j20zk1hcww3.jpg";
-SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
-ImageLoader.loadImage(simpleDraweeView, url, 120, 120);
-```
-
-只知道要显示图片的高或者宽的值，另一个值可以从设置的比例得出
-```
-String url = "http://ww3.sinaimg.cn/large/610dc034jw1f6m4aj83g9j20zk1hcww3.jpg";
-SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
-ViewGroup.LayoutParams lvp = simpleDraweeView.getLayoutParams();
-lvp.width = DensityUtil.getDisplayWidth(this); // 取值为手机屏幕的宽度
-simpleDraweeView.setAspectRatio(0.6f); // 设置宽高比
-ImageLoader.loadDrawable(simpleDraweeView, R.drawable.meizi);
-```
-
-图片的高斯模糊处理
-```
-String url = "http://ww3.sinaimg.cn/large/610dc034jw1f6m4aj83g9j20zk1hcww3.jpg";
-SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
-ImageLoader.loadImageBlur(simpleDraweeView, url);
-```
-
-加载并显示gif格式的图片
-```
-String url = "http://img4.178.com/acg1/201506/227753817857/227754566617.gif";
-SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
-ImageLoader.loadImage(simpleDraweeView, url);
-```
-
-加载并显示webp格式的图片
-```
-SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
-ImageLoader.loadDrawable(simpleDraweeView, R.drawable.meizi_webp);
-```
-......
-
-
 ###大图浏览器
 详细细节请查看`PhotoWallActivity`中的示例
 
@@ -263,8 +195,6 @@ PictureBrowse.newBuilder(PhotoWallActivity.this)
              .setOriginalUrl(originalUrl)
              .start();
 ```
-
-我提供了两种图片加载使用方式，你想使用那种图片加载方式，全看个人爱好（推荐使用第一种方式）。
 
 更详细的讲解，请查阅我的这篇博客：[Android图片加载神器之Fresco，基于各种使用场景的讲解。](http://blog.csdn.net/android_ls/article/details/53137867)
 
