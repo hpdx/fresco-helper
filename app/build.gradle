@@ -29,7 +29,7 @@ dependencies {
 //    compile project(':fresco-helper')
 //    compile project(':fresco-photoview')
 
-    compile 'com.facebook.fresco.helper:fresco-helper:1.1.5'
+    compile 'com.facebook.fresco.helper:fresco-helper:1.1.7'
     compile 'com.facebook.fresco.helper:fresco-photoview:1.1.6'
 
     compile 'com.android.support:appcompat-v7:24.2.1'

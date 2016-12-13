@@ -19,6 +19,7 @@ import com.facebook.imagepipeline.core.ImagePipeline;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.request.BasePostprocessor;
 import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 /**
  * Facebook开源的Android图片加载库Fresco的使用帮助类
@@ -193,37 +194,30 @@ public final class Phoenix {
         }
 
         private void loadNormal(String url) {
-            Uri uri = Uri.parse(url);
-            if(mWidth > 0 && mHeight > 0) {
-               if(!UriUtil.isNetworkUri(uri)) {
-                   uri = new Uri.Builder()
-                            .scheme(UriUtil.LOCAL_FILE_SCHEME)
-                            .path(url)
-                            .build();
-                }
-
-                ImageLoader.loadImage(mSimpleDraweeView,
-                        uri,
-                        mWidth,
-                        mHeight,
-                        mPostprocessor,
-                        mControllerListener,
-                        mSmallDiskCache);
-            } else {
-                if(mAspectRatio > 0 && (mWidth > 0 || mHeight > 0)) {
-                    ViewGroup.LayoutParams lvp = mSimpleDraweeView.getLayoutParams();
-                    lvp.width = mWidth;
-                    lvp.height = mHeight;
-                    // 设置宽高比
-                    mSimpleDraweeView.setAspectRatio(mAspectRatio);
-                }
-
-                if (UriUtil.isNetworkUri(uri)) {
-                    ImageLoader.loadImage(mSimpleDraweeView, url, mPostprocessor);
-                } else {
-                    ImageLoader.loadFile(mSimpleDraweeView, url, mPostprocessor);
-                }
+            ViewGroup.LayoutParams lvp = mSimpleDraweeView.getLayoutParams();
+            if(mWidth > 0) {
+                lvp.width = mWidth;
             }
+
+            if(mHeight > 0) {
+                lvp.height = mHeight;
+            }
+
+            if(mAspectRatio > 0) {
+                // 设置宽高比
+                mSimpleDraweeView.setAspectRatio(mAspectRatio);
+            }
+
+            Uri uri = Uri.parse(url);
+            if(!UriUtil.isNetworkUri(uri)) {
+                uri = new Uri.Builder()
+                        .scheme(UriUtil.LOCAL_FILE_SCHEME)
+                        .path(url)
+                        .build();
+            }
+
+            ImageLoader.loadImage(mSimpleDraweeView, uri, mWidth, mHeight, mPostprocessor,
+                    mControllerListener, mSmallDiskCache);
         }
 
         private void loadBlur(String url) {
@@ -362,6 +356,34 @@ public final class Phoenix {
      */
     public static boolean isPaused() {
         return Fresco.getImagePipeline().isPaused();
+    }
+
+    /**
+     * 预加载到内存缓存并解码
+     *
+     * @param url
+     */
+    public static void prefetchToBitmapCache(String url) {
+        if(TextUtils.isEmpty(url)) {
+            return;
+        }
+
+        ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url)).build();
+        Fresco.getImagePipeline().prefetchToBitmapCache(imageRequest, null);
+    }
+
+    /**
+     * 预加载到磁盘缓存（未解码）
+     *
+     * @param url
+     */
+    public static void prefetchToDiskCache(String url) {
+        if(TextUtils.isEmpty(url)) {
+            return;
+        }
+
+        ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url)).build();
+        Fresco.getImagePipeline().prefetchToDiskCache(imageRequest, null);
     }
 
 }

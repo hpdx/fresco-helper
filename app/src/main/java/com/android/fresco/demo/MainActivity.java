@@ -2,11 +2,13 @@ package com.android.fresco.demo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.anbetter.log.MLog;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.fresco.helper.ImageLoader;
 import com.facebook.fresco.helper.Phoenix;
@@ -119,6 +121,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void preLoad() {
+        String url = "http://ww1.sinaimg.cn/large/610dc034jw1fahy9m7xw0j20u00u042l.jpg";
+        // 将图片资源预加载到磁盘缓存
+        Phoenix.prefetchToDiskCache(url);
+
+        // 检查磁盘缓存中是否存在
+        if(Phoenix.isInDiskCacheSync(Uri.parse(url))) {
+            MLog.i("---->isInDiskCacheSync");
+        }
     }
 
     public void downloadImage(Context context) {
