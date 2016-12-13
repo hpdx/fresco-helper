@@ -30,6 +30,7 @@
         <activity android:name=".WebpActivity"/>
         <activity android:name=".BigImageActivity"/>
         <activity android:name=".ImageSizeActivity"/>
+        <activity android:name=".BitmapActivity"/>
 
     </application>
 

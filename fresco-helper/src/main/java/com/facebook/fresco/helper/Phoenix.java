@@ -1,6 +1,7 @@
 package com.facebook.fresco.helper;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.ViewGroup;
@@ -11,6 +12,9 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.config.ImageLoaderConfig;
+import com.facebook.fresco.helper.listener.IResult;
+import com.facebook.fresco.helper.listener.LoadImageResult;
+import com.facebook.fresco.helper.utils.CircleBitmapTransform;
 import com.facebook.imagepipeline.core.ImagePipeline;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.request.BasePostprocessor;
@@ -37,19 +41,37 @@ public final class Phoenix {
         return new Builder().build(simpleDraweeView);
     }
 
+    public static Builder with(Context context) {
+        return new Builder().build(context);
+    }
+
     public static class Builder {
 
+        private Context mContext;
         private SimpleDraweeView mSimpleDraweeView;
+        private String mUrl;
         private int mWidth;
         private int mHeight;
         private float mAspectRatio;
         private boolean mNeedBlur;
         private boolean mSmallDiskCache;
+        private boolean mCircleBitmap;
         private BasePostprocessor mPostprocessor;
         private ControllerListener<ImageInfo> mControllerListener;
+        private IResult mResult;
+
+        public Builder build(Context context) {
+            this.mContext = context.getApplicationContext();
+            return this;
+        }
 
         public Builder build(SimpleDraweeView simpleDraweeView) {
             this.mSimpleDraweeView = simpleDraweeView;
+            return this;
+        }
+
+        public Builder setUrl(String url) {
+            this.mUrl = url;
             return this;
         }
 
@@ -78,6 +100,16 @@ public final class Phoenix {
             return this;
         }
 
+        public Builder setCircleBitmap(boolean circleBitmap) {
+            this.mCircleBitmap = circleBitmap;
+            return this;
+        }
+
+        public Builder setResult(IResult result) {
+            this.mResult = result;
+            return this;
+        }
+
         public Builder setBasePostprocessor(BasePostprocessor postprocessor) {
             this.mPostprocessor = postprocessor;
             return this;
@@ -88,12 +120,36 @@ public final class Phoenix {
             return this;
         }
 
-        public void load(String url) {
-            if(TextUtils.isEmpty(url) || mSimpleDraweeView == null) {
+        public void load() {
+            if(mContext == null || TextUtils.isEmpty(mUrl) || !UriUtil.isNetworkUri(Uri.parse(mUrl))) {
                 return;
             }
 
-            if(!mNeedBlur) {
+            // 目前只对从网络加载图片，提供支持
+            ImageLoader.loadImage(mContext, mUrl,
+                    mWidth,
+                    mHeight,
+                    new LoadImageResult() {
+
+                        @Override
+                        public void onResult(Bitmap bitmap) {
+                            if(mResult != null) {
+                                if(mCircleBitmap) {
+                                    mResult.onResult(CircleBitmapTransform.transform(bitmap));
+                                } else {
+                                    mResult.onResult(bitmap);
+                                }
+                            }
+                        }
+                    });
+        }
+
+        public void load(String url) {
+            if (TextUtils.isEmpty(url) || mSimpleDraweeView == null) {
+                return;
+            }
+
+            if (!mNeedBlur) {
                 loadNormal(url);
             } else {
                 loadBlur(url);
