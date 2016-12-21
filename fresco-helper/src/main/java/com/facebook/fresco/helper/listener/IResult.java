@@ -1,12 +1,10 @@
 package com.facebook.fresco.helper.listener;
 
-import android.graphics.Bitmap;
-
 /**
  * Created by android_ls on 2016/12/12.
  */
 
-public interface IResult {
+public interface IResult<T> {
 
-    void onResult(Bitmap bitmap);
+    void onResult(T result);
 }

@@ -12,8 +12,8 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.config.ImageLoaderConfig;
+import com.facebook.fresco.helper.listener.IDownloadResult;
 import com.facebook.fresco.helper.listener.IResult;
-import com.facebook.fresco.helper.listener.LoadImageResult;
 import com.facebook.fresco.helper.utils.CircleBitmapTransform;
 import com.facebook.imagepipeline.core.ImagePipeline;
 import com.facebook.imagepipeline.image.ImageInfo;
@@ -46,6 +46,14 @@ public final class Phoenix {
         return new Builder().build(context);
     }
 
+    public static Builder with(String url) {
+        return new Builder().build(url);
+    }
+
+    public static Builder with() {
+        return new Builder();
+    }
+
     public static class Builder {
 
         private Context mContext;
@@ -59,7 +67,13 @@ public final class Phoenix {
         private boolean mCircleBitmap;
         private BasePostprocessor mPostprocessor;
         private ControllerListener<ImageInfo> mControllerListener;
-        private IResult mResult;
+        private IResult<Bitmap> mResult;
+        private IDownloadResult mDownloadResult;
+
+        public Builder build(String url) {
+            this.mUrl = url;
+            return this;
+        }
 
         public Builder build(Context context) {
             this.mContext = context.getApplicationContext();
@@ -106,8 +120,13 @@ public final class Phoenix {
             return this;
         }
 
-        public Builder setResult(IResult result) {
+        public Builder setResult(IResult<Bitmap> result) {
             this.mResult = result;
+            return this;
+        }
+
+        public Builder setResult(IDownloadResult result) {
+            this.mDownloadResult = result;
             return this;
         }
 
@@ -121,8 +140,18 @@ public final class Phoenix {
             return this;
         }
 
+        public void download() {
+            if(TextUtils.isEmpty(mUrl)
+                    || !UriUtil.isNetworkUri(Uri.parse(mUrl))
+                    || mDownloadResult == null) {
+                return;
+            }
+
+            ImageLoader.downloadImage(mContext, mUrl, mDownloadResult);
+        }
+
         public void load() {
-            if(mContext == null || TextUtils.isEmpty(mUrl) || !UriUtil.isNetworkUri(Uri.parse(mUrl))) {
+            if(TextUtils.isEmpty(mUrl) || !UriUtil.isNetworkUri(Uri.parse(mUrl))) {
                 return;
             }
 
@@ -130,7 +159,7 @@ public final class Phoenix {
             ImageLoader.loadImage(mContext, mUrl,
                     mWidth,
                     mHeight,
-                    new LoadImageResult() {
+                    new IResult<Bitmap>() {
 
                         @Override
                         public void onResult(Bitmap bitmap) {

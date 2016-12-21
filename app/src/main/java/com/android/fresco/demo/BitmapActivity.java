@@ -30,7 +30,7 @@ public class BitmapActivity extends AppCompatActivity {
                 .setWidth(180)
                 .setHeight(180)
                 .setCircleBitmap(true) // 圆形的
-                .setResult(new IResult() {
+                .setResult(new IResult<Bitmap>() {
                     @Override
                     public void onResult(Bitmap bitmap) {
                         MLog.i("Thread.currentThread().getId() = " + Thread.currentThread().getId());

@@ -24,8 +24,8 @@ import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.blur.BitmapBlurHelper;
-import com.facebook.fresco.helper.listener.DownloadImageResult;
-import com.facebook.fresco.helper.listener.LoadImageResult;
+import com.facebook.fresco.helper.listener.IDownloadResult;
+import com.facebook.fresco.helper.listener.IResult;
 import com.facebook.fresco.helper.utils.StreamTool;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.common.RotationOptions;
@@ -273,7 +273,7 @@ public class ImageLoader {
      * @param url  URL
      */
     public static void loadImageBlur(final View view, String url) {
-        loadImage(view.getContext(), url, new LoadImageResult() {
+        loadImage(view.getContext(), url, new IResult<Bitmap>() {
 
             @Override
             public void onResult(Bitmap source) {
@@ -284,7 +284,7 @@ public class ImageLoader {
     }
 
     public static void loadImageBlur(final View view, String url, final int reqWidth, final int reqHeight) {
-        loadImage(view.getContext(), url, reqWidth, reqHeight, new LoadImageResult() {
+        loadImage(view.getContext(), url, reqWidth, reqHeight, new IResult<Bitmap>() {
 
             @Override
             public void onResult(Bitmap source) {
@@ -422,7 +422,7 @@ public class ImageLoader {
         simpleDraweeView.setController(draweeController);
     }
 
-    public static void loadImage(Context context, String url, final LoadImageResult loadImageResult) {
+    public static void loadImage(Context context, String url, final IResult<Bitmap> loadImageResult) {
         loadOriginalImage(context, url, loadImageResult, UiThreadImmediateExecutorService.getInstance());
     }
 
@@ -433,7 +433,7 @@ public class ImageLoader {
      * @param url             图片URL
      * @param loadImageResult LoadImageResult
      */
-    public static void loadOriginalImage(Context context, String url, final LoadImageResult loadImageResult) {
+    public static void loadOriginalImage(Context context, String url, final IResult<Bitmap> loadImageResult) {
         loadOriginalImage(context, url, loadImageResult, Executors.newSingleThreadExecutor());
     }
 
@@ -449,7 +449,7 @@ public class ImageLoader {
      *                        Executors.newSingleThreadExecutor() 你需要做一些比较复杂、耗时的操作，并且不涉及UI（如数据库读写、文件IO），你就不能用上面两个Executor。
      *                        你需要开启一个后台Executor，可以参考DefaultExecutorSupplier.forBackgroundTasks。
      */
-    public static void loadOriginalImage(Context context, String url, final LoadImageResult loadImageResult, Executor executor) {
+    public static void loadOriginalImage(Context context, String url, final IResult<Bitmap> loadImageResult, Executor executor) {
         if (TextUtils.isEmpty(url)) {
             return;
         }
@@ -504,7 +504,7 @@ public class ImageLoader {
      * @param url            URL
      * @param loadFileResult LoadFileResult
      */
-    public static void downloadImage(Context context, String url, final DownloadImageResult loadFileResult) {
+    public static void downloadImage(Context context, String url, final IDownloadResult loadFileResult) {
         if (TextUtils.isEmpty(url)) {
             return;
         }
@@ -530,8 +530,6 @@ public class ImageLoader {
                         PooledByteBuffer pooledByteBuffer = closeableReference.get();
                         InputStream inputStream = new PooledByteBufferInputStream(pooledByteBuffer);
                         String photoPath = loadFileResult.getFilePath();
-                        Log.i("ImageLoader", "photoPath = " + photoPath);
-
                         byte[] data = StreamTool.read(inputStream);
                         StreamTool.write(photoPath, data);
                         loadFileResult.onResult(photoPath);
@@ -559,7 +557,7 @@ public class ImageLoader {
         }, Executors.newSingleThreadExecutor());
     }
 
-    public static void loadImage(Context context, String url, final int reqWidth, final int reqHeight, final LoadImageResult loadImageResult) {
+    public static void loadImage(Context context, String url, final int reqWidth, final int reqHeight, final IResult<Bitmap> loadImageResult) {
         if (TextUtils.isEmpty(url)) {
             return;
         }

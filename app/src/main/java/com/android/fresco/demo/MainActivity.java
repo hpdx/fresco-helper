@@ -12,7 +12,7 @@ import com.anbetter.log.MLog;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.fresco.helper.ImageLoader;
 import com.facebook.fresco.helper.Phoenix;
-import com.facebook.fresco.helper.listener.DownloadImageResult;
+import com.facebook.fresco.helper.listener.IDownloadResult;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         long startTime = currentTimeMillis();
         Phoenix.init(this); // Context
         long result = System.currentTimeMillis() - startTime;
-        ((TextView)findViewById(R.id.tv_init_count_time)).setText("初始化耗时：" + result + "ms");
+        ((TextView) findViewById(R.id.tv_init_count_time)).setText("初始化耗时：" + result + "ms");
 
 
         findViewById(R.id.btn_base_use).setOnClickListener(new View.OnClickListener() {
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         Phoenix.prefetchToDiskCache(url);
 
         // 检查磁盘缓存中是否存在
-        if(Phoenix.isInDiskCacheSync(Uri.parse(url))) {
+        if (Phoenix.isInDiskCacheSync(Uri.parse(url))) {
             MLog.i("---->isInDiskCacheSync");
         }
     }
@@ -137,13 +137,27 @@ public class MainActivity extends AppCompatActivity {
     public void downloadImage(Context context) {
         String url = "http://feed.chujianapp.com/20161108/452ab5752287a99a1b5387e2cd849006.jpg@1080w";
         String filePath = "";
-        ImageLoader.downloadImage(context, url, new DownloadImageResult(filePath) {
+        ImageLoader.downloadImage(context, url, new IDownloadResult(filePath) {
 
             @Override
             public void onResult(String filePath) {
 
             }
         });
+    }
+
+    public void downloadImage() {
+        String url = "http://feed.chujianapp.com/20161108/452ab5752287a99a1b5387e2cd849006.jpg@1080w";
+        String filePath = "";
+        Phoenix.with(url)
+                .setResult(new IDownloadResult(filePath) {
+                    @Override
+                    public void onResult(String filePath) {
+                        MLog.i("filePath = " + filePath);
+
+                    }
+                })
+                .download();
     }
 
 }

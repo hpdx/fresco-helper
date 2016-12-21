@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.ImageLoader;
-import com.facebook.fresco.helper.listener.LoadImageResult;
+import com.facebook.fresco.helper.listener.IResult;
 import com.facebook.fresco.helper.utils.DensityUtil;
 
 /**
@@ -28,7 +28,7 @@ public class ImageBindingAdapter {
 
     @BindingAdapter({"url", "iconWidth", "iconHeight"})
     public static void loadTextDrawable(final TextView view, String url, final int iconWidth, final int iconHeight) {
-        ImageLoader.loadImage(view.getContext(), url, new LoadImageResult() {
+        ImageLoader.loadImage(view.getContext(), url, new IResult<Bitmap>() {
             @Override
             public void onResult(Bitmap bitmap) {
                 Drawable drawable = new BitmapDrawable(view.getContext().getResources(), bitmap);
@@ -42,7 +42,7 @@ public class ImageBindingAdapter {
 
     @BindingAdapter({"url", "direction", "iconWidth", "iconHeight"})
     public static void loadTextDrawable(final TextView view, String url, final int direction, final int iconWidth, final int iconHeight) {
-        ImageLoader.loadImage(view.getContext(), url, new LoadImageResult() {
+        ImageLoader.loadImage(view.getContext(), url, new IResult<Bitmap>() {
             @Override
             public void onResult(Bitmap bitmap) {
                 Drawable drawable = new BitmapDrawable(view.getContext().getResources(), bitmap);

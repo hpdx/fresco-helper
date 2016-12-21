@@ -17,7 +17,7 @@ Fresco在GitHub上的项目地址：https://github.com/facebook/fresco
     }
  }
 
- compile 'com.facebook.fresco.helper:fresco-helper:1.1.7'
+ compile 'com.facebook.fresco.helper:fresco-helper:1.1.8'
  compile 'com.facebook.fresco.helper:fresco-photoview:1.1.6'
 ```
 
@@ -127,6 +127,27 @@ Phoenix.with(simpleDraweeView)
 SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
 Phoenix.with(simpleDraweeView)
         .load(R.drawable.meizi_webp);
+```
+
+将图片资源预加载到磁盘缓存
+```
+String url = "http://ww1.sinaimg.cn/large/610dc034jw1fahy9m7xw0j20u00u042l.jpg";
+Phoenix.prefetchToDiskCache(url);
+```
+
+从网络下载一张图片
+```
+String url = "http://feed.chujianapp.com/20161108/452ab5752287a99a1b5387e2cd849006.jpg@1080w";
+String filePath = "";
+Phoenix.with(url)
+       .setResult(new IDownloadResult(filePath) {
+           @Override
+           public void onResult(String filePath) {
+               MLog.i("filePath = " + filePath);
+
+           }
+       })
+       .download();
 ```
 ......
 
