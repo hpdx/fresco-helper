@@ -194,48 +194,20 @@ public final class Phoenix {
             if(!mNeedBlur) {
                 if (mWidth > 0 && mHeight > 0) {
                     ImageLoader.loadDrawable(mSimpleDraweeView, resId, mWidth, mHeight);
-                } else {
-                    if (mAspectRatio > 0 && (mWidth > 0 || mHeight > 0)) {
-                        ViewGroup.LayoutParams lvp = mSimpleDraweeView.getLayoutParams();
-                        lvp.width = mWidth;
-                        lvp.height = mHeight;
-                        // 设置宽高比
-                        mSimpleDraweeView.setAspectRatio(mAspectRatio);
-                    }
-
+                } else if (handlerAspectRatio()) {
                     ImageLoader.loadDrawable(mSimpleDraweeView, resId);
                 }
             } else {
                 if (mWidth > 0 && mHeight > 0) {
                     ImageLoader.loadDrawableBlur(mSimpleDraweeView, resId, mWidth, mHeight);
-                } else {
-                    if (mAspectRatio > 0 && (mWidth > 0 || mHeight > 0)) {
-                        ViewGroup.LayoutParams lvp = mSimpleDraweeView.getLayoutParams();
-                        lvp.width = mWidth;
-                        lvp.height = mHeight;
-                        // 设置宽高比
-                        mSimpleDraweeView.setAspectRatio(mAspectRatio);
-                    }
-
+                } else if (handlerAspectRatio()) {
                     ImageLoader.loadDrawableBlur(mSimpleDraweeView, resId);
                 }
             }
         }
 
         private void loadNormal(String url) {
-            ViewGroup.LayoutParams lvp = mSimpleDraweeView.getLayoutParams();
-            if(mWidth > 0) {
-                lvp.width = mWidth;
-            }
-
-            if(mHeight > 0) {
-                lvp.height = mHeight;
-            }
-
-            if(mAspectRatio > 0) {
-                // 设置宽高比
-                mSimpleDraweeView.setAspectRatio(mAspectRatio);
-            }
+            handlerAspectRatio();
 
             Uri uri = Uri.parse(url);
             if(!UriUtil.isNetworkUri(uri)) {
@@ -244,6 +216,8 @@ public final class Phoenix {
                         .path(url)
                         .build();
             }
+
+            MLog.i("uri = " + uri.toString());
 
             ImageLoader.loadImage(mSimpleDraweeView, uri, mWidth, mHeight, mPostprocessor,
                     mControllerListener, mSmallDiskCache);
@@ -257,21 +231,32 @@ public final class Phoenix {
                 } else {
                     ImageLoader.loadFileBlur(mSimpleDraweeView, url, mWidth, mHeight);
                 }
-            } else {
-                if(mAspectRatio > 0 && (mWidth > 0 || mHeight > 0)) {
-                    ViewGroup.LayoutParams lvp = mSimpleDraweeView.getLayoutParams();
-                    lvp.width = mWidth;
-                    lvp.height = mHeight;
-                    // 设置宽高比
-                    mSimpleDraweeView.setAspectRatio(mAspectRatio);
-                }
-
+            } else if(handlerAspectRatio()) {
                 if (UriUtil.isNetworkUri(uri)) {
                     ImageLoader.loadImageBlur(mSimpleDraweeView, url);
                 } else {
                     ImageLoader.loadFileBlur(mSimpleDraweeView, url);
                 }
             }
+        }
+
+        private boolean handlerAspectRatio() {
+            if(mWidth > 0 && mHeight > 0) {
+                ViewGroup.LayoutParams lvp = mSimpleDraweeView.getLayoutParams();
+                lvp.width = mWidth;
+                lvp.height = mHeight;
+            } else if (mAspectRatio > 0 && (mWidth > 0 || mHeight > 0)) {
+                ViewGroup.LayoutParams lvp = mSimpleDraweeView.getLayoutParams();
+                if(mWidth > 0) {
+                    lvp.width = mWidth;
+                    lvp.height = (int)(mWidth / mAspectRatio);
+                } else {
+                    lvp.height = mHeight;
+                    lvp.width = (int)(mHeight * mAspectRatio);
+                }
+                return true;
+            }
+            return false;
         }
 
     }

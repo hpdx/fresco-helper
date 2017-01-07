@@ -100,20 +100,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.btn_open_photo_wall).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, PhotoWallActivity.class));
-            }
-        });
-
-        findViewById(R.id.btn_open_photo_album).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, PhotoAlbumActivity.class));
-            }
-        });
-
         findViewById(R.id.btn_load_bitmap).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

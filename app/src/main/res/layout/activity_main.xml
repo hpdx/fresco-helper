@@ -114,19 +114,5 @@
             android:layout_marginTop="15dp"
             android:text="对任意View的背景，进行高斯模糊效果"/>
 
-        <Button
-            android:id="@+id/btn_open_photo_wall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="显示从网络加载的图片墙"/>
-
-        <Button
-            android:id="@+id/btn_open_photo_album"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="显示从本地相册加载的图片墙"/>
-
     </LinearLayout>
 </ScrollView>

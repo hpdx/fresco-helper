@@ -3,6 +3,10 @@
           xmlns:tools="http://schemas.android.com/tools"
     package="com.android.fresco.demo">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,12 +23,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".PhotoWallActivity"/>
         <activity android:name=".FrescoBaseUseActivity"/>
         <activity android:name=".UseDataBindingActivity"/>
         <activity android:name=".BlurActivity"/>
         <activity android:name=".Blur2Activity"/>
-        <activity android:name=".PhotoAlbumActivity"/>
         <activity android:name=".GifActivity"/>
         <activity android:name=".MeiziActivity"/>
         <activity android:name=".WebpActivity"/>

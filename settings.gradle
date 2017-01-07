@@ -1,5 +1,4 @@
 //include ':app'
 
 include ':app',
-        ':fresco-photoview',
         ':fresco-helper'

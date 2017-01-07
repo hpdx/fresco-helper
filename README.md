@@ -17,8 +17,7 @@ Fresco在GitHub上的项目地址：https://github.com/facebook/fresco
     }
  }
 
- compile 'com.facebook.fresco.helper:fresco-helper:1.1.8'
- compile 'com.facebook.fresco.helper:fresco-photoview:1.1.6'
+ compile 'com.facebook.fresco.helper:fresco-helper:1.2.0'
 ```
 
 ## 目前对以下需求进行了封装
@@ -52,11 +51,24 @@ Fresco在GitHub上的项目地址：https://github.com/facebook/fresco
 * 暂停所有图片的网络请求
 * 恢复所有图片的网络请求
 
-##基于Fresco实现的大图浏览器
-* 点击照片墙中的缩略图，打开和关闭效果类似微信朋友圈的图片查看效果
-* 支持双击放大效果
-* 支持单击关闭大图浏览
-* 支持手势缩放功能
+
+## 示例效果如下：
+
+<img src="http://img.blog.csdn.net/20161114234420713" width="320px" />
+
+常见的各种效果
+
+<img src="http://img.blog.csdn.net/20161114234525933" width="320px" />
+
+在进行高斯模糊前的照片
+
+<img src="http://img.blog.csdn.net/20161112180841944" width="320px" />
+
+对照片进行高斯模糊后的效果
+
+<img src="http://img.blog.csdn.net/20161112180917335" width="320px" />
+
+[下载示例Apk](https://github.com/hpdx/fresco-helper/blob/master/app-debug.apk)
 
 ## 使用：
 
@@ -151,73 +163,6 @@ Phoenix.with(url)
 ```
 ......
 
-
-###大图浏览器
-详细细节请查看`PhotoWallActivity`中的示例
-
-带动画的效果打开方式（多图）
-```
-ArrayList<PhotoInfo> photos = null;
-PictureBrowse.newBuilder(PhotoWallActivity.this)
-             .setLayoutManager(mLayoutManager)
-             .setPhotoList(photos)
-             .setCurrentPosition(position)
-             .enabledAnimation(true)
-             .start();
-```
-
-无动画效果的打开方式（多图）
-```
- ArrayList<PhotoInfo> photos = null;
- PictureBrowse.newBuilder(PhotoWallActivity.this)
-              .setPhotoList(photos)
-              .setCurrentPosition(position)
-              .start();
-```
-
-带动画效果的打开方式（只有一张图片）
-```
-String originalUrl = photos.get(position).originalUrl;
-PictureBrowse.newBuilder(PhotoWallActivity.this)
-             .setThumbnailView(view)
-             .setOriginalUrl(originalUrl)
-             .enabledAnimation(true)
-             .start();
-```
-
-无动画效果的打开方式（只有一张图片）
-```
-String originalUrl = photos.get(position).originalUrl;
-PictureBrowse.newBuilder(PhotoWallActivity.this)
-             .setOriginalUrl(originalUrl)
-             .start();
-```
-
-## 示例效果如下：
-
-<img src="http://img.blog.csdn.net/20161114234420713" width="320px" />
-
-常见的各种效果
-
-<img src="http://img.blog.csdn.net/20161114234525933" width="320px" />
-
-在进行高斯模糊前的照片
-
-<img src="http://img.blog.csdn.net/20161112180841944" width="320px" />
-
-对照片进行高斯模糊后的效果
-
-<img src="http://img.blog.csdn.net/20161112180917335" width="320px" />
-
-从网络加载的图片墙
-
-<img src="http://img.blog.csdn.net/20161114234539401" width="320px" />
-
-点击图片墙中的照片后，打开的浏览大图界面
-
-<img src="http://img.blog.csdn.net/20161114234557482" width="320px" />
-
-[下载示例Apk](https://github.com/hpdx/fresco-helper/blob/master/app-debug.apk)
 
 更详细的讲解，请查阅我的这篇博客：[Android图片加载神器之Fresco，基于各种使用场景的讲解。](http://blog.csdn.net/android_ls/article/details/53137867)
 
