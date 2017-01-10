@@ -217,8 +217,6 @@ public final class Phoenix {
                         .build();
             }
 
-            MLog.i("uri = " + uri.toString());
-
             ImageLoader.loadImage(mSimpleDraweeView, uri, mWidth, mHeight, mPostprocessor,
                     mControllerListener, mSmallDiskCache);
         }
