@@ -398,4 +398,33 @@ public final class Phoenix {
         Fresco.getImagePipeline().prefetchToDiskCache(imageRequest, null);
     }
 
+    /**
+     * 获取磁盘上主缓存文件缓存的大小
+     *
+     * @return
+     */
+    public static long getMainDiskStorageCacheSize() {
+        Fresco.getImagePipelineFactory().getMainFileCache().trimToMinimum();
+        return Fresco.getImagePipelineFactory().getMainFileCache().getSize();
+    }
+
+    /**
+     * 获取磁盘上副缓存（小文件）文件缓存的大小
+     *
+     * @return
+     */
+    public static long getSmallDiskStorageCacheSize() {
+        Fresco.getImagePipelineFactory().getSmallImageFileCache().trimToMinimum();
+        return Fresco.getImagePipelineFactory().getSmallImageFileCache().getSize();
+    }
+
+    /**
+     * 获取磁盘上缓存文件的大小
+     *
+     * @return
+     */
+    public static long getDiskStorageCacheSize() {
+        return getMainDiskStorageCacheSize() + getSmallDiskStorageCacheSize();
+    }
+
 }
