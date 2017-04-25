@@ -41,7 +41,7 @@ public class ImageLoaderConfig {
 
     private static ImageLoaderConfig sImageLoaderConfig;
 
-    private ImageLoaderConfig(Context context){
+    protected ImageLoaderConfig(Context context) {
         mContext = context.getApplicationContext();
         toggleLog();
     }
