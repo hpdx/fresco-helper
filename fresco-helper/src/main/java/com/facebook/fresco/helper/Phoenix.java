@@ -16,6 +16,7 @@ import com.facebook.fresco.helper.listener.IDownloadResult;
 import com.facebook.fresco.helper.listener.IResult;
 import com.facebook.fresco.helper.utils.CircleBitmapTransform;
 import com.facebook.imagepipeline.core.ImagePipeline;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.request.BasePostprocessor;
 import com.facebook.imagepipeline.request.ImageRequest;
@@ -34,8 +35,12 @@ public final class Phoenix {
     }
 
     public static void init(Context context) {
+        init(context, ImageLoaderConfig.getInstance(context).getImagePipelineConfig());
+    }
+
+    public static void init(Context context, ImagePipelineConfig imagePipelineConfig) {
         MLog.init(true, "MLog");
-        Fresco.initialize(context, ImageLoaderConfig.getImagePipelineConfig(context));
+        Fresco.initialize(context, imagePipelineConfig);
     }
 
     public static Builder with(SimpleDraweeView simpleDraweeView) {
