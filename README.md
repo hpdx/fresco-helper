@@ -50,6 +50,29 @@ SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
 Phoenix.with(simpleDraweeView).load(url);
 ```
 
+从网络加载一张图片，按原图等比缩放显示
+```
+String url = "http://ww3.sinaimg.cn/large/610dc034jw1f6m4aj83g9j20zk1hcww3.jpg";
+SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
+Phoenix.with(simpleDraweeView)
+.setControllerListener(new SingleImageControllerListener(simpleDraweeView))
+.load(url);
+```
+
+从网络加载一张图片，想加上自己的后处理
+```
+String url = "http://ww3.sinaimg.cn/large/610dc034jw1f6m4aj83g9j20zk1hcww3.jpg";
+SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
+Phoenix.with(simpleDraweeView)
+       .setBasePostprocessor(new BasePostprocessor() {
+            @Override
+            public void process(Bitmap bitmap) {
+                // 后处理，比如做高斯模糊处理
+                
+            }
+        }).load(url);
+```
+
 从本地加载一张图片
 ```
 String filePath = "/sdcard/image/test.jpg";
