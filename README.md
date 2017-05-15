@@ -1,13 +1,14 @@
 # fresco-helper
-Android上图片加载库Fresco的封装库，只需几行代码，就可以快速集成到项目中。告别繁琐的配置，快速上手，满足项目中遇到的各种应用场景。
+滚滚长江东逝水，浪花淘尽英雄，是非成败转头空，青山依旧在，几度夕阳红。
+白发渔樵江楮上，惯看秋月春风，一壶浊酒喜相逢，古今多少事，都付笑谈中。
 
 ## 依赖的开源库：
-fresco：https://github.com/facebook/fresco（`v1.3.0`）
+fresco：https://github.com/facebook/fresco（v1.3.0）
 
-subsampling-scale-image-view：https://github.com/davemorrissey/subsampling-scale-image-view（`v3.6.0`）
+subsampling-scale-image-view：https://github.com/davemorrissey/subsampling-scale-image-view（v3.6.0）
 
 ## Demo运行后的效果图：
-<img src="http://img.blog.csdn.net/20161114234420713" width="320px" />
+<img src="https://github.com/hpdx/fresco-helper/blob/master/demo.jpg" width="320px" /><img src="https://github.com/hpdx/fresco-helper/blob/master/demo1.jpg" width="320px" /><img src="https://github.com/hpdx/fresco-helper/blob/master/meizi.jpg" width="320px" />
 
 [下载示例Apk](https://github.com/hpdx/fresco-helper/blob/master/app-debug.apk)
 
