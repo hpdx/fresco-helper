@@ -2,17 +2,18 @@ package com.android.fresco.demo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.anbetter.log.MLog;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.fresco.helper.ImageLoader;
 import com.facebook.fresco.helper.Phoenix;
 import com.facebook.fresco.helper.listener.IDownloadResult;
+import com.facebook.fresco.helper.listener.IResult;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -39,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_clear_memory).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fresco.getImagePipeline().clearMemoryCaches();
-                System.gc();
+               Phoenix.clearCaches();
+                ((Button)findViewById(R.id.btn_get_cache_size)).setText("获取已使用的缓存大小");
             }
         });
 
@@ -48,6 +49,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, BigImageActivity.class));
+            }
+        });
+
+        findViewById(R.id.btn_big_big).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, BigBigImageActivity.class));
+            }
+        });
+
+        findViewById(R.id.btn_asset_image).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AssetsActivity.class));
+            }
+        });
+
+        findViewById(R.id.btn_get_cache_size).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long cacheSize = Phoenix.getMainDiskStorageCacheSize();
+                MLog.i("cacheSize = " + cacheSize);
+                ((Button)findViewById(R.id.btn_get_cache_size)).setText("缓存:" + (cacheSize/1024) + "kb");
             }
         });
 
@@ -123,19 +147,8 @@ public class MainActivity extends AppCompatActivity {
     public void downloadImage(Context context) {
         String url = "http://feed.chujianapp.com/20161108/452ab5752287a99a1b5387e2cd849006.jpg@1080w";
         String filePath = "";
-        ImageLoader.downloadImage(context, url, new IDownloadResult(filePath) {
-
-            @Override
-            public void onResult(String filePath) {
-
-            }
-        });
-    }
-
-    public void downloadImage() {
-        String url = "http://feed.chujianapp.com/20161108/452ab5752287a99a1b5387e2cd849006.jpg@1080w";
-        String filePath = "";
-        Phoenix.with(url)
+        Phoenix.with(context)
+                .setUrl(url)
                 .setResult(new IDownloadResult(filePath) {
                     @Override
                     public void onResult(String filePath) {
@@ -144,6 +157,18 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .download();
+    }
+
+    public void downloadBitmap(Context context) {
+        String url = "http://feed.chujianapp.com/20161108/452ab5752287a99a1b5387e2cd849006.jpg@1080w";
+        Phoenix.with(context)
+                .setUrl(url)
+                .setResult(new IResult<Bitmap>() {
+            @Override
+            public void onResult(Bitmap result) {
+
+            }
+        }).load();
     }
 
 }

@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import android.view.ViewGroup;
 
 import com.anbetter.log.MLog;
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.ControllerListener;
@@ -15,6 +17,7 @@ import com.facebook.fresco.helper.config.ImageLoaderConfig;
 import com.facebook.fresco.helper.listener.IDownloadResult;
 import com.facebook.fresco.helper.listener.IResult;
 import com.facebook.fresco.helper.utils.CircleBitmapTransform;
+import com.facebook.fresco.helper.utils.FileUtils;
 import com.facebook.imagepipeline.core.ImagePipeline;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.image.ImageInfo;
@@ -22,9 +25,11 @@ import com.facebook.imagepipeline.request.BasePostprocessor;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
+import java.io.File;
+
 /**
  * Facebook开源的Android图片加载库Fresco的使用帮助类
- *
+ * <p>
  * Created by android_ls on 16/11/13.
  */
 
@@ -47,6 +52,10 @@ public final class Phoenix {
         return new Builder().build(simpleDraweeView);
     }
 
+    public static Builder with(SubsamplingScaleImageView subsamplingScaleImageView) {
+        return new Builder().build(subsamplingScaleImageView);
+    }
+
     public static Builder with(Context context) {
         return new Builder().build(context);
     }
@@ -57,211 +66,6 @@ public final class Phoenix {
 
     public static Builder with() {
         return new Builder();
-    }
-
-    public static class Builder {
-
-        private Context mContext;
-        private SimpleDraweeView mSimpleDraweeView;
-        private String mUrl;
-        private int mWidth;
-        private int mHeight;
-        private float mAspectRatio;
-        private boolean mNeedBlur;
-        private boolean mSmallDiskCache;
-        private boolean mCircleBitmap;
-        private BasePostprocessor mPostprocessor;
-        private ControllerListener<ImageInfo> mControllerListener;
-        private IResult<Bitmap> mResult;
-        private IDownloadResult mDownloadResult;
-
-        public Builder build(String url) {
-            this.mUrl = url;
-            return this;
-        }
-
-        public Builder build(Context context) {
-            this.mContext = context.getApplicationContext();
-            return this;
-        }
-
-        public Builder build(SimpleDraweeView simpleDraweeView) {
-            this.mSimpleDraweeView = simpleDraweeView;
-            return this;
-        }
-
-        public Builder setUrl(String url) {
-            this.mUrl = url;
-            return this;
-        }
-
-        public Builder setWidth(int reqWidth) {
-            this.mWidth = reqWidth;
-            return this;
-        }
-
-        public Builder setHeight(int reqHeight) {
-            this.mHeight = reqHeight;
-            return this;
-        }
-
-        public Builder setAspectRatio(float aspectRatio) {
-            this.mAspectRatio = aspectRatio;
-            return this;
-        }
-
-        public Builder setNeedBlur(boolean needBlur) {
-            this.mNeedBlur = needBlur;
-            return this;
-        }
-
-        public Builder setSmallDiskCache(boolean smallDiskCache) {
-            this.mSmallDiskCache = smallDiskCache;
-            return this;
-        }
-
-        public Builder setCircleBitmap(boolean circleBitmap) {
-            this.mCircleBitmap = circleBitmap;
-            return this;
-        }
-
-        public Builder setResult(IResult<Bitmap> result) {
-            this.mResult = result;
-            return this;
-        }
-
-        public Builder setResult(IDownloadResult result) {
-            this.mDownloadResult = result;
-            return this;
-        }
-
-        public Builder setBasePostprocessor(BasePostprocessor postprocessor) {
-            this.mPostprocessor = postprocessor;
-            return this;
-        }
-
-        public Builder setControllerListener(ControllerListener<ImageInfo> controllerListener) {
-            this.mControllerListener = controllerListener;
-            return this;
-        }
-
-        public void download() {
-            if(TextUtils.isEmpty(mUrl)
-                    || !UriUtil.isNetworkUri(Uri.parse(mUrl))
-                    || mDownloadResult == null) {
-                return;
-            }
-
-            ImageLoader.downloadImage(mContext, mUrl, mDownloadResult);
-        }
-
-        public void load() {
-            if(TextUtils.isEmpty(mUrl) || !UriUtil.isNetworkUri(Uri.parse(mUrl))) {
-                return;
-            }
-
-            // 目前只对从网络加载图片，提供支持
-            ImageLoader.loadImage(mContext, mUrl,
-                    mWidth,
-                    mHeight,
-                    new IResult<Bitmap>() {
-
-                        @Override
-                        public void onResult(Bitmap bitmap) {
-                            if(mResult != null) {
-                                if(mCircleBitmap) {
-                                    mResult.onResult(CircleBitmapTransform.transform(bitmap));
-                                } else {
-                                    mResult.onResult(bitmap);
-                                }
-                            }
-                        }
-                    });
-        }
-
-        public void load(String url) {
-            if (TextUtils.isEmpty(url) || mSimpleDraweeView == null) {
-                return;
-            }
-
-            if (!mNeedBlur) {
-                loadNormal(url);
-            } else {
-                loadBlur(url);
-            }
-        }
-
-        public void load(int resId) {
-            if(resId == 0 || mSimpleDraweeView == null) {
-                return;
-            }
-
-            if(!mNeedBlur) {
-                if (mWidth > 0 && mHeight > 0) {
-                    ImageLoader.loadDrawable(mSimpleDraweeView, resId, mWidth, mHeight);
-                } else if (handlerAspectRatio()) {
-                    ImageLoader.loadDrawable(mSimpleDraweeView, resId);
-                }
-            } else {
-                if (mWidth > 0 && mHeight > 0) {
-                    ImageLoader.loadDrawableBlur(mSimpleDraweeView, resId, mWidth, mHeight);
-                } else if (handlerAspectRatio()) {
-                    ImageLoader.loadDrawableBlur(mSimpleDraweeView, resId);
-                }
-            }
-        }
-
-        private void loadNormal(String url) {
-            handlerAspectRatio();
-
-            Uri uri = Uri.parse(url);
-            if(!UriUtil.isNetworkUri(uri)) {
-                uri = new Uri.Builder()
-                        .scheme(UriUtil.LOCAL_FILE_SCHEME)
-                        .path(url)
-                        .build();
-            }
-
-            ImageLoader.loadImage(mSimpleDraweeView, uri, mWidth, mHeight, mPostprocessor,
-                    mControllerListener, mSmallDiskCache);
-        }
-
-        private void loadBlur(String url) {
-            Uri uri = Uri.parse(url);
-            if(mWidth > 0 && mHeight > 0) {
-                if (UriUtil.isNetworkUri(uri)) {
-                    ImageLoader.loadImageBlur(mSimpleDraweeView, url, mWidth, mHeight);
-                } else {
-                    ImageLoader.loadFileBlur(mSimpleDraweeView, url, mWidth, mHeight);
-                }
-            } else if(handlerAspectRatio()) {
-                if (UriUtil.isNetworkUri(uri)) {
-                    ImageLoader.loadImageBlur(mSimpleDraweeView, url);
-                } else {
-                    ImageLoader.loadFileBlur(mSimpleDraweeView, url);
-                }
-            }
-        }
-
-        private boolean handlerAspectRatio() {
-            if(mWidth > 0 && mHeight > 0) {
-                ViewGroup.LayoutParams lvp = mSimpleDraweeView.getLayoutParams();
-                lvp.width = mWidth;
-                lvp.height = mHeight;
-            } else if (mAspectRatio > 0 && (mWidth > 0 || mHeight > 0)) {
-                ViewGroup.LayoutParams lvp = mSimpleDraweeView.getLayoutParams();
-                if(mWidth > 0) {
-                    lvp.width = mWidth;
-                    lvp.height = (int)(mWidth / mAspectRatio);
-                } else {
-                    lvp.height = mHeight;
-                    lvp.width = (int)(mHeight * mAspectRatio);
-                }
-                return true;
-            }
-            return false;
-        }
-
     }
 
     /**
@@ -381,7 +185,7 @@ public final class Phoenix {
      * @param url
      */
     public static void prefetchToBitmapCache(String url) {
-        if(TextUtils.isEmpty(url)) {
+        if (TextUtils.isEmpty(url)) {
             return;
         }
 
@@ -395,7 +199,7 @@ public final class Phoenix {
      * @param url
      */
     public static void prefetchToDiskCache(String url) {
-        if(TextUtils.isEmpty(url)) {
+        if (TextUtils.isEmpty(url)) {
             return;
         }
 
@@ -430,6 +234,264 @@ public final class Phoenix {
      */
     public static long getDiskStorageCacheSize() {
         return getMainDiskStorageCacheSize() + getSmallDiskStorageCacheSize();
+    }
+
+    public static class Builder {
+
+        private Context mContext;
+        private SimpleDraweeView mSimpleDraweeView;
+        private SubsamplingScaleImageView mSubsamplingScaleImageView;
+
+        private String mUrl;
+        private String mDiskCachePath; // 超大图的本地缓存目录
+
+        private int mWidth;
+        private int mHeight;
+        private float mAspectRatio;
+
+        private boolean mNeedBlur;
+        private boolean mSmallDiskCache;
+        private boolean mCircleBitmap;
+        private boolean mFromAssets;
+
+        private BasePostprocessor mPostprocessor;
+        private ControllerListener<ImageInfo> mControllerListener;
+
+        private IResult<Bitmap> mResult;
+        private IDownloadResult mDownloadResult;
+
+        public Builder build(String url) {
+            this.mUrl = url;
+            return this;
+        }
+
+        public Builder build(Context context) {
+            this.mContext = context.getApplicationContext();
+            return this;
+        }
+
+        public Builder build(SimpleDraweeView simpleDraweeView) {
+            this.mSimpleDraweeView = simpleDraweeView;
+            return this;
+        }
+
+        public Builder build(SubsamplingScaleImageView subsamplingScaleImageView) {
+            this.mSubsamplingScaleImageView = subsamplingScaleImageView;
+            return this;
+        }
+
+        public Builder setUrl(String url) {
+            this.mUrl = url;
+            return this;
+        }
+
+        public Builder setDiskCacheDir(String diskCacheDir) {
+            this.mDiskCachePath = diskCacheDir;
+            return this;
+        }
+
+        public Builder setWidth(int reqWidth) {
+            this.mWidth = reqWidth;
+            return this;
+        }
+
+        public Builder setHeight(int reqHeight) {
+            this.mHeight = reqHeight;
+            return this;
+        }
+
+        public Builder setAspectRatio(float aspectRatio) {
+            this.mAspectRatio = aspectRatio;
+            return this;
+        }
+
+        public Builder setNeedBlur(boolean needBlur) {
+            this.mNeedBlur = needBlur;
+            return this;
+        }
+
+        public Builder setAssets(boolean fromAssets) {
+            this.mFromAssets = fromAssets;
+            return this;
+        }
+
+        public Builder setSmallDiskCache(boolean smallDiskCache) {
+            this.mSmallDiskCache = smallDiskCache;
+            return this;
+        }
+
+        public Builder setCircleBitmap(boolean circleBitmap) {
+            this.mCircleBitmap = circleBitmap;
+            return this;
+        }
+
+        public Builder setResult(IResult<Bitmap> result) {
+            this.mResult = result;
+            return this;
+        }
+
+        public Builder setResult(IDownloadResult result) {
+            this.mDownloadResult = result;
+            return this;
+        }
+
+        public Builder setBasePostprocessor(BasePostprocessor postprocessor) {
+            this.mPostprocessor = postprocessor;
+            return this;
+        }
+
+        public Builder setControllerListener(ControllerListener<ImageInfo> controllerListener) {
+            this.mControllerListener = controllerListener;
+            return this;
+        }
+
+        public void download() {
+            if (TextUtils.isEmpty(mUrl)
+                    || !UriUtil.isNetworkUri(Uri.parse(mUrl))
+                    || mDownloadResult == null) {
+                return;
+            }
+
+            ImageLoader.downloadImage(mContext, mUrl, mDownloadResult);
+        }
+
+        public void load() {
+            if (TextUtils.isEmpty(mUrl) || !UriUtil.isNetworkUri(Uri.parse(mUrl))) {
+                return;
+            }
+
+            // 目前只对从网络加载图片，提供支持
+            ImageLoader.loadImage(mContext, mUrl,
+                    mWidth,
+                    mHeight,
+                    new IResult<Bitmap>() {
+
+                        @Override
+                        public void onResult(Bitmap bitmap) {
+                            if (mResult != null) {
+                                if (mCircleBitmap) {
+                                    mResult.onResult(CircleBitmapTransform.transform(bitmap));
+                                } else {
+                                    mResult.onResult(bitmap);
+                                }
+                            }
+                        }
+                    });
+        }
+
+        public void load(String url) {
+            if (TextUtils.isEmpty(url)) {
+                return;
+            }
+
+            if (!mNeedBlur) {
+                loadNormal(url);
+            } else {
+                loadBlur(url);
+            }
+        }
+
+        public void load(int resId) {
+            if (resId == 0 || mSimpleDraweeView == null) {
+                return;
+            }
+
+            adjustLayoutParams();
+            if (!mNeedBlur) {
+                ImageLoader.loadDrawable(mSimpleDraweeView, resId, mWidth, mHeight);
+            } else {
+                ImageLoader.loadDrawableBlur(mSimpleDraweeView, resId, mWidth, mHeight);
+            }
+        }
+
+        private void loadNormal(String url) {
+//            MLog.i("url = " + url);
+            adjustLayoutParams();
+
+            Uri uri = Uri.parse(url);
+            if (!UriUtil.isNetworkUri(uri)) {
+                if (mFromAssets) {
+                    uri = new Uri.Builder()
+                            .scheme(UriUtil.LOCAL_ASSET_SCHEME)
+                            .path(url)
+                            .build();
+                } else {
+                    uri = new Uri.Builder()
+                            .scheme(UriUtil.LOCAL_FILE_SCHEME)
+                            .path(url)
+                            .build();
+                }
+            }
+
+            if (mSubsamplingScaleImageView != null) {
+                if(mDiskCachePath == null) {
+                    mDiskCachePath = FileUtils.getImageDownloadPath(mSubsamplingScaleImageView.getContext(), url);
+                } else {
+                    String fileName = FileUtils.getFileName(url);
+                    mDiskCachePath = mDiskCachePath + File.separator + fileName;
+                }
+//                MLog.i("mDiskCachePath = " + mDiskCachePath);
+
+                if (FileUtils.exists(mDiskCachePath)) {
+//                    MLog.i("-->local file already exists");
+                    mSubsamplingScaleImageView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mSubsamplingScaleImageView.setImage(ImageSource.uri(mDiskCachePath));
+                        }
+                    });
+                } else {
+                    ImageLoader.downloadImage(mSubsamplingScaleImageView.getContext(), url,
+                            new IDownloadResult(mDiskCachePath) {
+                                @Override
+                                public void onResult(final String filePath) {
+//                                    MLog.i("-->filePath = " + filePath);
+                                    mSubsamplingScaleImageView.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            mSubsamplingScaleImageView.setImage(ImageSource.uri(filePath));
+                                        }
+                                    });
+                                }
+                            });
+                }
+            } else {
+//                MLog.i("uri = " + uri.toString());
+                ImageLoader.loadImage(mSimpleDraweeView, uri, mWidth, mHeight, mPostprocessor,
+                        mControllerListener, mSmallDiskCache);
+            }
+        }
+
+        private void loadBlur(String url) {
+            Uri uri = Uri.parse(url);
+            adjustLayoutParams();
+            if (UriUtil.isNetworkUri(uri)) {
+                ImageLoader.loadImageBlur(mSimpleDraweeView, url, mWidth, mHeight);
+            } else {
+                ImageLoader.loadFileBlur(mSimpleDraweeView, url, mWidth, mHeight);
+            }
+        }
+
+        private void adjustLayoutParams() {
+            if (mSimpleDraweeView == null) {
+                return;
+            }
+
+            if (mWidth > 0 && mHeight > 0) {
+                ViewGroup.LayoutParams lvp = mSimpleDraweeView.getLayoutParams();
+                lvp.width = mWidth;
+                lvp.height = mHeight;
+            } else if (mAspectRatio > 0 && (mWidth > 0 || mHeight > 0)) {
+                ViewGroup.LayoutParams lvp = mSimpleDraweeView.getLayoutParams();
+                if (mWidth > 0) {
+                    lvp.width = mWidth;
+                    lvp.height = (int) (mWidth / mAspectRatio);
+                } else {
+                    lvp.height = mHeight;
+                    lvp.width = (int) (mHeight * mAspectRatio);
+                }
+            }
+        }
     }
 
 }

@@ -33,6 +33,8 @@
         <activity android:name=".BigImageActivity"/>
         <activity android:name=".ImageSizeActivity"/>
         <activity android:name=".BitmapActivity"/>
+        <activity android:name=".BigBigImageActivity"/>
+        <activity android:name=".AssetsActivity"/>
 
     </application>
 

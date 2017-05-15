@@ -1,10 +1,17 @@
 # fresco-helper
-Android上图片加载库Fresco的使用帮助类
+Android上图片加载库Fresco的封装库，只需几行代码，就可以快速集成到项目中。告别繁琐的配置，快速上手，满足项目中遇到的各种应用场景。
 
-Fresco在GitHub上的项目地址：https://github.com/facebook/fresco
+## 依赖的开源库：
+fresco：https://github.com/facebook/fresco（`v1.3.0`）
 
-目前是基于Fresco `1.3.0`这个版本。
+subsampling-scale-image-view：https://github.com/davemorrissey/subsampling-scale-image-view（`v3.6.0`）
 
+## Demo运行后的效果图：
+<img src="http://img.blog.csdn.net/20161114234420713" width="320px" />
+
+[下载示例Apk](https://github.com/hpdx/fresco-helper/blob/master/app-debug.apk)
+
+## 使用：
 在使用到fresco-helper库的Module中的build.gradle文件里，添加以下依赖：
 ```
  allprojects {
@@ -20,61 +27,18 @@ Fresco在GitHub上的项目地址：https://github.com/facebook/fresco
  compile 'com.facebook.fresco.helper:fresco-helper:1.3.1'
 ```
 
-## 目前对以下需求进行了封装
-* ImagePipeline对象的初始化配置，默认配置了两个磁盘缓存
-* 从网络加载图片并显示
-* 从本地文件加载图片并显示
-* 从本地res中加载图片并显示
-* **加载并显示gif格式的图片**
-* **加载并显示webp格式的图片**
-
-* 只知道要显示图片的高或者宽的值，另一个值可以从设置的比例得出
-* 解码指定尺寸大小的图片，图片数据来源支持网络、本地文件和本地res中的，并显示
-* **支持不知道图片原始尺寸，也不知道要显示的图片尺寸，加载并显示**
-* **根据url下载图片（未解码），并保存到本地指定的路径**
-* **根据url获取已解码的对象（bitmap）**
-* **图片的高斯模糊处理**
-* **根据url下载图片，并对其进行高斯模糊处理，之后显示为任意View的背景**
-
-* 查找一张图片在已解码的缓存中是否存在
-* 查找一张图片在磁盘缓存中是否存在，若配有两个磁盘缓存，则只要其中一个存在，就会返回true
-* 查找一张图片在磁盘缓存中是否存在，可以指定是哪个磁盘缓存
-* 从内存缓存中移除指定图片的缓存
-* 从磁盘缓存中移除指定图片的缓存
-* 移除指定图片的所有缓存（包括内存+磁盘）
-
-* 清空所有内存缓存
-* 清空所有磁盘缓存，若你配置有两个磁盘缓存，则两个都会清除
-* 清除所有缓存（包括内存+磁盘）
-
-* 当前网络请求是否处于暂停状态
-* 暂停所有图片的网络请求
-* 恢复所有图片的网络请求
-
-
-## 示例效果如下：
-
-<img src="http://img.blog.csdn.net/20161114234420713" width="320px" />
-
-常见的各种效果
-
-<img src="http://img.blog.csdn.net/20161114234525933" width="320px" />
-
-在进行高斯模糊前的照片
-
-<img src="http://img.blog.csdn.net/20161112180841944" width="320px" />
-
-对照片进行高斯模糊后的效果
-
-<img src="http://img.blog.csdn.net/20161112180917335" width="320px" />
-
-[下载示例Apk](https://github.com/hpdx/fresco-helper/blob/master/app-debug.apk)
-
-## 使用：
-
 初始化
 ```
- Phoenix.init(this); // Context
+Phoenix.init(this); // Context
+```
+
+xml布局文件
+```        
+<com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:actualImageScaleType="centerCrop" />
 ```
 
 从网络加载一张图片
@@ -95,6 +59,14 @@ Phoenix.with(simpleDraweeView).load(filePath);
 ```
 SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
 Phoenix.with(simpleDraweeView).load(R.drawable.meizi);
+```
+
+从assets下面加载一张图片
+```
+SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
+Phoenix.with(simpleDraweeView)
+       .setAssets(true)
+       .load("qingchun.jpg");
 ```
 
 在写布局文件xml时，我不知道要显示的图片尺寸，需要根据业务逻辑动态的设置要显示的图片的大小，可以像下面这样写：
@@ -147,21 +119,159 @@ String url = "http://ww1.sinaimg.cn/large/610dc034jw1fahy9m7xw0j20u00u042l.jpg";
 Phoenix.prefetchToDiskCache(url);
 ```
 
-从网络下载一张图片
+将图片资源预加载到内存缓存
+```
+String url = "http://ww1.sinaimg.cn/large/610dc034jw1fahy9m7xw0j20u00u042l.jpg";
+Phoenix.prefetchToBitmapCache(url);
+```
+
+从网络下载一张图片，下载完成后把Bitmap给我（返回的结果是在主线程）
+```
+String url = "http://feed.chujianapp.com/20161108/452ab5752287a99a1b5387e2cd849006.jpg@1080w";
+Phoenix.with(context)
+       .setUrl(url)
+       .setResult(new IResult<Bitmap>() {
+            @Override
+            public void onResult(Bitmap result) {
+
+            }
+        }).load();
+```
+
+从网络下载一张图片，下载完成后告诉我下载的图片存在哪里（返回的结果是在工作线程，非主线程）
 ```
 String url = "http://feed.chujianapp.com/20161108/452ab5752287a99a1b5387e2cd849006.jpg@1080w";
 String filePath = "";
-Phoenix.with(url)
+Phoenix.with(context)
+       .setUrl(url)
        .setResult(new IDownloadResult(filePath) {
            @Override
            public void onResult(String filePath) {
                MLog.i("filePath = " + filePath);
 
            }
-       })
-       .download();
+       }).download(); 
 ```
-......
+
+
+## 从网络加载一张超大图
+大小以M为单位，目标图片宽度大于手机屏幕宽的2倍以上或者高度大于手机屏幕高的2倍以上
+
+xml布局文件
+```
+<com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/image"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+```
+
+从网络加载并显示
+```
+String url = "http://img5q.duitang.com/uploads/item/201402/24/20140224212510_eQRG5.thumb.700_0.jpeg";
+final SubsamplingScaleImageView imageView = (SubsamplingScaleImageView) findViewById(R.id.image);
+Phoenix.with(imageView).load(url);
+``` 
+
+设置缩放参数
+```
+imageView.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CUSTOM);
+imageView.setMinScale(1.0f);
+imageView.setMaxScale(2.0f);
+```
+
+禁用缩放功能（你可能会有这个需求）
+```
+imageView.setZoomEnabled(false);
+```
+
+添加各种事件处理（单击、双击、长按）
+```
+    final GestureDetector gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e) {
+                if (imageView.isReady()) {
+                    PointF sCoord = imageView.viewToSourceCoord(e.getX(), e.getY());
+                    MLog.i("单击: " + ((int) sCoord.x) + ", " + ((int) sCoord.y));
+                } else {
+                    MLog.i("onSingleTapConfirmed onError");
+                }
+
+                return false;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+                if (imageView.isReady()) {
+                    PointF sCoord = imageView.viewToSourceCoord(e.getX(), e.getY());
+                    MLog.i("长按: " + ((int) sCoord.x) + ", " + ((int) sCoord.y));
+                } else {
+                    MLog.i("onLongPress onError");
+                }
+            }
+
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                if (imageView.isReady()) {
+                    PointF sCoord = imageView.viewToSourceCoord(e.getX(), e.getY());
+                    MLog.i("双击: " + ((int) sCoord.x) + ", " + ((int) sCoord.y));
+                } else {
+                    MLog.i("onDoubleTap onError");
+                }
+                return false;
+            }
+        });
+
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return gestureDetector.onTouchEvent(motionEvent);
+            }
+        });
+```
+
+从网络加载，存放到指定的缓存目录并显示
+
+```
+String fileCacheDir = getCacheDir().getAbsolutePath();
+MLog.i("fileCacheDir = " + fileCacheDir);
+Phoenix.with(imageView)
+       .setDiskCacheDir(fileCacheDir)
+       .load(url);     
+```
+
+加载本地资源并显示
+```
+imageView.setImage(ImageSource.asset("qmsht.jpg"));
+imageView.setImage(ImageSource.resource(R.drawable.monkey));
+imageView.setImage(ImageSource.uri("/storage/emulated/0/fresco-helper/Download/Images/20140224212510_eQRG5.thumb.700_0.jpeg"));
+imageView.setImage(ImageSource.bitmap(bitmap));    
+
+```
+
+// 获取已占用磁盘缓存的大小，已B为单位
+```
+long cacheSize = Phoenix.getMainDiskStorageCacheSize();
+MLog.i("cacheSize = " + cacheSize);
+```
+
+清空所有内存缓存
+```
+Phoenix.clearMemoryCaches();
+```
+
+清空所有磁盘缓存
+```
+Phoenix.clearDiskCaches();
+```
+
+清除所有缓存（包括内存+磁盘）
+```
+Phoenix.clearCaches();
+```
+
+## 与之配套的浏览大图，若需要可以试试我的这个开源库
+[fresco-photoview](https://github.com/hpdx/fresco-photoview)
 
 
 更详细的讲解，请查阅我的这篇博客：[Android图片加载神器之Fresco，基于各种使用场景的讲解。](http://blog.csdn.net/android_ls/article/details/53137867)

@@ -263,6 +263,59 @@ public class ImageLoader {
     }
 
     /*******************************************************************************************
+     * 加载本地asset下面资源相关的方法                             *
+     *******************************************************************************************/
+
+    public static void loadAssetDrawable(SimpleDraweeView simpleDraweeView, String filename) {
+        if (filename == null || simpleDraweeView == null) {
+            return;
+        }
+
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_ASSET_SCHEME)
+                .path(filename)
+                .build();
+        loadImage(simpleDraweeView, uri, 0, 0, null, null, false);
+    }
+
+    public static void loadAssetDrawable(SimpleDraweeView simpleDraweeView, String filename, final int reqWidth, final int reqHeight) {
+        if (filename == null || simpleDraweeView == null) {
+            return;
+        }
+
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_ASSET_SCHEME)
+                .path(filename)
+                .build();
+        loadImage(simpleDraweeView, uri, reqWidth, reqHeight, null, null, false);
+    }
+
+    public static void loadAssetDrawable(SimpleDraweeView simpleDraweeView, String filename, BasePostprocessor processor) {
+        if (filename == null || simpleDraweeView == null) {
+            return;
+        }
+
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_ASSET_SCHEME)
+                .path(filename)
+                .build();
+        loadImage(simpleDraweeView, uri, 0, 0, processor, null, false);
+    }
+
+    public static void loadAssetDrawable(SimpleDraweeView simpleDraweeView, String filename,
+                                         final int reqWidth, final int reqHeight, BasePostprocessor processor) {
+        if (filename == null || simpleDraweeView == null) {
+            return;
+        }
+
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_ASSET_SCHEME)
+                .path(filename)
+                .build();
+        loadImage(simpleDraweeView, uri, reqWidth, reqHeight, processor, null, false);
+    }
+
+    /*******************************************************************************************
      *                                         高斯模糊相关的方法                                 *
      *******************************************************************************************/
 
