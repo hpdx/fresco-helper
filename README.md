@@ -4,11 +4,12 @@
 
 ## 依赖的开源库：
 fresco：https://github.com/facebook/fresco（v1.3.0）
-
 subsampling-scale-image-view：https://github.com/davemorrissey/subsampling-scale-image-view（v3.6.0）
 
 ## Demo运行后的效果图：
-<img src="https://github.com/hpdx/fresco-helper/blob/master/demo.jpg" width="320px" /><img src="https://github.com/hpdx/fresco-helper/blob/master/demo1.jpg" width="320px" /><img src="https://github.com/hpdx/fresco-helper/blob/master/meizi.jpg" width="320px" />
+<img src="https://github.com/hpdx/fresco-helper/blob/master/demo.jpg" width="320px" />
+<img src="https://github.com/hpdx/fresco-helper/blob/master/demo1.jpg" width="320px" />
+<img src="https://github.com/hpdx/fresco-helper/blob/master/meizi.jpg" width="320px" />
 
 [下载示例Apk](https://github.com/hpdx/fresco-helper/blob/master/app-debug.apk)
 
@@ -25,7 +26,7 @@ subsampling-scale-image-view：https://github.com/davemorrissey/subsampling-scal
     }
  }
 
- compile 'com.facebook.fresco.helper:fresco-helper:1.3.1'
+ compile 'com.facebook.fresco.helper:fresco-helper:1.3.2'
 ```
 
 初始化
@@ -271,8 +272,7 @@ Phoenix.clearDiskCaches();
 Phoenix.clearCaches();
 ```
 
-## 与之配套的浏览大图，若需要可以试试我的这个开源库
-[fresco-photoview](https://github.com/hpdx/fresco-photoview)
+与之配套的浏览大图，若需要可以试试我的这个开源库[fresco-photoview](https://github.com/hpdx/fresco-photoview)
 
 
 更详细的讲解，请查阅我的这篇博客：[Android图片加载神器之Fresco，基于各种使用场景的讲解。](http://blog.csdn.net/android_ls/article/details/53137867)

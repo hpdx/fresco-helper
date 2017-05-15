@@ -1,4 +1,2 @@
-//include ':app'
-
 include ':app',
         ':fresco-helper'

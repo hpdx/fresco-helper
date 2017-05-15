@@ -89,7 +89,7 @@
                 android:id="@+id/btn_meizi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="显示本地资源图片"/>
+                android:text="从res中加载图片"/>
 
             <Button
                 android:id="@+id/btn_big_big"
