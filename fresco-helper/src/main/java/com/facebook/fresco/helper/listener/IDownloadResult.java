@@ -25,6 +25,10 @@ public abstract class IDownloadResult implements IResult<String> {
         return mFilePath;
     }
 
+    public void onProgress(int progress) {
+
+    }
+
     @Override
     public abstract void onResult(String filePath);
 

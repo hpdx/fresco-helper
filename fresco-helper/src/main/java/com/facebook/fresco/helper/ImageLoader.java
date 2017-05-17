@@ -597,6 +597,14 @@ public class ImageLoader {
             }
 
             @Override
+            public void onProgressUpdate(DataSource<CloseableReference<PooledByteBuffer>> dataSource) {
+                int progress = (int) (dataSource.getProgress() * 100);
+                if (loadFileResult != null) {
+                    loadFileResult.onProgress(progress);
+                }
+            }
+
+            @Override
             public void onFailureImpl(DataSource dataSource) {
                 if (loadFileResult != null) {
                     loadFileResult.onResult(null);

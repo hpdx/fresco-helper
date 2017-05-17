@@ -5,10 +5,10 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.anbetter.log.MLog;
 import com.davemorrissey.labs.subscaleview.ImageSource;
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.ControllerListener;
@@ -52,7 +52,7 @@ public final class Phoenix {
         return new Builder().build(simpleDraweeView);
     }
 
-    public static Builder with(SubsamplingScaleImageView subsamplingScaleImageView) {
+    public static Builder with(LargePhotoView subsamplingScaleImageView) {
         return new Builder().build(subsamplingScaleImageView);
     }
 
@@ -240,7 +240,7 @@ public final class Phoenix {
 
         private Context mContext;
         private SimpleDraweeView mSimpleDraweeView;
-        private SubsamplingScaleImageView mSubsamplingScaleImageView;
+        private LargePhotoView mSubsamplingScaleImageView;
 
         private String mUrl;
         private String mDiskCachePath; // 超大图的本地缓存目录
@@ -275,7 +275,7 @@ public final class Phoenix {
             return this;
         }
 
-        public Builder build(SubsamplingScaleImageView subsamplingScaleImageView) {
+        public Builder build(LargePhotoView subsamplingScaleImageView) {
             this.mSubsamplingScaleImageView = subsamplingScaleImageView;
             return this;
         }
@@ -430,26 +430,43 @@ public final class Phoenix {
                     String fileName = FileUtils.getFileName(url);
                     mDiskCachePath = mDiskCachePath + File.separator + fileName;
                 }
-//                MLog.i("mDiskCachePath = " + mDiskCachePath);
+                MLog.i("mDiskCachePath = " + mDiskCachePath);
 
                 if (FileUtils.exists(mDiskCachePath)) {
-//                    MLog.i("-->local file already exists");
+                    MLog.i("-->local file already exists");
                     mSubsamplingScaleImageView.post(new Runnable() {
                         @Override
                         public void run() {
+                            mSubsamplingScaleImageView.onProgress(100);
                             mSubsamplingScaleImageView.setImage(ImageSource.uri(mDiskCachePath));
                         }
                     });
                 } else {
                     ImageLoader.downloadImage(mSubsamplingScaleImageView.getContext(), url,
                             new IDownloadResult(mDiskCachePath) {
+
                                 @Override
-                                public void onResult(final String filePath) {
-//                                    MLog.i("-->filePath = " + filePath);
+                                public void onProgress(final int progress) {
                                     mSubsamplingScaleImageView.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            mSubsamplingScaleImageView.setImage(ImageSource.uri(filePath));
+                                            mSubsamplingScaleImageView.onProgress(progress);
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onResult(final String filePath) {
+                                    MLog.i("-->filePath = " + filePath);
+                                    mSubsamplingScaleImageView.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if(filePath != null) {
+                                                mSubsamplingScaleImageView.setImage(ImageSource.uri(filePath));
+                                            } else {
+                                                Toast.makeText(mSubsamplingScaleImageView.getContext(),
+                                                        "加载图片失败，请检查网络", Toast.LENGTH_SHORT).show();
+                                            }
                                         }
                                     });
                                 }
