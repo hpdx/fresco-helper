@@ -184,8 +184,7 @@ Phoenix.with(context)
 
 xml布局文件
 ```
-<com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.facebook.fresco.helper.LargePhotoView
     android:id="@+id/image"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
@@ -194,7 +193,7 @@ xml布局文件
 从网络加载并显示
 ```
 String url = "http://img5q.duitang.com/uploads/item/201402/24/20140224212510_eQRG5.thumb.700_0.jpeg";
-final SubsamplingScaleImageView imageView = (SubsamplingScaleImageView) findViewById(R.id.image);
+final LargePhotoView imageView = (LargePhotoView) findViewById(R.id.image);
 Phoenix.with(imageView).load(url);
 ``` 
 
