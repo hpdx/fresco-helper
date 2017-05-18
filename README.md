@@ -3,8 +3,8 @@
 白发渔樵江楮上，惯看秋月春风，一壶浊酒喜相逢，古今多少事，都付笑谈中。
 
 ## 依赖的开源库：
-fresco：https://github.com/facebook/fresco（v1.3.0）
-subsampling-scale-image-view：https://github.com/davemorrissey/subsampling-scale-image-view（v3.6.0）
+fresco v1.3.0：[https://github.com/facebook/fresco](https://github.com/facebook/fresco)
+subsampling-scale-image-view v3.6.0：[https://github.com/davemorrissey/subsampling-scale-image-view](https://github.com/davemorrissey/subsampling-scale-image-view)
 
 ## Demo运行后的效果图：
 <img src="https://github.com/hpdx/fresco-helper/blob/master/demo.jpg" width="320px" />
