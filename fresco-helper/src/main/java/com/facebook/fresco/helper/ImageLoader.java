@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.anbetter.log.MLog;
 import com.facebook.common.executors.UiThreadImmediateExecutorService;
 import com.facebook.common.memory.PooledByteBuffer;
 import com.facebook.common.memory.PooledByteBufferInputStream;
@@ -620,10 +621,18 @@ public class ImageLoader {
 
     public static void loadImage(Context context, String url, final int reqWidth, final int reqHeight, final IResult<Bitmap> loadImageResult) {
         if (TextUtils.isEmpty(url)) {
+            MLog.i("url is null");
             return;
         }
 
         Uri uri = Uri.parse(url);
+        if(!UriUtil.isNetworkUri(uri)) {
+             uri = new Uri.Builder()
+                    .scheme(UriUtil.LOCAL_FILE_SCHEME)
+                    .path(url)
+                    .build();
+        }
+
         ImagePipeline imagePipeline = Fresco.getImagePipeline();
 
         ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(uri)

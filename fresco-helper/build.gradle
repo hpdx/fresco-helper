@@ -45,7 +45,7 @@ dependencies {
 // Maven Group ID
 group = "com.facebook.fresco.helper"
 // library的版本号，后面每次更新都需要更改这个值
-version = "1.4.0"
+version = "1.4.1"
 
 // 生成jar包的task
 task sourcesJar(type: Jar) {
@@ -83,7 +83,7 @@ install {
             packaging 'aar'
             groupId 'com.facebook.fresco.helper'
             artifactId 'fresco-helper'
-            version '1.4.0'
+            version '1.4.1'
 
             licenses {
                 license {

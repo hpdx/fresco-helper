@@ -356,10 +356,6 @@ public final class Phoenix {
         }
 
         public void load() {
-            if (TextUtils.isEmpty(mUrl) || !UriUtil.isNetworkUri(Uri.parse(mUrl))) {
-                return;
-            }
-
             // 目前只对从网络加载图片，提供支持
             ImageLoader.loadImage(mContext, mUrl,
                     mWidth,
