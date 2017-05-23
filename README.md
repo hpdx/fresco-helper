@@ -26,7 +26,7 @@ subsampling-scale-image-view v3.6.0：[https://github.com/davemorrissey/subsampl
     }
  }
 
- compile 'com.facebook.fresco.helper:fresco-helper:1.4.1'
+ compile 'com.facebook.fresco.helper:fresco-helper:1.5.0'
 ```
 
 初始化
@@ -273,10 +273,30 @@ imageView.setImage(ImageSource.bitmap(bitmap));
 
 ```
 
-// 获取已占用磁盘缓存的大小，已B为单位
+## 其它
+
+获取已占用磁盘缓存的大小，已B为单位
 ```
 long cacheSize = Phoenix.getMainDiskStorageCacheSize();
 MLog.i("cacheSize = " + cacheSize);
+```
+
+从内存缓存中移除指定图片的缓存
+```
+String url = "http://ww1.sinaimg.cn/large/610dc034jw1fahy9m7xw0j20u00u042l.jpg";
+Phoenix.evictFromMemoryCache(url);
+```
+
+从磁盘缓存中移除指定图片的缓存
+```
+String url = "http://ww1.sinaimg.cn/large/610dc034jw1fahy9m7xw0j20u00u042l.jpg";
+Phoenix.evictFromDiskCache(url);
+```
+
+移除指定图片的所有缓存（包括内存+磁盘）
+```
+String url = "http://ww1.sinaimg.cn/large/610dc034jw1fahy9m7xw0j20u00u042l.jpg";
+Phoenix.evictFromCache(url);
 ```
 
 清空所有内存缓存
