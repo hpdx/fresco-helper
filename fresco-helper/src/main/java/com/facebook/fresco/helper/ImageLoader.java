@@ -619,6 +619,14 @@ public class ImageLoader {
         }, Executors.newSingleThreadExecutor());
     }
 
+    /**
+     * 从本地文件或网络获取Bitmap
+     * @param context
+     * @param url
+     * @param reqWidth
+     * @param reqHeight
+     * @param loadImageResult
+     */
     public static void loadImage(Context context, String url, final int reqWidth, final int reqHeight, final IResult<Bitmap> loadImageResult) {
         if (TextUtils.isEmpty(url)) {
             MLog.i("url is null");

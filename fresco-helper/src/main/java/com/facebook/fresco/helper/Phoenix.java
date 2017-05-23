@@ -44,7 +44,6 @@ public final class Phoenix {
     }
 
     public static void init(Context context, ImagePipelineConfig imagePipelineConfig) {
-        MLog.init(true, "MLog");
         Fresco.initialize(context, imagePipelineConfig);
     }
 
@@ -100,6 +99,44 @@ public final class Phoenix {
     public static void evictFromCache(final Uri uri) {
         evictFromMemoryCache(uri);
         evictFromDiskCache(uri);
+    }
+
+    /**
+     * 从内存缓存中移除指定图片的缓存
+     *
+     * @param url
+     */
+    public static void evictFromMemoryCache(final String url) {
+        evictFromMemoryCache(imageUri(url));
+    }
+
+    /**
+     * 从磁盘缓存中移除指定图片的缓存
+     *
+     * @param url
+     */
+    public static void evictFromDiskCache(final String url) {
+        evictFromDiskCache(imageUri(url));
+    }
+
+    /**
+     * 移除指定图片的所有缓存（包括内存+磁盘）
+     *
+     * @param url
+     */
+    public static void evictFromCache(final String url) {
+        evictFromCache(imageUri(url));
+    }
+
+    public static Uri imageUri(String url) {
+        Uri uri = Uri.parse(url);
+        if(!UriUtil.isNetworkUri(uri)) {
+            uri = new Uri.Builder()
+                    .scheme(UriUtil.LOCAL_FILE_SCHEME)
+                    .path(url)
+                    .build();
+        }
+        return uri;
     }
 
     /**

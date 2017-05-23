@@ -30,22 +30,24 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.facebook.fresco:fresco:1.3.0'
-    compile 'com.facebook.fresco:animated-base-support:1.3.0'
-    compile 'com.facebook.fresco:animated-gif:1.3.0'
-    compile 'com.facebook.fresco:webpsupport:1.3.0'
-    compile 'com.facebook.fresco:animated-webp:1.3.0'
-    compile 'com.facebook.fresco:imagepipeline-okhttp3:1.3.0'
-    compile 'com.anbetter:MLog:1.0.1'
-    compile 'com.android.support:support-annotations:25.3.1'
+    compile 'com.facebook.fresco:fresco:' + rootProject.ext.frescoVersion
+    compile 'com.facebook.fresco:animated-base-support:' + rootProject.ext.frescoVersion
+    compile 'com.facebook.fresco:animated-gif:'+ rootProject.ext.frescoVersion
+    compile 'com.facebook.fresco:webpsupport:' + rootProject.ext.frescoVersion
+    compile 'com.facebook.fresco:animated-webp:' + rootProject.ext.frescoVersion
     compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.6.0'
-//    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'com.squareup.okhttp3:okhttp:' + rootProject.ext.okhttp3Version
+    compile 'com.anbetter:MLog:' + rootProject.ext.logVersion
+    compile 'com.android.support:support-annotations:25.3.1'
+
+//    compile 'com.facebook.fresco:imagepipeline-okhttp3:' + rootProject.ext.frescoVersion
+//    compile 'com.squareup.okhttp3:logging-interceptor:' + + rootProject.ext.frescoVersion
 }
 
 // Maven Group ID
 group = "com.facebook.fresco.helper"
 // library的版本号，后面每次更新都需要更改这个值
-version = "1.4.1"
+version = rootProject.ext.frescoHelperVersion
 
 // 生成jar包的task
 task sourcesJar(type: Jar) {
@@ -83,7 +85,7 @@ install {
             packaging 'aar'
             groupId 'com.facebook.fresco.helper'
             artifactId 'fresco-helper'
-            version '1.4.1'
+            version rootProject.ext.frescoHelperVersion
 
             licenses {
                 license {

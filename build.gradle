@@ -30,3 +30,10 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    frescoHelperVersion = '1.5.0'
+    frescoVersion = '1.3.0'
+    okhttp3Version = '3.8.0'
+    logVersion = '1.1.0'
+}
