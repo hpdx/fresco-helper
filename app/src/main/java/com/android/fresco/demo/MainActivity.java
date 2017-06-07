@@ -14,6 +14,7 @@ import com.anbetter.log.MLog;
 import com.facebook.fresco.helper.Phoenix;
 import com.facebook.fresco.helper.listener.IDownloadResult;
 import com.facebook.fresco.helper.listener.IResult;
+import com.facebook.fresco.helper.utils.FileUtils;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -169,6 +170,21 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }).load();
+    }
+
+    public void downloadImageGif(Context context) {
+        String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496383829892&di=ac88e62a1424eaddcc03502e99e8168f&imgtype=0&src=http%3A%2F%2Fi3.17173cdn.com%2F2fhnvk%2FYWxqaGBf%2Fcms3%2FVqLgYAbkkbmrjhy.gif";
+        String filePath = FileUtils.getImageDownloadPath(context, url);
+        Phoenix.with(context)
+                .setUrl(url)
+                .setResult(new IDownloadResult(filePath) {
+                    @Override
+                    public void onResult(String filePath) {
+                        MLog.i("filePath = " + filePath);
+
+                    }
+                })
+                .download();
     }
 
 }

@@ -643,9 +643,11 @@ public class ImageLoader {
 
         ImagePipeline imagePipeline = Fresco.getImagePipeline();
 
-        ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(uri)
-                .setResizeOptions(new ResizeOptions(reqWidth, reqHeight))
-                .build();
+        ImageRequestBuilder imageRequestBuilder = ImageRequestBuilder.newBuilderWithSource(uri);
+        if (reqWidth > 0 && reqHeight > 0) {
+            imageRequestBuilder.setResizeOptions(new ResizeOptions(reqWidth, reqHeight));
+        }
+        ImageRequest imageRequest = imageRequestBuilder.build();
 
         // 获取已解码的图片，返回的是Bitmap
         DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(imageRequest, context);
