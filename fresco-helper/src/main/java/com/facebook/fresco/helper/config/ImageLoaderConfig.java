@@ -12,15 +12,12 @@ import com.facebook.common.memory.MemoryTrimmableRegistry;
 import com.facebook.common.memory.NoOpMemoryTrimmableRegistry;
 import com.facebook.common.util.ByteConstants;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.fresco.helper.okhttp3.OkHttpImagePipelineConfigFactory;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.listener.RequestListener;
 
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
-
-import okhttp3.OkHttpClient;
 
 /**
  *
@@ -90,12 +87,11 @@ public class ImageLoaderConfig {
     }
 
     /**
-     * Create ImagePipelineConfig Builder（默认配置为OKHttp3）
+     * Create ImagePipelineConfig Builder
      * @return
      */
     protected ImagePipelineConfig.Builder createConfigBuilder() {
-//        return ImagePipelineConfig.newBuilder(mContext);
-        return OkHttpImagePipelineConfigFactory.newBuilder(mContext, getOkHttpClient());
+        return ImagePipelineConfig.newBuilder(mContext);
     }
 
     /**
@@ -154,11 +150,10 @@ public class ImageLoaderConfig {
 //                fileCacheDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Fresco");
 //            }
 
-        DiskCacheConfig mainDiskCacheConfig = DiskCacheConfig.newBuilder(mContext)
+        return DiskCacheConfig.newBuilder(mContext)
                 .setBaseDirectoryName(IMAGE_PIPELINE_CACHE_DIR)
                 .setBaseDirectoryPath(fileCacheDir)
                 .build();
-        return mainDiskCacheConfig;
     }
 
     /**
@@ -176,27 +171,12 @@ public class ImageLoaderConfig {
 //                fileCacheDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Fresco");
 //            }
 
-        DiskCacheConfig smallDiskCacheConfig = DiskCacheConfig.newBuilder(mContext)
+        return DiskCacheConfig.newBuilder(mContext)
                 .setBaseDirectoryPath(fileCacheDir)
                 .setBaseDirectoryName(IMAGE_PIPELINE_SMALL_CACHE_DIR)
                 .setMaxCacheSize(MAX_DISK_SMALL_CACHE_SIZE)
                 .setMaxCacheSizeOnLowDiskSpace(MAX_DISK_SMALL_ONLOWDISKSPACE_CACHE_SIZE)
                 .build();
-        return smallDiskCacheConfig;
-    }
-
-    /**
-     * 获取OkHttpClient，子类覆盖该方法，可以任意定制
-     * @return
-     */
-    protected OkHttpClient getOkHttpClient() {
-//            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-//            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-//                    .addInterceptor(loggingInterceptor)
-//                    .retryOnConnectionFailure(false)
-                .build();
-        return okHttpClient;
     }
 
 }

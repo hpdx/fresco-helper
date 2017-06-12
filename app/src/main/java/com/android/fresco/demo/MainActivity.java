@@ -8,15 +8,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.anbetter.log.MLog;
 import com.facebook.fresco.helper.Phoenix;
 import com.facebook.fresco.helper.listener.IDownloadResult;
 import com.facebook.fresco.helper.listener.IResult;
 import com.facebook.fresco.helper.utils.FileUtils;
-
-import static java.lang.System.currentTimeMillis;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,11 +22,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        long startTime = currentTimeMillis();
-        Phoenix.init(this); // Context
-        long result = System.currentTimeMillis() - startTime;
-        ((TextView) findViewById(R.id.tv_init_count_time)).setText("初始化耗时：" + result + "ms");
-
+//        long startTime = currentTimeMillis();
+//        Phoenix.init(this); // Context
+//        long result = System.currentTimeMillis() - startTime;
+//        ((TextView) findViewById(R.id.tv_init_count_time)).setText("初始化耗时：" + result + "ms");
 
         findViewById(R.id.btn_base_use).setOnClickListener(new View.OnClickListener() {
             @Override

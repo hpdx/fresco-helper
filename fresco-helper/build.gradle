@@ -36,12 +36,7 @@ dependencies {
     compile 'com.facebook.fresco:webpsupport:' + rootProject.ext.frescoVersion
     compile 'com.facebook.fresco:animated-webp:' + rootProject.ext.frescoVersion
     compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.6.0'
-    compile 'com.squareup.okhttp3:okhttp:' + rootProject.ext.okhttp3Version
-    compile 'com.anbetter:MLog:' + rootProject.ext.logVersion
-    compile 'com.android.support:support-annotations:25.3.1'
-
-//    compile 'com.facebook.fresco:imagepipeline-okhttp3:' + rootProject.ext.frescoVersion
-//    compile 'com.squareup.okhttp3:logging-interceptor:' + + rootProject.ext.frescoVersion
+    compile 'com.anbetter:MLog:1.1.0'
 }
 
 // Maven Group ID

@@ -26,7 +26,7 @@ subsampling-scale-image-view v3.6.0：[https://github.com/davemorrissey/subsampl
     }
  }
 
- compile 'com.facebook.fresco.helper:fresco-helper:1.5.1'
+ compile 'com.facebook.fresco.helper:fresco-helper:1.5.2'
 ```
 
 初始化
@@ -272,6 +272,98 @@ imageView.setImage(ImageSource.uri("/storage/emulated/0/fresco-helper/Download/I
 imageView.setImage(ImageSource.bitmap(bitmap));    
 
 ```
+
+
+## 网络请求库使用OKHttp3
+
+1、可以使用Fresco内置的OKHttp3 v3.6.0
+```
+compile 'com.facebook.fresco:imagepipeline-okhttp3:1.3.0'
+```
+
+2、在项目中已经使用OKHttp3作为网络请求库，想让图片加载库网络请求，使用与项目中一致的版本
+```
+compile 'com.squareup.okhttp3:okhttp:3.8.0'
+```
+
+3、新建类继承ImageLoaderConfig类
+```
+package com.android.fresco.demo.config;
+
+import android.content.Context;
+
+import com.android.fresco.demo.okhttp3.OkHttpImagePipelineConfigFactory;
+import com.facebook.fresco.helper.config.ImageLoaderConfig;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
+
+import okhttp3.OkHttpClient;
+
+/**
+ * Created by android_ls on 2017/6/12.
+ */
+
+public class PhoenixConfig extends ImageLoaderConfig {
+
+    private static PhoenixConfig sImageLoaderConfig;
+
+    protected PhoenixConfig(Context context) {
+        super(context);
+    }
+
+    public static PhoenixConfig get(Context context) {
+        if (sImageLoaderConfig == null) {
+            synchronized (PhoenixConfig.class) {
+                if (sImageLoaderConfig == null) {
+                    sImageLoaderConfig = new PhoenixConfig(context);
+                }
+            }
+        }
+        return sImageLoaderConfig;
+    }
+
+    /**
+     * 使用OKHttp3替换原有的网络请求
+     * @return
+     */
+    @Override
+    protected ImagePipelineConfig.Builder createConfigBuilder() {
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .retryOnConnectionFailure(false)
+                .build();
+        return OkHttpImagePipelineConfigFactory.newBuilder(mContext, okHttpClient);
+    }
+
+}
+```
+
+4、在初始化时，加入配置参数
+```
+package com.android.fresco.demo;
+
+import android.app.Application;
+
+import com.android.fresco.demo.config.PhoenixConfig;
+import com.facebook.fresco.helper.Phoenix;
+
+/**
+ * Created by android_ls on 2017/6/12.
+ */
+
+public class App extends Application {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        // init Phoenix
+        Phoenix.init(this, PhoenixConfig.get(this).getImagePipelineConfig());
+    }
+
+}
+
+```
+
+5、另外说句，目前ImageLoaderConfig是支持自定义配置的。
+
 
 ## 其它
 
