@@ -24,12 +24,15 @@ public class BigImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fresco_big);
 
-        String url = "https://ws1.sinaimg.cn/large/610dc034ly1fgi3vd6irmj20u011i439.jpg";
+//        String url = "https://ws1.sinaimg.cn/large/610dc034ly1fgi3vd6irmj20u011i439.jpg";
+        String url = "http://pic6.miliyo.com/mapi/i/gift/Lollipop.png?gv=195_21";
 
         SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
 //        ImageLoader.loadImage(simpleDraweeView, url);
 
         Phoenix.with(simpleDraweeView)
+                .setWidth(260)
+                .setHeight(260)
                 .setControllerListener(new ControllerListener<ImageInfo>() {
             @Override
             public void onSubmit(String id, Object callerContext) {

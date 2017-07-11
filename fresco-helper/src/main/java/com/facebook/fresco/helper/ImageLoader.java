@@ -442,7 +442,7 @@ public class ImageLoader {
 
         ImageRequestBuilder imageRequestBuilder = ImageRequestBuilder.newBuilderWithSource(uri);
         imageRequestBuilder.setRotationOptions(RotationOptions.autoRotate());
-        imageRequestBuilder.setProgressiveRenderingEnabled(true); // 支持图片渐进式加载
+        imageRequestBuilder.setProgressiveRenderingEnabled(false); // 不支持图片渐进式加载
 
         if (isSmall) {
             imageRequestBuilder.setCacheChoice(ImageRequest.CacheChoice.SMALL);
