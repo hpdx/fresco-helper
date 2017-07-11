@@ -442,7 +442,9 @@ public class ImageLoader {
 
         ImageRequestBuilder imageRequestBuilder = ImageRequestBuilder.newBuilderWithSource(uri);
         imageRequestBuilder.setRotationOptions(RotationOptions.autoRotate());
-        imageRequestBuilder.setProgressiveRenderingEnabled(false); // 不支持图片渐进式加载
+
+        // 不支持图片渐进式加载，理由：https://github.com/facebook/fresco/issues/1204
+        imageRequestBuilder.setProgressiveRenderingEnabled(false);
 
         if (isSmall) {
             imageRequestBuilder.setCacheChoice(ImageRequest.CacheChoice.SMALL);
