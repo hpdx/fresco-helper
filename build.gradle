@@ -32,6 +32,6 @@ task clean(type: Delete) {
 }
 
 ext {
-    frescoHelperVersion = '1.6.2'
+    frescoHelperVersion = '1.6.3'
     frescoVersion = '1.5.0'
 }

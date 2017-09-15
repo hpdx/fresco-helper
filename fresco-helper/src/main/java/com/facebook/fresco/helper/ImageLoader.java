@@ -30,9 +30,11 @@ import com.facebook.fresco.helper.blur.BitmapBlurHelper;
 import com.facebook.fresco.helper.listener.IDownloadResult;
 import com.facebook.fresco.helper.listener.IResult;
 import com.facebook.fresco.helper.utils.StreamTool;
+import com.facebook.imagepipeline.animated.base.AnimatedImageResult;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.common.RotationOptions;
 import com.facebook.imagepipeline.core.ImagePipeline;
+import com.facebook.imagepipeline.image.CloseableAnimatedImage;
 import com.facebook.imagepipeline.image.CloseableBitmap;
 import com.facebook.imagepipeline.image.CloseableImage;
 import com.facebook.imagepipeline.image.ImageInfo;
@@ -478,10 +480,6 @@ public class ImageLoader {
         simpleDraweeView.setController(draweeController);
     }
 
-    public static void loadImage(Context context, String url, final IResult<Bitmap> loadImageResult) {
-        loadOriginalImage(context, url, loadImageResult, UiThreadImmediateExecutorService.getInstance());
-    }
-
     /**
      * 根据提供的图片URL加载原始图（该方法仅针对大小在100k以内的图片，若不确定图片大小，
      * 请使用下面的downloadImage(String url, final DownloadImageResult loadFileResult) ）
@@ -489,8 +487,8 @@ public class ImageLoader {
      * @param url             图片URL
      * @param loadImageResult LoadImageResult
      */
-    public static void loadOriginalImage(Context context, String url, final IResult<Bitmap> loadImageResult) {
-        loadOriginalImage(context, url, loadImageResult, Executors.newSingleThreadExecutor());
+    public static void loadImage(Context context, String url, final IResult<Bitmap> loadImageResult) {
+        loadOriginalImage(context, url, loadImageResult, UiThreadImmediateExecutorService.getInstance());
     }
 
     /**
@@ -532,7 +530,9 @@ public class ImageLoader {
                         if (bitmap != null && !bitmap.isRecycled()) {
                             // https://github.com/facebook/fresco/issues/648
                             final Bitmap tempBitmap = bitmap.copy(bitmap.getConfig(), false);
-                            loadImageResult.onResult(tempBitmap);
+                            if (loadImageResult != null) {
+                                loadImageResult.onResult(tempBitmap);
+                            }
                         }
                     } finally {
                         imageReference.close();
@@ -623,21 +623,26 @@ public class ImageLoader {
 
     /**
      * 从本地文件或网络获取Bitmap
+     *
      * @param context
      * @param url
      * @param reqWidth
      * @param reqHeight
      * @param loadImageResult
      */
-    public static void loadImage(Context context, String url, final int reqWidth, final int reqHeight, final IResult<Bitmap> loadImageResult) {
+    public static void loadImage(final Context context,
+                                 String url,
+                                 final int reqWidth,
+                                 final int reqHeight,
+                                 final IResult<Bitmap> loadImageResult) {
         if (TextUtils.isEmpty(url)) {
             MLog.i("url is null");
             return;
         }
 
         Uri uri = Uri.parse(url);
-        if(!UriUtil.isNetworkUri(uri)) {
-             uri = new Uri.Builder()
+        if (!UriUtil.isNetworkUri(uri)) {
+            uri = new Uri.Builder()
                     .scheme(UriUtil.LOCAL_FILE_SCHEME)
                     .path(url)
                     .build();
@@ -653,22 +658,41 @@ public class ImageLoader {
 
         // 获取已解码的图片，返回的是Bitmap
         DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(imageRequest, context);
-        DataSubscriber dataSubscriber = new BaseDataSubscriber<CloseableReference<CloseableBitmap>>() {
+        DataSubscriber dataSubscriber = new BaseDataSubscriber<CloseableReference<CloseableImage>>() {
             @Override
-            public void onNewResultImpl(DataSource<CloseableReference<CloseableBitmap>> dataSource) {
+            public void onNewResultImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
                 if (!dataSource.isFinished()) {
                     return;
                 }
 
-                CloseableReference<CloseableBitmap> imageReference = dataSource.getResult();
+                CloseableReference<CloseableImage> imageReference = dataSource.getResult();
                 if (imageReference != null) {
-                    final CloseableReference<CloseableBitmap> closeableReference = imageReference.clone();
+                    final CloseableReference<CloseableImage> closeableReference = imageReference.clone();
                     try {
-                        CloseableBitmap closeableBitmap = closeableReference.get();
-                        Bitmap bitmap = closeableBitmap.getUnderlyingBitmap();
-                        if (bitmap != null && !bitmap.isRecycled()) {
-                            final Bitmap tempBitmap = bitmap.copy(bitmap.getConfig(), false);
-                            loadImageResult.onResult(tempBitmap);
+                        CloseableImage closeableImage = closeableReference.get();
+                        if (closeableImage instanceof CloseableAnimatedImage) {
+                            AnimatedImageResult animatedImageResult = ((CloseableAnimatedImage) closeableImage).getImageResult();
+                            if (animatedImageResult != null && animatedImageResult.getImage() != null) {
+                                int imageWidth = animatedImageResult.getImage().getWidth();
+                                int imageHeight = animatedImageResult.getImage().getHeight();
+
+                                Bitmap.Config bitmapConfig = Bitmap.Config.ARGB_8888;
+                                Bitmap bitmap = Bitmap.createBitmap(imageWidth, imageHeight, bitmapConfig);
+                                animatedImageResult.getImage().getFrame(0).renderFrame(imageWidth, imageHeight, bitmap);
+                                if (loadImageResult != null) {
+                                    loadImageResult.onResult(bitmap);
+                                }
+                            }
+                        } else if (closeableImage instanceof CloseableBitmap) {
+                            CloseableBitmap closeableBitmap = (CloseableBitmap) closeableImage;
+                            Bitmap bitmap = closeableBitmap.getUnderlyingBitmap();
+                            if (bitmap != null && !bitmap.isRecycled()) {
+                                // https://github.com/facebook/fresco/issues/648
+                                final Bitmap tempBitmap = bitmap.copy(bitmap.getConfig(), false);
+                                if (loadImageResult != null) {
+                                    loadImageResult.onResult(tempBitmap);
+                                }
+                            }
                         }
                     } finally {
                         imageReference.close();

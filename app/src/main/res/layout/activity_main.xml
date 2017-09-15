@@ -155,5 +155,12 @@
             android:layout_marginTop="15dp"
             android:text="对任意View的背景，进行高斯模糊效果"/>
 
+        <Button
+            android:id="@+id/btn_gif_bitmap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="加载gif图片，返回Bitmap对象（取其第一帧）"/>
+
     </LinearLayout>
 </ScrollView>

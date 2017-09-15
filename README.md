@@ -26,7 +26,7 @@ subsampling-scale-image-view v3.6.0：[https://github.com/davemorrissey/subsampl
     }
  }
 
-compile 'com.facebook.fresco.helper:fresco-helper:1.6.2'
+compile 'com.facebook.fresco.helper:fresco-helper:1.6.3'
 ```
 
 初始化
@@ -158,9 +158,25 @@ Phoenix.with(context)
        .setResult(new IResult<Bitmap>() {
             @Override
             public void onResult(Bitmap result) {
+                // 在主线程
 
             }
         }).load();
+```
+
+从网络下载gif图片，返回Bitmap对象
+```
+String url = "http://lh-avatar.liehuozhibo.com/20170911/d7682418510c7877fd4dd6afaa1be460.jpg?x-oss-process=image/resize,w_640,h_640/quality,q_90";
+Phoenix.with(GIFFirstFrameActivity.this)
+       .setUrl(url)
+//     .setWidth(DensityUtil.dipToPixels(GIFFirstFrameActivity.this, 100))
+//     .setHeight(DensityUtil.dipToPixels(GIFFirstFrameActivity.this, 100))
+       .setResult(new IResult<Bitmap>() {
+              @Override
+              public void onResult(Bitmap result) {
+                  mImageView.setImageBitmap(result);
+              }
+       }).load();
 ```
 
 从网络下载一张图片，下载完成后告诉我下载的图片存在哪里（返回的结果是在工作线程，非主线程）
@@ -173,6 +189,7 @@ Phoenix.with(context)
            @Override
            public void onResult(String filePath) {
                MLog.i("filePath = " + filePath);
+               // 在子线程，要显示到View上，需要切换到主线程
 
            }
        }).download(); 

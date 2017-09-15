@@ -128,6 +128,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.btn_gif_bitmap).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, GIFFirstFrameActivity.class));
+            }
+        });
+
     }
 
     public void preLoad() {
@@ -142,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void downloadImage(Context context) {
-        String url = "http://feed.chujianapp.com/20161108/452ab5752287a99a1b5387e2cd849006.jpg@1080w";
+        String url = "http://ww1.sinaimg.cn/large/610dc034jw1fahy9m7xw0j20u00u042l.jpg";
         String filePath = "";
         Phoenix.with(context)
                 .setUrl(url)
@@ -150,19 +157,20 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResult(String filePath) {
                         MLog.i("filePath = " + filePath);
-
+                        // 在子线程，要显示到View上，需要切换到主线程
                     }
                 })
                 .download();
     }
 
     public void downloadBitmap(Context context) {
-        String url = "http://feed.chujianapp.com/20161108/452ab5752287a99a1b5387e2cd849006.jpg@1080w";
+        String url = "http://ww1.sinaimg.cn/large/610dc034jw1fahy9m7xw0j20u00u042l.jpg";
         Phoenix.with(context)
                 .setUrl(url)
                 .setResult(new IResult<Bitmap>() {
             @Override
             public void onResult(Bitmap result) {
+                // 在主线程
 
             }
         }).load();
@@ -177,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResult(String filePath) {
                         MLog.i("filePath = " + filePath);
-
+                        // 在子线程，要显示到View上，需要切换到主线程
                     }
                 })
                 .download();
