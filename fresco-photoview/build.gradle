@@ -63,15 +63,15 @@ artifacts {
 install {
     repositories.mavenInstaller {
         pom.project {
-            name 'fresco-photoview'
-            description '基于Fresco的大图浏览库'
-            url 'https://github.com/hpdx/fresco-photoview'
+            name 'fresco-helper'
+            description 'Android上图片加载库Fresco的使用帮助类'
+            url 'https://github.com/hpdx/fresco-helper'
             inceptionYear '2016'
 
             packaging 'aar'
             groupId 'com.facebook.fresco.helper'
             artifactId 'fresco-photoview'
-            version rootProject.ext.frescoPhotoview
+            version rootProject.ext.frescoHelperVersion
 
             licenses {
                 license {
@@ -82,9 +82,9 @@ install {
             }
 
             scm {
-                connection 'https://github.com/hpdx/fresco-photoview.git' // Git仓库地址。
-                developerConnection 'https://github.com/hpdx/fresco-photoview.git' // Git仓库地址。
-                url 'https://github.com/hpdx/fresco-photoview' // 项目主页。
+                connection 'https://github.com/hpdx/fresco-helper.git' // Git仓库地址。
+                developerConnection 'https://github.com/hpdx/fresco-helper.git' // Git仓库地址。
+                url 'https://github.com/hpdx/fresco-helper' // 项目主页。
             }
 
             developers {
@@ -111,8 +111,8 @@ bintray {
         name = 'fresco-photoview'
         userOrg = user
         licenses = ['Apache-2.0']
-        websiteUrl = 'https://github.com/hpdx/fresco-photoview'
-        vcsUrl = 'https://github.com/hpdx/fresco-photoview.git'
+        websiteUrl = 'https://github.com/hpdx/fresco-helper'
+        vcsUrl = 'https://github.com/hpdx/fresco-helper.git'
         publish = true
         publicDownloadNumbers = true
     }

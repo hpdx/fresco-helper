@@ -11,8 +11,6 @@ subsampling-scale-image-view v3.9.0：[https://github.com/davemorrissey/subsampl
 
 <img src="https://github.com/hpdx/fresco-helper/blob/master/images/photo_wall.jpg" width="270px"/>  <img src="https://github.com/hpdx/fresco-helper/blob/master/images/big_image_browse.jpg" width="270px"/>
 
-<img src="https://github.com/hpdx/fresco-helper/blob/master/images/meizi.jpg" width="270px" />
-
 [下载示例Apk](https://github.com/hpdx/fresco-helper/blob/master/app-debug.apk)
 
 ## 使用：
