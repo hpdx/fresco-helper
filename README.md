@@ -4,11 +4,13 @@
 
 ## 依赖的开源库：
 fresco v1.5.0：[https://github.com/facebook/fresco](https://github.com/facebook/fresco)
-subsampling-scale-image-view v3.6.0：[https://github.com/davemorrissey/subsampling-scale-image-view](https://github.com/davemorrissey/subsampling-scale-image-view)
+subsampling-scale-image-view v3.9.0：[https://github.com/davemorrissey/subsampling-scale-image-view](https://github.com/davemorrissey/subsampling-scale-image-view)
 
 ## Demo运行后的效果图：
-<img src="https://github.com/hpdx/fresco-helper/blob/master/images/demo.jpg"  width="270px"/><img src="https://github.com/hpdx/fresco-helper/blob/master/images/demo1.jpg" width="270px"/>
-<img src="https://github.com/hpdx/fresco-helper/blob/master/images/photo_wall.jpg" width="270px"/><img src="https://github.com/hpdx/fresco-helper/blob/master/images/big_image_browse.jpg" width="270px"/>
+<img src="https://github.com/hpdx/fresco-helper/blob/master/images/demo.jpg"  width="270px"/>  <img src="https://github.com/hpdx/fresco-helper/blob/master/images/demo1.jpg" width="270px"/>
+
+<img src="https://github.com/hpdx/fresco-helper/blob/master/images/photo_wall.jpg" width="270px"/>  <img src="https://github.com/hpdx/fresco-helper/blob/master/images/big_image_browse.jpg" width="270px"/>
+
 <img src="https://github.com/hpdx/fresco-helper/blob/master/images/meizi.jpg" width="270px" />
 
 [下载示例Apk](https://github.com/hpdx/fresco-helper/blob/master/app-debug.apk)
