@@ -7,15 +7,9 @@ fresco v1.5.0：[https://github.com/facebook/fresco](https://github.com/facebook
 subsampling-scale-image-view v3.6.0：[https://github.com/davemorrissey/subsampling-scale-image-view](https://github.com/davemorrissey/subsampling-scale-image-view)
 
 ## Demo运行后的效果图：
-<img src="https://github.com/hpdx/fresco-helper/blob/master/demo.jpg" width="320px" />
-<img src="https://github.com/hpdx/fresco-helper/blob/master/demo1.jpg" width="320px" />
-<img src="https://github.com/hpdx/fresco-helper/blob/master/meizi.jpg" width="320px" />
-
-从网络加载的图片墙
-<img src="https://github.com/hpdx/fresco-helper/blob/master/meizi.jpg" width="320px" />
-
-点击图片墙中的照片后，打开的浏览大图界面
-<img src="https://github.com/hpdx/fresco-helper/blob/master/meizi.jpg" width="320px" />
+<img src="https://github.com/hpdx/fresco-helper/blob/master/images/demo.jpg"  width="270px"/><img src="https://github.com/hpdx/fresco-helper/blob/master/images/demo1.jpg" width="270px"/>
+<img src="https://github.com/hpdx/fresco-helper/blob/master/images/photo_wall.jpg" width="270px"/><img src="https://github.com/hpdx/fresco-helper/blob/master/images/big_image_browse.jpg" width="270px"/>
+<img src="https://github.com/hpdx/fresco-helper/blob/master/images/meizi.jpg" width="270px" />
 
 [下载示例Apk](https://github.com/hpdx/fresco-helper/blob/master/app-debug.apk)
 
