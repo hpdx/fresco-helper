@@ -18,7 +18,7 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
 
-import com.facebook.fresco.helper.photoview.R;
+import com.facebook.fresco.helper.R;
 
 /**
  * Created by android_ls on 2017/5/16.

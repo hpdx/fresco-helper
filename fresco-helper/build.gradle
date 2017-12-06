@@ -35,6 +35,9 @@ dependencies {
     compile 'com.facebook.fresco:webpsupport:' + rootProject.ext.frescoVersion
     compile 'com.facebook.fresco:animated-webp:' + rootProject.ext.frescoVersion
     compile 'com.davemorrissey.labs:subsampling-scale-image-view:' + rootProject.ext.SSIVVersion
+
+    compile 'com.android.support:support-v4:' + rootProject.ext.supportLibVersion
+    compile 'com.android.support:recyclerview-v7:' + rootProject.ext.supportLibVersion
     compile 'com.anbetter:MLog:1.1.0'
 }
 

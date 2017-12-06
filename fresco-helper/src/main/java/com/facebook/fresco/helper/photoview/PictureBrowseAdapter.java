@@ -21,6 +21,7 @@ import com.facebook.drawee.drawable.ProgressBarDrawable;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.fresco.helper.LargePhotoView;
 import com.facebook.fresco.helper.Phoenix;
+import com.facebook.fresco.helper.R;
 import com.facebook.fresco.helper.listener.OnProgressListener;
 import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
 import com.facebook.fresco.helper.photoview.loading.LoadingProgressBarView;

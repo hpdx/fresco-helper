@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.facebook.fresco.helper.photoview.R;
+import com.facebook.fresco.helper.R;
 
 public abstract class TransitionAnimator {
 
