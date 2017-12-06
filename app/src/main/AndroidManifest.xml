@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-    package="com.android.fresco.demo">
+          package="com.android.fresco.demo">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".App"
         tools:replace="android:icon,android:supportsRtl,android:label,android:theme">
 
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
@@ -37,6 +37,14 @@
         <activity android:name=".BigBigImageActivity"/>
         <activity android:name=".AssetsActivity"/>
         <activity android:name=".GIFFirstFrameActivity"/>
+
+        <activity android:name=".photo.PhotoWallActivity"/>
+        <activity android:name=".photo.PhotoAlbumActivity"/>
+
+        <activity
+            android:name=".photo.PhotoBrowseActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/picture_browse_activity_style"/>
 
     </application>
 

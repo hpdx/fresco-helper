@@ -11,6 +11,12 @@ subsampling-scale-image-view v3.6.0：[https://github.com/davemorrissey/subsampl
 <img src="https://github.com/hpdx/fresco-helper/blob/master/demo1.jpg" width="320px" />
 <img src="https://github.com/hpdx/fresco-helper/blob/master/meizi.jpg" width="320px" />
 
+从网络加载的图片墙
+<img src="https://github.com/hpdx/fresco-helper/blob/master/meizi.jpg" width="320px" />
+
+点击图片墙中的照片后，打开的浏览大图界面
+<img src="https://github.com/hpdx/fresco-helper/blob/master/meizi.jpg" width="320px" />
+
 [下载示例Apk](https://github.com/hpdx/fresco-helper/blob/master/app-debug.apk)
 
 ## 使用：
@@ -27,6 +33,7 @@ subsampling-scale-image-view v3.6.0：[https://github.com/davemorrissey/subsampl
  }
 
 compile 'com.facebook.fresco.helper:fresco-helper:1.6.3'
+compile 'com.facebook.fresco.helper:fresco-photoview:1.3.3'（无浏览大图的需求，可以不添加该依赖）
 ```
 
 初始化
@@ -423,7 +430,102 @@ Phoenix.clearDiskCaches();
 Phoenix.clearCaches();
 ```
 
-与之配套的浏览大图，若需要可以试试我的这个开源库[fresco-photoview](https://github.com/hpdx/fresco-photoview)
+## 照片墙、浏览大图
+* 点击照片墙中的缩略图，打开和关闭效果类似微信朋友圈的图片查看效果
+* 支持双击放大效果
+* 支持单击关闭大图浏览
+* 支持手势缩放功能
+* 支持屏蔽长按事件
+* 支持扩展，可以自定义浏览大图的UI风格
+
+
+带动画的效果打开方式（多图）
+```
+ArrayList<PhotoInfo> photos = null;
+PictureBrowse.newBuilder(PhotoWallActivity.this)
+             .setLayoutManager(mLayoutManager)
+             .setPhotoList(photos)
+             .setCurrentPosition(position)
+             .enabledAnimation(true)
+             .start();
+```
+
+无动画效果的打开方式（多图）
+```
+ ArrayList<PhotoInfo> photos = null;
+ PictureBrowse.newBuilder(PhotoWallActivity.this)
+              .setPhotoList(photos)
+              .setCurrentPosition(position)
+              .start();
+```
+
+带动画效果的打开方式（只有一张图片）
+```
+String originalUrl = photos.get(position).originalUrl;
+PictureBrowse.newBuilder(PhotoWallActivity.this)
+             .setThumbnailView(view)
+             .setOriginalUrl(originalUrl)
+             .enabledAnimation(true)
+             .start();
+```
+
+无动画效果的打开方式（只有一张图片）
+```
+String originalUrl = photos.get(position).originalUrl;
+PictureBrowse.newBuilder(PhotoWallActivity.this)
+             .setOriginalUrl(originalUrl)
+             .start();
+```
+
+屏蔽长按事件
+```
+PictureBrowse.newBuilder(PhotoWallActivity.this, PhotoBrowseActivity.class)
+             .setLayoutManager(mLayoutManager)
+             .setPhotoList(photos)
+             .setCurrentPosition(position)
+             .enabledAnimation(true)
+             .toggleLongClick(false) // 屏蔽长按事件
+             .start();
+```
+
+支持扩展，可以自定义浏览大图的UI风格
+```
+public class PhotoBrowseActivity extends PictureBrowseActivity {
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_photo_browse;
+    }
+
+    @Override
+    protected void setupViews() {
+        super.setupViews();
+        findViewById(R.id.rl_top_deleted).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MLog.i("用户点击了删除按钮");
+                MLog.i("mPhotoIndex = " + mPhotoIndex);
+
+                PhotoInfo photoInfo = mItems.get(mPhotoIndex);
+                MLog.i("originalUrl = " + photoInfo.originalUrl);
+
+            }
+        });
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        MLog.i("currentPosition = " + getCurrentPosition());
+
+        PhotoInfo photoInfo = getCurrentPhotoInfo();
+        MLog.i("current originalUrl = " + photoInfo.originalUrl);
+
+        return super.onLongClick(view);
+    }
+
+}
+
+```
 
 
 更详细的讲解，请查阅我的这篇博客：[Android图片加载神器之Fresco，基于各种使用场景的讲解。](http://blog.csdn.net/android_ls/article/details/53137867)

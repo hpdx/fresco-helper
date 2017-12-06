@@ -80,8 +80,7 @@ public class BigBigImageActivity extends AppCompatActivity {
 //        String fileCacheDir = getCacheDir().getAbsolutePath();
 //        MLog.i("fileCacheDir = " + fileCacheDir);
 
-//        String url = "http://img5q.duitang.com/uploads/item/201402/24/20140224212510_eQRG5.thumb.700_0.jpeg";
-        String url = "http://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1490349606605&di=5510cf624bce949b977ba005f1dbaf84&imgtype=0&src=http%3A%2F%2Fattach.bbs.letv.com%2Fforum%2F201607%2F02%2F195153fz3mxtd50d0qjtz9.jpg";
+        String url = "http://img5q.duitang.com/uploads/item/201402/24/20140224212510_eQRG5.thumb.700_0.jpeg";
 //        Phoenix.with(imageView)
 //                .setDiskCacheDir(fileCacheDir)
 //                .load(url);

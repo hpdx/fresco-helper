@@ -1,2 +1,3 @@
 include ':app',
-        ':fresco-helper'
+        ':fresco-helper',
+        ':fresco-photoview'

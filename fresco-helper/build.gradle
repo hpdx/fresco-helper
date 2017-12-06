@@ -3,12 +3,12 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 22
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
         versionCode 1
         versionName "1.0"
     }
@@ -31,10 +31,10 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile 'com.facebook.fresco:fresco:' + rootProject.ext.frescoVersion
-    compile 'com.facebook.fresco:animated-gif:'+ rootProject.ext.frescoVersion
+    compile 'com.facebook.fresco:animated-gif:' + rootProject.ext.frescoVersion
     compile 'com.facebook.fresco:webpsupport:' + rootProject.ext.frescoVersion
     compile 'com.facebook.fresco:animated-webp:' + rootProject.ext.frescoVersion
-    compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.6.0'
+    compile 'com.davemorrissey.labs:subsampling-scale-image-view:' + rootProject.ext.SSIVVersion
     compile 'com.anbetter:MLog:1.1.0'
 }
 

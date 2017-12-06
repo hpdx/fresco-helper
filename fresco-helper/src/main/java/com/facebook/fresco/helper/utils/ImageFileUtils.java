@@ -1,7 +1,6 @@
 package com.facebook.fresco.helper.utils;
 
 import android.content.Context;
-import android.os.Environment;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -11,7 +10,7 @@ import java.util.UUID;
 /**
  * Created by android_ls on 16/9/10.
  */
-public class FileUtils {
+public class ImageFileUtils {
 
     /**
      * 本地与我们应用程序相关文件存放的根目录
@@ -34,19 +33,13 @@ public class FileUtils {
     }
 
     /**
-     * 获取SDCard卡或者手机内存的根路径（优先获取SDCard卡的根路径）
+     * 获取外部存储路径
      *
      * @param context Context
      * @return SDCard卡或者手机内存的根路径
      */
     public static String getRootDir(Context context) {
-        String rootDir = null;
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            rootDir = Environment.getExternalStorageDirectory().getAbsolutePath() + ROOT_DIR_PATH;
-        } else {
-            rootDir = context.getApplicationContext().getCacheDir().getAbsolutePath() + ROOT_DIR_PATH;
-        }
-        return rootDir;
+        return context.getApplicationContext().getFilesDir().getPath() + ROOT_DIR_PATH;
     }
 
     /**

@@ -17,7 +17,7 @@ import com.facebook.fresco.helper.config.ImageLoaderConfig;
 import com.facebook.fresco.helper.listener.IDownloadResult;
 import com.facebook.fresco.helper.listener.IResult;
 import com.facebook.fresco.helper.utils.CircleBitmapTransform;
-import com.facebook.fresco.helper.utils.FileUtils;
+import com.facebook.fresco.helper.utils.ImageFileUtils;
 import com.facebook.imagepipeline.core.ImagePipeline;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.image.ImageInfo;
@@ -458,15 +458,15 @@ public final class Phoenix {
 
             if (mSubsamplingScaleImageView != null) {
                 if(mDiskCachePath == null) {
-                    mDiskCachePath = FileUtils.getImageDownloadPath(mSubsamplingScaleImageView.getContext(), url);
+                    mDiskCachePath = ImageFileUtils.getImageDownloadPath(mSubsamplingScaleImageView.getContext(), url);
                 } else {
-                    String fileName = FileUtils.getFileName(url);
+                    String fileName = ImageFileUtils.getFileName(url);
                     mDiskCachePath = mDiskCachePath + File.separator + fileName;
                 }
-                MLog.i("mDiskCachePath = " + mDiskCachePath);
+//                MLog.i("mDiskCachePath = " + mDiskCachePath);
 
-                if (FileUtils.exists(mDiskCachePath)) {
-                    MLog.i("-->local file already exists");
+                if (ImageFileUtils.exists(mDiskCachePath)) {
+//                    MLog.i("-->local file already exists");
                     mSubsamplingScaleImageView.post(new Runnable() {
                         @Override
                         public void run() {
@@ -490,7 +490,7 @@ public final class Phoenix {
 
                                 @Override
                                 public void onResult(final String filePath) {
-                                    MLog.i("-->filePath = " + filePath);
+//                                    MLog.i("-->filePath = " + filePath);
                                     mSubsamplingScaleImageView.post(new Runnable() {
                                         @Override
                                         public void run() {

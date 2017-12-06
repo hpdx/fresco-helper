@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.facebook.fresco.helper.photoview.loading.LoadingProgressBarView
+        android:id="@+id/progress_view"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:ppvBackgroundColor="#00000000"
+        app:ppvProgress="0"
+        app:ppvProgressColor="#96ffffff"
+        app:ppvProgressFillType="radial"
+        app:ppvStrokeColor="#96FFFFFF"
+        app:ppvStrokeWidth="2dp"/>
+
+    <com.facebook.fresco.helper.LargePhotoView
+        android:id="@+id/photo_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>

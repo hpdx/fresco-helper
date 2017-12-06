@@ -10,10 +10,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.anbetter.log.MLog;
+import com.android.fresco.demo.photo.PhotoAlbumActivity;
+import com.android.fresco.demo.photo.PhotoWallActivity;
 import com.facebook.fresco.helper.Phoenix;
 import com.facebook.fresco.helper.listener.IDownloadResult;
 import com.facebook.fresco.helper.listener.IResult;
-import com.facebook.fresco.helper.utils.FileUtils;
+import com.facebook.fresco.helper.utils.ImageFileUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,10 +24,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        long startTime = currentTimeMillis();
-//        Phoenix.init(this); // Context
-//        long result = System.currentTimeMillis() - startTime;
-//        ((TextView) findViewById(R.id.tv_init_count_time)).setText("初始化耗时：" + result + "ms");
+        findViewById(R.id.btn_open_photo_wall).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, PhotoWallActivity.class));
+            }
+        });
+
+        findViewById(R.id.btn_open_photo_album).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, PhotoAlbumActivity.class));
+            }
+        });
 
         findViewById(R.id.btn_base_use).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void downloadImageGif(Context context) {
         String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496383829892&di=ac88e62a1424eaddcc03502e99e8168f&imgtype=0&src=http%3A%2F%2Fi3.17173cdn.com%2F2fhnvk%2FYWxqaGBf%2Fcms3%2FVqLgYAbkkbmrjhy.gif";
-        String filePath = FileUtils.getImageDownloadPath(context, url);
+        String filePath = ImageFileUtils.getImageDownloadPath(context, url);
         Phoenix.with(context)
                 .setUrl(url)
                 .setResult(new IDownloadResult(filePath) {

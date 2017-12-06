@@ -1,0 +1,38 @@
+<resources>
+
+    <style name="picture_browse_activity_style">
+        <item name="android:windowBackground">@drawable/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <color name="default_background_color">@android:color/transparent</color>
+    <color name="default_progress_color">#33b5e5</color>
+    <color name="default_stroke_color">#33b5e5</color>
+    <color name="default_text_color">#333333</color>
+
+    <declare-styleable name="LoadingProgressBarView">
+        <attr name="android:text"/>
+        <attr name="android:textSize"/>
+        <attr name="android:textColor"/>
+        <attr name="ppvProgress" format="integer"/>
+        <attr name="ppvMax" format="integer"/>
+        <attr name="ppvStartAngle" format="integer"/>
+        <attr name="ppvInverted" format="boolean"/>
+        <attr name="ppvCounterclockwise" format="boolean"/>
+        <attr name="ppvStrokeWidth" format="dimension"/>
+        <attr name="ppvBackgroundColor" format="reference|color"/>
+        <attr name="ppvProgressColor" format="reference|color"/>
+        <attr name="ppvStrokeColor" format="reference|color"/>
+        <attr name="ppvShowStroke" format="boolean"/>
+        <attr name="ppvShowText" format="boolean"/>
+        <attr name="ppvTypeface" format="string"/>
+        <attr name="ppvImage" format="reference"/>
+        <attr name="ppvProgressFillType" format="enum">
+            <enum name="radial" value="0"/>
+            <enum name="center" value="1"/>
+        </attr>
+    </declare-styleable>
+
+</resources>

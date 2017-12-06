@@ -2,7 +2,7 @@ package com.facebook.fresco.helper.listener;
 
 import android.content.Context;
 
-import com.facebook.fresco.helper.utils.FileUtils;
+import com.facebook.fresco.helper.utils.ImageFileUtils;
 
 /**
  * 下载图片的结果监听器
@@ -18,7 +18,7 @@ public abstract class IDownloadResult implements IResult<String> {
     }
 
     public IDownloadResult(Context context) {
-        this.mFilePath = FileUtils.getImageDownloadPath(context);
+        this.mFilePath = ImageFileUtils.getImageDownloadPath(context);
     }
 
     public String getFilePath() {

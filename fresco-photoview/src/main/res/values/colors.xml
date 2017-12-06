@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent_40">#40000000</color>
+    <drawable name="transparent">#00000000</drawable>
+</resources>

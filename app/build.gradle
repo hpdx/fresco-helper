@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
     defaultConfig {
         applicationId "com.android.fresco.demo"
-
-        minSdkVersion 16
-        targetSdkVersion 22
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
         versionCode 1
         versionName "1.0"
+        flavorDimensions "versionCode"
     }
 
     dataBinding {
@@ -26,13 +27,17 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-//    compile project(':fresco-helper')
-    compile 'com.facebook.fresco.helper:fresco-helper:1.6.3'
+    compile project(':fresco-helper')
+    compile project(':fresco-photoview')
+
+//    compile 'com.facebook.fresco.helper:fresco-photoview:' + rootProject.ext.frescoPhotoview
+//    compile 'com.facebook.fresco.helper:fresco-helper:1.6.3'
 
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
 //    compile 'com.facebook.fresco:imagepipeline-okhttp3:1.4.0'
 
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:' + rootProject.ext.supportLibVersion
+    compile 'com.android.support:recyclerview-v7:' + rootProject.ext.supportLibVersion
+
 }

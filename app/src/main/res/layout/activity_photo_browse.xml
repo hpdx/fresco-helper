@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mPhotoMainRelLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000016">
+
+    <com.facebook.fresco.helper.photoview.MViewPager
+        android:id="@+id/vp_picture_browse"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <FrameLayout
+        android:id="@+id/rl_top_deleted"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|top"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/icon_delete"/>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/photo_bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/transparent_40">
+
+        <TextView
+            android:id="@+id/tv_photo_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

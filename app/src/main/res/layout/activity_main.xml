@@ -13,11 +13,6 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-        <TextView
-            android:id="@+id/tv_init_count_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,11 +26,11 @@
                 android:text="基本用法"/>
 
             <Button
-                android:id="@+id/btn_clear_memory"
+                android:id="@+id/btn_use_databinding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:text="清除所有图片缓存"/>
+                android:text="使用DataBinding"/>
         </LinearLayout>
 
         <LinearLayout
@@ -45,38 +40,18 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_big"
+                android:id="@+id/btn_open_photo_wall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="显示大图"/>
+                android:text="从网络加载图片墙"/>
 
             <Button
-                android:id="@+id/btn_small"
+                android:id="@+id/btn_open_photo_album"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="显示指定尺寸的图"/>
+                android:layout_marginLeft="10dp"
+                android:text="从本地相册加载图片墙"/>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn_gif"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="显示gif图片"/>
-
-            <Button
-                android:id="@+id/btn_load_bitmap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="加载圆形的Bitmap"/>
         </LinearLayout>
 
         <LinearLayout
@@ -92,11 +67,11 @@
                 android:text="从res中加载图片"/>
 
             <Button
-                android:id="@+id/btn_big_big"
+                android:id="@+id/btn_asset_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:text="显示超大图图片"/>
+                android:text="从Assets中加载图片"/>
 
         </LinearLayout>
 
@@ -113,11 +88,11 @@
                 android:text="显示webp格式的图片"/>
 
             <Button
-                android:id="@+id/btn_asset_image"
+                android:id="@+id/btn_gif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="从Assets中加载图片"/>
+                android:layout_marginLeft="30dp"
+                android:text="显示gif图片"/>
 
         </LinearLayout>
 
@@ -128,18 +103,33 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_use_databinding"
+                android:id="@+id/btn_load_bitmap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="使用DataBinding"/>
+                android:text="加载圆形的Bitmap"/>
 
             <Button
-                android:id="@+id/btn_get_cache_size"
+                android:id="@+id/btn_small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="获取已使用的缓存大小"/>
+                android:layout_marginLeft="30dp"
+                android:text="显示指定尺寸的图"/>
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="显示大图（全屏显示）"/>
+
+        <Button
+            android:id="@+id/btn_big_big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="显示超大图图片(以MB为单位的)"/>
 
         <Button
             android:id="@+id/btn_blur"
@@ -161,6 +151,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="加载gif图片，返回Bitmap对象（取其第一帧）"/>
+
+        <Button
+            android:id="@+id/btn_get_cache_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取已使用的缓存大小"/>
+
+        <Button
+            android:id="@+id/btn_clear_memory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="清除所有图片缓存"/>
 
     </LinearLayout>
 </ScrollView>
