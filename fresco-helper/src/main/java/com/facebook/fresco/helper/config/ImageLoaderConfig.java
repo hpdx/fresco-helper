@@ -20,7 +20,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
  * Created by android_ls on 16/9/8.
  */
 public class ImageLoaderConfig {
@@ -33,10 +32,10 @@ public class ImageLoaderConfig {
 
     protected static final int MAX_DISK_SMALL_ONLOWDISKSPACE_CACHE_SIZE = 5 * ByteConstants.MB;
 
+    private static ImageLoaderConfig sImageLoaderConfig;
+
     protected Context mContext;
     protected ImagePipelineConfig mImagePipelineConfig;
-
-    private static ImageLoaderConfig sImageLoaderConfig;
 
     protected ImageLoaderConfig(Context context) {
         mContext = context.getApplicationContext();
@@ -44,9 +43,9 @@ public class ImageLoaderConfig {
     }
 
     public static ImageLoaderConfig getInstance(Context context) {
-        if(sImageLoaderConfig == null) {
+        if (sImageLoaderConfig == null) {
             synchronized (ImageLoaderConfig.class) {
-                if(sImageLoaderConfig == null) {
+                if (sImageLoaderConfig == null) {
                     sImageLoaderConfig = new ImageLoaderConfig(context);
                 }
             }
@@ -88,6 +87,7 @@ public class ImageLoaderConfig {
 
     /**
      * Create ImagePipelineConfig Builder
+     *
      * @return
      */
     protected ImagePipelineConfig.Builder createConfigBuilder() {
@@ -96,6 +96,7 @@ public class ImageLoaderConfig {
 
     /**
      * 当内存紧张时采取的措施
+     *
      * @return
      */
     protected MemoryTrimmableRegistry getMemoryTrimmableRegistry() {
@@ -127,6 +128,7 @@ public class ImageLoaderConfig {
 
     /**
      * 设置网络请求监听
+     *
      * @return
      */
     protected Set<RequestListener> getRequestListeners() {
@@ -137,6 +139,7 @@ public class ImageLoaderConfig {
 
     /**
      * 获取主磁盘配置
+     *
      * @return
      */
     protected DiskCacheConfig getMainDiskCacheConfig() {
@@ -146,9 +149,13 @@ public class ImageLoaderConfig {
          * 2、一些内存清理软件可以扫描出来，进行内存的清理
          */
         File fileCacheDir = mContext.getCacheDir();
-//            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-//                fileCacheDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Fresco");
-//            }
+//        File fileCacheDir = mContext.getApplicationContext().getFilesDir();
+
+//        File fileCacheDir = null;
+//        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+//            fileCacheDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Fresco");
+//        }
+//        MLog.i("getAbsolutePath = " + fileCacheDir.getAbsolutePath());
 
         return DiskCacheConfig.newBuilder(mContext)
                 .setBaseDirectoryName(IMAGE_PIPELINE_CACHE_DIR)
@@ -158,6 +165,7 @@ public class ImageLoaderConfig {
 
     /**
      * 获取小图的磁盘配置（辅助）
+     *
      * @return
      */
     protected DiskCacheConfig getSmallDiskCacheConfig() {

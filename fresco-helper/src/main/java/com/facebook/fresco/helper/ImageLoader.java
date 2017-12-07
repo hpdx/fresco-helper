@@ -712,4 +712,75 @@ public class ImageLoader {
         dataSource.subscribe(dataSubscriber, UiThreadImmediateExecutorService.getInstance());
     }
 
+    /**
+     * 从本地缓存文件中获取Bitmap
+     *
+     * @param url
+     * @param loadImageResult
+     */
+    public static void loadLocalDiskCache(String url, final IResult<Bitmap> loadImageResult) {
+        if (TextUtils.isEmpty(url)) {
+            MLog.i("url is null");
+            return;
+        }
+
+        ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url)).build();
+        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+
+        // 获取已解码的图片，返回的是Bitmap
+        DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(imageRequest,
+                ImageRequest.RequestLevel.DISK_CACHE);
+        dataSource.subscribe(new BaseDataSubscriber<CloseableReference<CloseableImage>>() {
+            @Override
+            public void onNewResultImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
+                if (!dataSource.isFinished()) {
+                    return;
+                }
+
+                CloseableReference<CloseableImage> imageReference = dataSource.getResult();
+                if (imageReference != null) {
+                    final CloseableReference<CloseableImage> closeableReference = imageReference.clone();
+                    try {
+                        CloseableImage closeableImage = closeableReference.get();
+                        if (closeableImage instanceof CloseableAnimatedImage) {
+                            AnimatedImageResult animatedImageResult = ((CloseableAnimatedImage) closeableImage).getImageResult();
+                            if (animatedImageResult != null && animatedImageResult.getImage() != null) {
+                                int imageWidth = animatedImageResult.getImage().getWidth();
+                                int imageHeight = animatedImageResult.getImage().getHeight();
+
+                                Bitmap.Config bitmapConfig = Bitmap.Config.ARGB_8888;
+                                Bitmap bitmap = Bitmap.createBitmap(imageWidth, imageHeight, bitmapConfig);
+                                animatedImageResult.getImage().getFrame(0).renderFrame(imageWidth, imageHeight, bitmap);
+                                if (loadImageResult != null) {
+                                    loadImageResult.onResult(bitmap);
+                                }
+                            }
+                        } else if (closeableImage instanceof CloseableBitmap) {
+                            CloseableBitmap closeableBitmap = (CloseableBitmap) closeableImage;
+                            Bitmap bitmap = closeableBitmap.getUnderlyingBitmap();
+                            if (bitmap != null && !bitmap.isRecycled()) {
+                                // https://github.com/facebook/fresco/issues/648
+                                final Bitmap tempBitmap = bitmap.copy(bitmap.getConfig(), false);
+                                if (loadImageResult != null) {
+                                    loadImageResult.onResult(tempBitmap);
+                                }
+                            }
+                        }
+                    } finally {
+                        imageReference.close();
+                        closeableReference.close();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailureImpl(DataSource dataSource) {
+                Throwable throwable = dataSource.getFailureCause();
+                if (throwable != null) {
+                    Log.e("ImageLoader", "onFailureImpl = " + throwable.toString());
+                }
+            }
+        }, UiThreadImmediateExecutorService.getInstance());
+    }
+
 }

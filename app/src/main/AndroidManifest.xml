@@ -37,6 +37,7 @@
         <activity android:name=".BigBigImageActivity"/>
         <activity android:name=".AssetsActivity"/>
         <activity android:name=".GIFFirstFrameActivity"/>
+        <activity android:name=".LoadDiskCacheImageActivity"/>
 
         <activity android:name=".photo.PhotoWallActivity"/>
         <activity android:name=".photo.PhotoAlbumActivity"/>

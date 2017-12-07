@@ -196,6 +196,21 @@ Phoenix.with(context)
 ```
 
 
+从本地磁盘缓存中获取Bitmap
+```
+String url = "https://ws1.sinaimg.cn/large/610dc034ly1fgi3vd6irmj20u011i439.jpg";
+Phoenix.with(url)
+       .setResult(new IResult<Bitmap>() {
+
+           @Override
+           public void onResult(Bitmap result) {
+              // 在主线程
+
+              }
+           }).loadLocalDiskCache();
+```
+
+
 ## 从网络加载一张超大图
 大小以M为单位，目标图片宽度大于手机屏幕宽的2倍以上或者高度大于手机屏幕高的2倍以上
 

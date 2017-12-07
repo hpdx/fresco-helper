@@ -117,12 +117,26 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_big"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="显示大图（全屏显示）"/>
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_load_local_bitmap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="从磁盘缓存获取Bitmap"/>
+
+            <Button
+                android:id="@+id/btn_big"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="显示大图"/>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_big_big"

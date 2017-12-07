@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.anbetter.log.MLog;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -435,6 +434,10 @@ public final class Phoenix {
             } else {
                 ImageLoader.loadDrawableBlur(mSimpleDraweeView, resId, mWidth, mHeight);
             }
+        }
+
+        public void loadLocalDiskCache() {
+            ImageLoader.loadLocalDiskCache(mUrl, mResult);
         }
 
         private void loadNormal(String url) {
