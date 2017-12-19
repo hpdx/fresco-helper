@@ -26,7 +26,7 @@ subsampling-scale-image-view v3.9.0：[https://github.com/davemorrissey/subsampl
     }
  }
 
-compile 'com.facebook.fresco.helper:fresco-helper:2.0.0'
+compile 'com.facebook.fresco.helper:fresco-helper:2.0.2'
 ```
 
 初始化
