@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.PointF;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
 import android.view.GestureDetector;
@@ -62,8 +63,9 @@ public class PictureBrowseAdapter extends PagerAdapter {
         return mItems == null ? 0 : mItems.size();
     }
 
+    @NonNull
     @Override
-    public View instantiateItem(final ViewGroup container, int position) {
+    public View instantiateItem(@NonNull final ViewGroup container, int position) {
         final PhotoInfo photoInfo = mItems.get(position);
         MLog.i("photoInfo.originalUrl = " + photoInfo.originalUrl);
 
@@ -80,7 +82,7 @@ public class PictureBrowseAdapter extends PagerAdapter {
     }
 
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         if (mItems != null && mItems.size() > 0 && position < mItems.size()) {
             PhotoInfo photoInfo = mItems.get(position);
             if(isBigImage(photoInfo)) {
@@ -96,7 +98,7 @@ public class PictureBrowseAdapter extends PagerAdapter {
     }
 
     @Override
-    public boolean isViewFromObject(View view, Object object) {
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
     }
 

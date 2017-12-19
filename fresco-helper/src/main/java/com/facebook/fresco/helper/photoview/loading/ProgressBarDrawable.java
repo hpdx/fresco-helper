@@ -78,7 +78,7 @@ public class ProgressBarDrawable extends Drawable {
 
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(@NonNull Canvas canvas) {
         // if progress = 0 ,not show
         if (mProgress == 0 || (int) ((double) ((double) mProgress / (double) mMaxValue) * 100) == 100) {
             return;
@@ -201,7 +201,7 @@ public class ProgressBarDrawable extends Drawable {
     }
 
     @Override
-    public void setColorFilter(@NonNull ColorFilter colorFilter) {
+    public void setColorFilter(ColorFilter colorFilter) {
 
     }
 

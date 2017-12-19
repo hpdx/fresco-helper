@@ -47,6 +47,7 @@ public final class BitmapBlurHelper {
             blurredBitmap = FastBlur.blur(blurredBitmap, radius, true);
         }
 
+        assert blurredBitmap != null;
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(blurredBitmap, source.getWidth(), source.getHeight(), true);
         blurredBitmap.recycle();
         return scaledBitmap;

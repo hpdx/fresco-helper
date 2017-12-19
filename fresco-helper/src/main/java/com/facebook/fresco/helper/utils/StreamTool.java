@@ -68,7 +68,7 @@ public final class StreamTool {
     public static byte[] read(InputStream inStream) throws IOException {
         ByteArrayOutputStream outSteam = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
-        int len = 0;
+        int len;
         while ((len = inStream.read(buffer)) != -1) {
             outSteam.write(buffer, 0, len);
         }

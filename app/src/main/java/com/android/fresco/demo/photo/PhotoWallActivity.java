@@ -106,10 +106,10 @@ public class PhotoWallActivity extends AppCompatActivity {
         };
 
         ArrayList<PhotoInfo> data = new ArrayList<>();
-        for (int i = 0; i < images.length; i++) {
+        for (String image : images) {
             PhotoInfo photoInfo = new PhotoInfo();
-            photoInfo.originalUrl = images[i];
-            photoInfo.thumbnailUrl = images[i];
+            photoInfo.originalUrl = image;
+            photoInfo.thumbnailUrl = image;
             data.add(photoInfo);
         }
 

@@ -12,7 +12,7 @@ import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.fresco.helper.config.ImageLoaderConfig;
+import com.facebook.fresco.helper.config.PhoenixConfig;
 import com.facebook.fresco.helper.listener.IDownloadResult;
 import com.facebook.fresco.helper.listener.IResult;
 import com.facebook.fresco.helper.utils.CircleBitmapTransform;
@@ -39,7 +39,7 @@ public final class Phoenix {
     }
 
     public static void init(Context context) {
-        init(context, ImageLoaderConfig.getInstance(context).getImagePipelineConfig());
+        init(context, PhoenixConfig.get(context));
     }
 
     public static void init(Context context, ImagePipelineConfig imagePipelineConfig) {

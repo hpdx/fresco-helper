@@ -7,6 +7,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 
 /**
  * Created by android_ls on 2017/5/16.
@@ -63,7 +64,7 @@ public class ImageLoadingDrawable extends Drawable {
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(@NonNull Canvas canvas) {
         drawBar(canvas, mTotalProgress, mRingBackgroundPaint);
         drawBar(canvas, mProgress, mRingPaint);
     }

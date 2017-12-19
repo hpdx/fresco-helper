@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
-import android.view.MotionEvent;
+
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -37,11 +37,6 @@ public class PhotoDraweeView extends SimpleDraweeView implements IAttacher {
         if (mAttacher == null || mAttacher.getDraweeView() == null) {
             mAttacher = new Attacher(this);
         }
-    }
-
-    @Override public boolean onTouchEvent(MotionEvent event) {
-
-        return super.onTouchEvent(event);
     }
 
     @Override protected void onDraw(@NonNull Canvas canvas) {

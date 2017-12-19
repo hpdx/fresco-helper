@@ -318,83 +318,40 @@ compile 'com.facebook.fresco:imagepipeline-okhttp3:1.3.0'
 compile 'com.squareup.okhttp3:okhttp:3.8.0'
 ```
 
-3、新建类继承ImageLoaderConfig类
+3、调整配置参数
 ```
-package com.android.fresco.demo.config;
-
-import android.content.Context;
-
-import com.android.fresco.demo.okhttp3.OkHttpImagePipelineConfigFactory;
-import com.facebook.fresco.helper.config.ImageLoaderConfig;
-import com.facebook.imagepipeline.core.ImagePipelineConfig;
-
-import okhttp3.OkHttpClient;
-
-/**
- * Created by android_ls on 2017/6/12.
- */
-
-public class PhoenixConfig extends ImageLoaderConfig {
-
-    private static PhoenixConfig sImageLoaderConfig;
-
-    protected PhoenixConfig(Context context) {
-        super(context);
-    }
-
-    public static PhoenixConfig get(Context context) {
-        if (sImageLoaderConfig == null) {
-            synchronized (PhoenixConfig.class) {
-                if (sImageLoaderConfig == null) {
-                    sImageLoaderConfig = new PhoenixConfig(context);
-                }
-            }
-        }
-        return sImageLoaderConfig;
-    }
-
-    /**
-     * 使用OKHttp3替换原有的网络请求
-     * @return
-     */
-    @Override
-    protected ImagePipelineConfig.Builder createConfigBuilder() {
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .retryOnConnectionFailure(false)
+ ImagePipelineConfig imagePipelineConfig = new PhoenixConfig.Builder(this) // Context
+                .setNetworkFetcher(null)
+                .setRequestListeners(null)
+                .setBitmapMemoryCacheParamsSupplier(null)
+                .setMemoryTrimmableRegistry(null)
+                .setMainDiskCacheConfig(null)
+                .setSmallImageDiskCacheConfig(null)
                 .build();
-        return OkHttpImagePipelineConfigFactory.newBuilder(mContext, okHttpClient);
-    }
-
-}
+ Phoenix.init(this, imagePipelineConfig);
 ```
 
-4、在初始化时，加入配置参数
-```
-package com.android.fresco.demo;
-
-import android.app.Application;
-
-import com.android.fresco.demo.config.PhoenixConfig;
-import com.facebook.fresco.helper.Phoenix;
-
-/**
- * Created by android_ls on 2017/6/12.
- */
-
-public class App extends Application {
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        // init Phoenix
-        Phoenix.init(this, PhoenixConfig.get(this).getImagePipelineConfig());
-    }
-
-}
+设置网络请求库使用OKHttp3的示例
 
 ```
+// LOG过滤标签： RequestLoggingListener
+Set<RequestListener> requestListeners = new HashSet<>();
+requestListeners.add(new RequestLoggingListener());
 
-5、另外说句，目前ImageLoaderConfig是支持自定义配置的。
+HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+OkHttpClient okHttpClient = new OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
+        .build();
+
+ImagePipelineConfig imagePipelineConfig = new PhoenixConfig.Builder(this)
+        .setNetworkFetcher(new OkHttpNetworkFetcher(okHttpClient))
+        .setRequestListeners(requestListeners)
+        .build();
+
+Phoenix.init(this, imagePipelineConfig); // this-->Context
+```
 
 
 ## 其它

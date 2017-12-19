@@ -21,7 +21,7 @@ public class ViewOptionsCompat {
         for (int i = 0; i < thumbnailList.size(); i++) {
             if (i >= firstVisibleItemPosition && i <= lastVisibleItemPosition) {
                 View childView = layoutManager.findViewByPosition(i);
-                if(childView != null) {
+                if (childView != null) {
                     sparseArray.put(i, createViewOptions(childView, thumbnailList.get(i)));
                 }
             }
@@ -93,11 +93,7 @@ public class ViewOptionsCompat {
      */
     public static boolean isVerticalScreen(Activity activity) {
         int flag = activity.getResources().getConfiguration().orientation;
-        if (flag == 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return !(flag == 0);
     }
 
     /**

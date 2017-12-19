@@ -148,16 +148,18 @@ public class OkHttpNetworkFetcher extends
                                 return;
                             }
 
-                            long contentLength = body.contentLength();
+                            long contentLength = body != null ? body.contentLength() : 0;
                             if (contentLength < 0) {
                                 contentLength = 0;
                             }
-                            callback.onResponse(body.byteStream(), (int) contentLength);
+                            callback.onResponse(body != null ? body.byteStream() : null, (int) contentLength);
                         } catch (Exception e) {
                             handleException(call, e, callback);
                         } finally {
                             try {
-                                body.close();
+                                if(body != null) {
+                                    body.close();
+                                }
                             } catch (Exception e) {
                                 FLog.w(TAG, "Exception when closing response body", e);
                             }

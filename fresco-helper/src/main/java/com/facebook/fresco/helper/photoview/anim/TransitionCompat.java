@@ -30,6 +30,7 @@ public class TransitionCompat {
     public TransitionCompat(final Activity activity) {
         mActivity = activity;
         Bundle bundle = activity.getIntent().getExtras();
+        assert bundle != null;
         mViewOptions = bundle.getSparseParcelableArray(ViewOptionsCompat.KEY_VIEW_OPTION_LIST);
     }
 
@@ -97,7 +98,7 @@ public class TransitionCompat {
 
         bitmapImageView.setVisibility(View.INVISIBLE);
 
-        /**
+        /*
          * 设定view开始时的大小和坐标位置
          */
         ViewGroup.LayoutParams orginalParams = new ViewGroup.LayoutParams(viewOptions.width, viewOptions.height);
@@ -136,7 +137,7 @@ public class TransitionCompat {
 
         bitmapImageView.setVisibility(View.INVISIBLE);
 
-        /**
+        /*
          * 开始设定view开始时的大小和坐标位置
          */
         ViewGroup.LayoutParams orginalParams = new ViewGroup.LayoutParams(

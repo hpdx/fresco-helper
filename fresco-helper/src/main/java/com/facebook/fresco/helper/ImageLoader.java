@@ -19,7 +19,6 @@ import com.facebook.common.references.CloseableReference;
 import com.facebook.common.util.UriUtil;
 import com.facebook.datasource.BaseDataSubscriber;
 import com.facebook.datasource.DataSource;
-import com.facebook.datasource.DataSubscriber;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.facebook.drawee.controller.BaseControllerListener;
@@ -57,9 +56,6 @@ import java.util.concurrent.Executors;
  */
 public class ImageLoader {
 
-    /*******************************************************************************************
-     * 加载网络图片相关的方法                              *
-     *******************************************************************************************/
     public static void loadImage(SimpleDraweeView simpleDraweeView, String url) {
         if (TextUtils.isEmpty(url) || simpleDraweeView == null) {
             return;
@@ -143,10 +139,6 @@ public class ImageLoader {
         loadImage(simpleDraweeView, uri, reqWidth, reqHeight, processor, null, true);
     }
 
-    /*******************************************************************************************
-     * 加载本地文件相关的方法                              *
-     *******************************************************************************************/
-
     public static void loadFile(final SimpleDraweeView simpleDraweeView, String filePath) {
         if (TextUtils.isEmpty(filePath)) {
             return;
@@ -211,10 +203,6 @@ public class ImageLoader {
         loadImage(simpleDraweeView, uri, reqWidth, reqHeight, processor, null, false);
     }
 
-    /*******************************************************************************************
-     * 加载本地res下面资源相关的方法                             *
-     *******************************************************************************************/
-
     public static void loadDrawable(SimpleDraweeView simpleDraweeView, int resId) {
         if (resId == 0 || simpleDraweeView == null) {
             return;
@@ -265,10 +253,6 @@ public class ImageLoader {
         loadImage(simpleDraweeView, uri, reqWidth, reqHeight, processor, null, false);
     }
 
-    /*******************************************************************************************
-     * 加载本地asset下面资源相关的方法                             *
-     *******************************************************************************************/
-
     public static void loadAssetDrawable(SimpleDraweeView simpleDraweeView, String filename) {
         if (filename == null || simpleDraweeView == null) {
             return;
@@ -317,10 +301,6 @@ public class ImageLoader {
                 .build();
         loadImage(simpleDraweeView, uri, reqWidth, reqHeight, processor, null, false);
     }
-
-    /*******************************************************************************************
-     *                                         高斯模糊相关的方法                                 *
-     *******************************************************************************************/
 
     /**
      * 从网络加载图片，并对图片进行高斯模糊处理
@@ -514,24 +494,40 @@ public class ImageLoader {
         ImageRequest imageRequest = builder.build();
         // 获取已解码的图片，返回的是Bitmap
         DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(imageRequest, context);
-        DataSubscriber dataSubscriber = new BaseDataSubscriber<CloseableReference<CloseableBitmap>>() {
+        dataSource.subscribe(new BaseDataSubscriber<CloseableReference<CloseableImage>>() {
             @Override
-            public void onNewResultImpl(DataSource<CloseableReference<CloseableBitmap>> dataSource) {
+            public void onNewResultImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
                 if (!dataSource.isFinished()) {
                     return;
                 }
 
-                CloseableReference<CloseableBitmap> imageReference = dataSource.getResult();
+                CloseableReference<CloseableImage> imageReference = dataSource.getResult();
                 if (imageReference != null) {
-                    final CloseableReference<CloseableBitmap> closeableReference = imageReference.clone();
+                    final CloseableReference<CloseableImage> closeableReference = imageReference.clone();
                     try {
-                        CloseableBitmap closeableBitmap = closeableReference.get();
-                        Bitmap bitmap = closeableBitmap.getUnderlyingBitmap();
-                        if (bitmap != null && !bitmap.isRecycled()) {
-                            // https://github.com/facebook/fresco/issues/648
-                            final Bitmap tempBitmap = bitmap.copy(bitmap.getConfig(), false);
-                            if (loadImageResult != null) {
-                                loadImageResult.onResult(tempBitmap);
+                        CloseableImage closeableImage = closeableReference.get();
+                        if (closeableImage instanceof CloseableAnimatedImage) {
+                            AnimatedImageResult animatedImageResult = ((CloseableAnimatedImage) closeableImage).getImageResult();
+                            if (animatedImageResult != null && animatedImageResult.getImage() != null) {
+                                int imageWidth = animatedImageResult.getImage().getWidth();
+                                int imageHeight = animatedImageResult.getImage().getHeight();
+
+                                Bitmap.Config bitmapConfig = Bitmap.Config.ARGB_8888;
+                                Bitmap bitmap = Bitmap.createBitmap(imageWidth, imageHeight, bitmapConfig);
+                                animatedImageResult.getImage().getFrame(0).renderFrame(imageWidth, imageHeight, bitmap);
+                                if (loadImageResult != null) {
+                                    loadImageResult.onResult(bitmap);
+                                }
+                            }
+                        } else if (closeableImage instanceof CloseableBitmap) {
+                            CloseableBitmap closeableBitmap = (CloseableBitmap) closeableImage;
+                            Bitmap bitmap = closeableBitmap.getUnderlyingBitmap();
+                            if (bitmap != null && !bitmap.isRecycled()) {
+                                // https://github.com/facebook/fresco/issues/648
+                                final Bitmap tempBitmap = bitmap.copy(bitmap.getConfig(), false);
+                                if (loadImageResult != null) {
+                                    loadImageResult.onResult(tempBitmap);
+                                }
                             }
                         }
                     } finally {
@@ -548,8 +544,7 @@ public class ImageLoader {
                     Log.e("ImageLoader", "onFailureImpl = " + throwable.toString());
                 }
             }
-        };
-        dataSource.subscribe(dataSubscriber, executor);
+        }, executor);
     }
 
     /**
@@ -658,7 +653,7 @@ public class ImageLoader {
 
         // 获取已解码的图片，返回的是Bitmap
         DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(imageRequest, context);
-        DataSubscriber dataSubscriber = new BaseDataSubscriber<CloseableReference<CloseableImage>>() {
+        dataSource.subscribe(new BaseDataSubscriber<CloseableReference<CloseableImage>>() {
             @Override
             public void onNewResultImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
                 if (!dataSource.isFinished()) {
@@ -708,8 +703,7 @@ public class ImageLoader {
                     Log.e("ImageLoader", "onFailureImpl = " + throwable.toString());
                 }
             }
-        };
-        dataSource.subscribe(dataSubscriber, UiThreadImmediateExecutorService.getInstance());
+        }, UiThreadImmediateExecutorService.getInstance());
     }
 
     /**

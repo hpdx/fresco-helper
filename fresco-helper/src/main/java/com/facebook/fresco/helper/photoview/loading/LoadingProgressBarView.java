@@ -45,7 +45,7 @@ public class LoadingProgressBarView extends View {
     private static final float DEFAULT_STROKE_WIDTH = 3f;
     private static final float DEFAULT_TEXT_SIZE = 14f;
     private static final int DEFAULT_VIEW_SIZE = 96;
-    private static LruCache<String, Typeface> sTypefaceCache = new LruCache<String, Typeface>(8);
+    private static LruCache<String, Typeface> sTypefaceCache = new LruCache<>(8);
     private OnProgressListener mListener;
     private DisplayMetrics mDisplayMetrics;
     private int mMax = DEFAULT_MAX;

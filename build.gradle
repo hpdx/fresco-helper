@@ -45,6 +45,6 @@ ext {
 
     frescoVersion = '1.5.0'
     SSIVVersion = '3.9.0'
-    frescoHelperVersion = '2.0.0'
+    frescoHelperVersion = '2.0.2'
 
 }
