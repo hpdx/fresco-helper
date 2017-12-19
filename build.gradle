@@ -34,17 +34,17 @@ task clean(type: Delete) {
 }
 
 ext {
-    buildToolsVersion = '27.0.2'
-    compileSdkVersion = 27
+    buildToolsVersion = '26.0.2'
+    compileSdkVersion = 26
 
     minSdk = 16
     targetSdk = 22
 
     // Libraries Version Code
-    supportLibVersion = '27.0.2'
+    supportLibVersion = '26.0.2'
 
     frescoVersion = '1.5.0'
     SSIVVersion = '3.9.0'
-    frescoHelperVersion = '2.0.2'
+    frescoHelperVersion = '2.0.3'
 
 }

@@ -25,6 +25,18 @@ android {
         checkReleaseBuilds false
     }
 
+    // 强制改变所有引用com.android.support版本为26.0.2。
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion rootProject.ext.supportLibVersion
+                }
+            }
+        }
+    }
+
 }
 
 dependencies {
