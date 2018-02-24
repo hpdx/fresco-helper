@@ -28,6 +28,23 @@ public class BigImageActivity extends AppCompatActivity {
         final String url = "https://ws1.sinaimg.cn/large/610dc034ly1fgi3vd6irmj20u011i439.jpg";
         SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
 
+
+//        RoundingParams roundingParams = new RoundingParams();
+//        roundingParams.setRoundAsCircle(true);
+//        roundingParams.setBorder(Color.RED, 20);
+//
+//        roundingParams.setBorderColor(ContextCompat.getColor(simpleDraweeView.getContext(),
+//                R.color.default_background_color));
+////        roundingParams.setBorderColor(Color.parseColor("#0xff0000"));
+//        roundingParams.setBorderWidth(23f);
+//
+//        GenericDraweeHierarchy genericDraweeHierarchy
+//                = GenericDraweeHierarchyBuilder.newInstance(simpleDraweeView.getResources())
+//                .setRoundingParams(roundingParams)
+//                .build();
+//        simpleDraweeView.setHierarchy(genericDraweeHierarchy);
+
+
         Phoenix.with(simpleDraweeView)
                 .setWidth(DensityUtil.getDisplayWidth(this))
                 .setHeight(DensityUtil.getDisplayHeight(this))

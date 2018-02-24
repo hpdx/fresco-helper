@@ -43,8 +43,8 @@ ext {
     // Libraries Version Code
     supportLibVersion = '26.0.2'
 
-    frescoVersion = '1.5.0'
+    frescoVersion = '1.8.1'
     SSIVVersion = '3.9.0'
-    frescoHelperVersion = '2.0.3'
+    frescoHelperVersion = '2.0.4'
 
 }

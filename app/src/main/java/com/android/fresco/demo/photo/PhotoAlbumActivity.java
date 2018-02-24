@@ -55,11 +55,8 @@ public class PhotoAlbumActivity extends AppCompatActivity implements LoaderManag
 //                MLog.i("photos.get(position).thumbnailUrl = " + photos.get(position).thumbnailUrl);
 
                 if(photos.size() > 100) {
-                    ArrayList<PhotoInfo> data = new ArrayList<>();
-                    data.add(photos.get(position));
-
                     PictureBrowse.newBuilder(PhotoAlbumActivity.this)
-                            .setPhotoList(data)
+                            .setPhotoInfo(photos.get(position))
                             .setCurrentPosition(position)
                             .start();
                 } else {
