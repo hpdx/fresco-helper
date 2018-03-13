@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by android_ls on 16/9/19.
  */
-public class PictureBrowse {
+public class PhotoX {
 
     public static final String PHOTO_LIST_KEY = "photo_list";
     public static final String PHOTO_CURRENT_POSITION_KEY = "photo_current_position";
@@ -25,11 +25,11 @@ public class PictureBrowse {
     public static final String PHOTO_ONLY_ONE_KEY = "only_one";
     public static final String PHOTO_LONGCLICK_KEY = "onLongClick";
 
-    public static Builder newBuilder(Context context) {
+    public static Builder with(Context context) {
         return new Builder(context);
     }
 
-    public static Builder newBuilder(Context context, Class<?> targetClass) {
+    public static Builder with(Context context, Class<?> targetClass) {
         return new Builder(context, targetClass);
     }
 

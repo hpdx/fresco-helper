@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.anbetter.log.MLog;
 import com.facebook.common.executors.UiThreadImmediateExecutorService;
 import com.facebook.common.memory.PooledByteBuffer;
 import com.facebook.common.memory.PooledByteBufferInputStream;
@@ -539,6 +538,10 @@ public class ImageLoader {
 
             @Override
             public void onFailureImpl(DataSource dataSource) {
+                if (loadImageResult != null) {
+                    loadImageResult.onResult(null);
+                }
+
                 Throwable throwable = dataSource.getFailureCause();
                 if (throwable != null) {
                     Log.e("ImageLoader", "onFailureImpl = " + throwable.toString());
@@ -631,7 +634,6 @@ public class ImageLoader {
                                  final int reqHeight,
                                  final IResult<Bitmap> loadImageResult) {
         if (TextUtils.isEmpty(url)) {
-            MLog.i("url is null");
             return;
         }
 
@@ -698,6 +700,10 @@ public class ImageLoader {
 
             @Override
             public void onFailureImpl(DataSource dataSource) {
+                if (loadImageResult != null) {
+                    loadImageResult.onResult(null);
+                }
+
                 Throwable throwable = dataSource.getFailureCause();
                 if (throwable != null) {
                     Log.e("ImageLoader", "onFailureImpl = " + throwable.toString());
@@ -714,7 +720,6 @@ public class ImageLoader {
      */
     public static void loadLocalDiskCache(String url, final IResult<Bitmap> loadImageResult) {
         if (TextUtils.isEmpty(url)) {
-            MLog.i("url is null");
             return;
         }
 
@@ -769,6 +774,10 @@ public class ImageLoader {
 
             @Override
             public void onFailureImpl(DataSource dataSource) {
+                if (loadImageResult != null) {
+                    loadImageResult.onResult(null);
+                }
+
                 Throwable throwable = dataSource.getFailureCause();
                 if (throwable != null) {
                     Log.e("ImageLoader", "onFailureImpl = " + throwable.toString());

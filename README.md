@@ -408,7 +408,7 @@ Phoenix.clearCaches();
 带动画的效果打开方式（多图）
 ```
 ArrayList<PhotoInfo> photos = null;
-PictureBrowse.newBuilder(PhotoWallActivity.this)
+PhotoX.with(PhotoWallActivity.this)
              .setLayoutManager(mLayoutManager)
              .setPhotoList(photos)
              .setCurrentPosition(position)
@@ -419,7 +419,7 @@ PictureBrowse.newBuilder(PhotoWallActivity.this)
 无动画效果的打开方式（多图）
 ```
  ArrayList<PhotoInfo> photos = null;
- PictureBrowse.newBuilder(PhotoWallActivity.this)
+ PhotoX.with(PhotoWallActivity.this)
               .setPhotoList(photos)
               .setCurrentPosition(position)
               .start();
@@ -428,7 +428,7 @@ PictureBrowse.newBuilder(PhotoWallActivity.this)
 带动画效果的打开方式（只有一张图片）
 ```
 String originalUrl = photos.get(position).originalUrl;
-PictureBrowse.newBuilder(PhotoWallActivity.this)
+PhotoX.with(PhotoWallActivity.this)
              .setThumbnailView(view)
              .setOriginalUrl(originalUrl)
              .enabledAnimation(true)
@@ -438,14 +438,14 @@ PictureBrowse.newBuilder(PhotoWallActivity.this)
 无动画效果的打开方式（只有一张图片）
 ```
 String originalUrl = photos.get(position).originalUrl;
-PictureBrowse.newBuilder(PhotoWallActivity.this)
+PhotoX.with(PhotoWallActivity.this)
              .setOriginalUrl(originalUrl)
              .start();
 ```
 
 屏蔽长按事件
 ```
-PictureBrowse.newBuilder(PhotoWallActivity.this, PhotoBrowseActivity.class)
+PhotoX.with(PhotoWallActivity.this, PhotoBrowseActivity.class)
              .setLayoutManager(mLayoutManager)
              .setPhotoList(photos)
              .setCurrentPosition(position)

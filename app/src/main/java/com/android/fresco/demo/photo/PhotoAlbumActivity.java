@@ -14,7 +14,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.android.fresco.demo.R;
-import com.facebook.fresco.helper.photoview.PictureBrowse;
+import com.facebook.fresco.helper.photoview.PhotoX;
 import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
 
 import java.io.File;
@@ -55,12 +55,12 @@ public class PhotoAlbumActivity extends AppCompatActivity implements LoaderManag
 //                MLog.i("photos.get(position).thumbnailUrl = " + photos.get(position).thumbnailUrl);
 
                 if(photos.size() > 100) {
-                    PictureBrowse.newBuilder(PhotoAlbumActivity.this)
+                    PhotoX.with(PhotoAlbumActivity.this)
                             .setPhotoInfo(photos.get(position))
                             .setCurrentPosition(position)
                             .start();
                 } else {
-                    PictureBrowse.newBuilder(PhotoAlbumActivity.this)
+                    PhotoX.with(PhotoAlbumActivity.this)
                             .setPhotoList(photos)
                             .setCurrentPosition(position)
                             .start();

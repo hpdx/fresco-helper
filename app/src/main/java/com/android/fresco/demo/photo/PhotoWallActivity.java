@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.android.fresco.demo.R;
-import com.facebook.fresco.helper.photoview.PictureBrowse;
+import com.facebook.fresco.helper.photoview.PhotoX;
 import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
 
 import java.util.ArrayList;
@@ -163,7 +163,7 @@ public class PhotoWallActivity extends AppCompatActivity {
 //                MLog.i("position = " + position);
 //                MLog.i("photos.get(position).thumbnailUrl = " + photos.get(position).thumbnailUrl);
 
-                PictureBrowse.newBuilder(PhotoWallActivity.this, PhotoBrowseActivity.class)
+                PhotoX.with(PhotoWallActivity.this, PhotoBrowseActivity.class)
                         .setLayoutManager(mLayoutManager)
                         .setPhotoList(photos)
                         .setCurrentPosition(position)
@@ -171,26 +171,26 @@ public class PhotoWallActivity extends AppCompatActivity {
                         .toggleLongClick(false)
                         .start();
 
-//                PictureBrowse.newBuilder(PhotoWallActivity.this)
+//                PictureBrowse.with(PhotoWallActivity.this)
 //                        .setPhotoList(photos)
 //                        .setCurrentPosition(position)
 //                        .start();
 
 //                String originalUrl = photos.get(position).originalUrl;
-//                PictureBrowse.newBuilder(PhotoWallActivity.this)
+//                PictureBrowse.with(PhotoWallActivity.this)
 //                        .setThumbnailView(view)
 //                        .setOriginalUrl(originalUrl)
 //                        .enabledAnimation(true)
 //                        .start();
 
-//                PictureBrowse.newBuilder(PhotoWallActivity.this)
+//                PictureBrowse.with(PhotoWallActivity.this)
 //                        .setThumbnailView(view)
 //                        .setPhotoInfo(photos.get(position))
 //                        .enabledAnimation(true)
 //                        .start();
 
 //                String originalUrl = photos.get(position).originalUrl;
-//                PictureBrowse.newBuilder(PhotoWallActivity.this)
+//                PictureBrowse.with(PhotoWallActivity.this)
 //                        .setOriginalUrl(originalUrl)
 //                        .start();
 

@@ -382,13 +382,15 @@ public final class Phoenix {
         }
 
         public void download() {
-            if (TextUtils.isEmpty(mUrl)
-                    || !UriUtil.isNetworkUri(Uri.parse(mUrl))
-                    || mDownloadResult == null) {
+            if (TextUtils.isEmpty(mUrl) || mDownloadResult == null) {
                 return;
             }
 
-            ImageLoader.downloadImage(mContext, mUrl, mDownloadResult);
+            if(UriUtil.isNetworkUri(Uri.parse(mUrl))) {
+                ImageLoader.downloadImage(mContext, mUrl, mDownloadResult);
+            } else {
+                mDownloadResult.onResult("mUrl:" + mUrl);
+            }
         }
 
         public void load() {

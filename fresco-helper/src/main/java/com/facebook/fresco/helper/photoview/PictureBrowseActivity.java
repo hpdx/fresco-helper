@@ -43,20 +43,20 @@ public class PictureBrowseActivity extends FragmentActivity
         setContentView(getLayoutResId());
 
         Intent data = getIntent();
-        mItems = data.getParcelableArrayListExtra(PictureBrowse.PHOTO_LIST_KEY);
+        mItems = data.getParcelableArrayListExtra(PhotoX.PHOTO_LIST_KEY);
         if (mItems == null || mItems.size() == 0) {
             MLog.i("mItems is NULL");
             onBackPressed();
             return;
         }
 
-        mPhotoIndex = data.getIntExtra(PictureBrowse.PHOTO_CURRENT_POSITION_KEY, 0);
+        mPhotoIndex = data.getIntExtra(PhotoX.PHOTO_CURRENT_POSITION_KEY, 0);
         MLog.i("mPhotoIndex = " + mPhotoIndex);
-        mIsAnimation = data.getBooleanExtra(PictureBrowse.PHOTO_IS_ANIMATION_KEY, false);
+        mIsAnimation = data.getBooleanExtra(PhotoX.PHOTO_IS_ANIMATION_KEY, false);
         MLog.i("isAnimation = " + mIsAnimation);
-        mPhotoOnlyOne = data.getBooleanExtra(PictureBrowse.PHOTO_ONLY_ONE_KEY, false);
+        mPhotoOnlyOne = data.getBooleanExtra(PhotoX.PHOTO_ONLY_ONE_KEY, false);
         MLog.i("mPhotoOnlyOne = " + mPhotoOnlyOne);
-        mLongClick = data.getBooleanExtra(PictureBrowse.PHOTO_LONGCLICK_KEY, true);
+        mLongClick = data.getBooleanExtra(PhotoX.PHOTO_LONGCLICK_KEY, true);
         MLog.i("mLongClick = " + mLongClick);
 
         setupViews();
