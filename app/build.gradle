@@ -24,7 +24,7 @@ android {
         }
     }
 
-    // 强制改变所有引用com.android.support版本为26.0.2。
+    // 强制改变所有引用com.android.support版本为rootProject.ext.supportLibVersion
     configurations.all {
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
             def requested = details.requested
@@ -38,15 +38,15 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-//    compile project(':fresco-helper')
-    compile 'com.facebook.fresco.helper:fresco-helper:2.0.5'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    implementation project(':fresco-helper')
+    api 'com.facebook.fresco.helper:fresco-helper:2.1.0'
 
-    compile 'com.squareup.okhttp3:okhttp:3.9.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
 //    compile 'com.facebook.fresco:imagepipeline-okhttp3:1.4.0'
 
-    compile 'com.android.support:appcompat-v7:' + rootProject.ext.supportLibVersion
-    compile 'com.android.support:recyclerview-v7:' + rootProject.ext.supportLibVersion
+    implementation 'com.android.support:appcompat-v7:' + rootProject.ext.supportLibVersion
+    implementation 'com.android.support:recyclerview-v7:' + rootProject.ext.supportLibVersion
 
 }

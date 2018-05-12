@@ -12,7 +12,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
     }
 }
@@ -34,17 +34,17 @@ task clean(type: Delete) {
 }
 
 ext {
-    buildToolsVersion = '26.0.2'
-    compileSdkVersion = 26
+    buildToolsVersion = '27.0.3'
+    compileSdkVersion = 27
 
-    minSdk = 16
+    minSdk = 18
     targetSdk = 22
 
     // Libraries Version Code
-    supportLibVersion = '26.0.2'
+    supportLibVersion = '26.1.0'
 
-    frescoVersion = '1.8.1'
-    SSIVVersion = '3.9.0'
-    frescoHelperVersion = '2.0.5'
+    frescoVersion = '1.9.0'
+    SSIVVersion = '3.10.0'
+    frescoHelperVersion = '2.1.0'
 
 }

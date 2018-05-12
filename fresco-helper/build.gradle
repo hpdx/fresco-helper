@@ -25,7 +25,7 @@ android {
         checkReleaseBuilds false
     }
 
-    // 强制改变所有引用com.android.support版本为26.0.2。
+    // 强制改变所有引用com.android.support版本为rootProject.ext.supportLibVersion
     configurations.all {
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
             def requested = details.requested
