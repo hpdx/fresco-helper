@@ -40,10 +40,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 //    implementation project(':fresco-helper')
-    api 'com.facebook.fresco.helper:fresco-helper:2.1.0'
+    implementation 'com.facebook.fresco.helper:fresco-helper:2.1.6'
 
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 //    compile 'com.facebook.fresco:imagepipeline-okhttp3:1.4.0'
 
     implementation 'com.android.support:appcompat-v7:' + rootProject.ext.supportLibVersion

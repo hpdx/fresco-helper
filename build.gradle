@@ -1,4 +1,4 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+// export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home
 
 //./gradlew install
 //./gradlew bintrayUpload
@@ -41,10 +41,10 @@ ext {
     targetSdk = 22
 
     // Libraries Version Code
-    supportLibVersion = '26.1.0'
+    supportLibVersion = '27.1.1'
 
-    frescoVersion = '1.9.0'
+    frescoVersion = '1.11.0'
     SSIVVersion = '3.10.0'
-    frescoHelperVersion = '2.1.0'
+    frescoHelperVersion = '2.1.6'
 
 }

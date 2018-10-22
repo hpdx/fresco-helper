@@ -3,7 +3,7 @@
 白发渔樵江楮上，惯看秋月春风，一壶浊酒喜相逢，古今多少事，都付笑谈中。
 
 ## 依赖的开源库：
-fresco v1.9.0：[https://github.com/facebook/fresco](https://github.com/facebook/fresco)
+fresco v1.11.0：[https://github.com/facebook/fresco](https://github.com/facebook/fresco)
 
 subsampling-scale-image-view v3.10.0：[https://github.com/davemorrissey/subsampling-scale-image-view](https://github.com/davemorrissey/subsampling-scale-image-view)
 
@@ -27,7 +27,7 @@ subsampling-scale-image-view v3.10.0：[https://github.com/davemorrissey/subsamp
     }
  }
 
-compile 'com.facebook.fresco.helper:fresco-helper:2.1.0'
+compile 'com.facebook.fresco.helper:fresco-helper:2.1.6'
 ```
 
 初始化
