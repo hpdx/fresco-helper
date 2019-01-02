@@ -40,17 +40,17 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.facebook.fresco:fresco:' + rootProject.ext.frescoVersion
-    compile 'com.facebook.fresco:animated-gif:' + rootProject.ext.frescoVersion
-    compile 'com.facebook.fresco:webpsupport:' + rootProject.ext.frescoVersion
-    compile 'com.facebook.fresco:animated-webp:' + rootProject.ext.frescoVersion
-    compile 'com.davemorrissey.labs:subsampling-scale-image-view:' + rootProject.ext.SSIVVersion
+    api 'com.facebook.fresco:fresco:' + rootProject.ext.frescoVersion
+    api 'com.facebook.fresco:animated-gif:' + rootProject.ext.frescoVersion
+    api 'com.facebook.fresco:webpsupport:' + rootProject.ext.frescoVersion
+    api 'com.facebook.fresco:animated-webp:' + rootProject.ext.frescoVersion
+    api 'com.davemorrissey.labs:subsampling-scale-image-view:' + rootProject.ext.SSIVVersion
 
-    compile 'com.android.support:support-v4:' + rootProject.ext.supportLibVersion
-    compile 'com.android.support:recyclerview-v7:' + rootProject.ext.supportLibVersion
-    compile 'com.anbetter:MLog:1.1.0'
+    implementation 'com.android.support:support-v4:' + rootProject.ext.supportLibVersion
+    implementation 'com.android.support:recyclerview-v7:' + rootProject.ext.supportLibVersion
+    api 'com.anbetter:MLog:1.1.0'
 }
 
 // Maven Group ID

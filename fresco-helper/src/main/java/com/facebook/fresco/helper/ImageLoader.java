@@ -718,7 +718,7 @@ public class ImageLoader {
      * @param url
      * @param loadImageResult
      */
-    public static void loadLocalDiskCache(String url, final IResult<Bitmap> loadImageResult) {
+    public static void loadLocalDiskCache(final Context context, String url, final IResult<Bitmap> loadImageResult) {
         if (TextUtils.isEmpty(url)) {
             return;
         }
@@ -727,7 +727,7 @@ public class ImageLoader {
         ImagePipeline imagePipeline = Fresco.getImagePipeline();
 
         // 获取已解码的图片，返回的是Bitmap
-        DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(imageRequest,
+        DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(imageRequest, context,
                 ImageRequest.RequestLevel.DISK_CACHE);
         dataSource.subscribe(new BaseDataSubscriber<CloseableReference<CloseableImage>>() {
             @Override

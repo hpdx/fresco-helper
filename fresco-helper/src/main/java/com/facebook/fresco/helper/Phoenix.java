@@ -439,7 +439,7 @@ public final class Phoenix {
         }
 
         public void loadLocalDiskCache() {
-            ImageLoader.loadLocalDiskCache(mUrl, mResult);
+            ImageLoader.loadLocalDiskCache(mContext, mUrl, mResult);
         }
 
         private void loadNormal(String url) {
