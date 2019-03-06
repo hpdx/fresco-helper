@@ -16,7 +16,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
             <Button
@@ -36,7 +35,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
             <Button
@@ -57,7 +55,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
             <Button
@@ -78,7 +75,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
             <Button
@@ -99,7 +95,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
             <Button
@@ -120,7 +115,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
             <Button
@@ -142,29 +136,31 @@
             android:id="@+id/btn_big_big"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:text="显示超大图图片(以MB为单位的)"/>
 
         <Button
             android:id="@+id/btn_blur"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:text="显示高斯模糊后的图片"/>
 
         <Button
             android:id="@+id/btn_blur2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:text="对任意View的背景，进行高斯模糊效果"/>
 
         <Button
             android:id="@+id/btn_gif_bitmap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:text="加载gif图片，返回Bitmap对象（取其第一帧）"/>
+
+        <Button
+            android:id="@+id/btn_scale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="不知道图片尺寸，等比缩放显示"/>
 
         <Button
             android:id="@+id/btn_get_cache_size"

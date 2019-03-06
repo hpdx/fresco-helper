@@ -3,7 +3,7 @@
 白发渔樵江楮上，惯看秋月春风，一壶浊酒喜相逢，古今多少事，都付笑谈中。
 
 ## 依赖的开源库：
-fresco v1.11.0：[https://github.com/facebook/fresco](https://github.com/facebook/fresco)
+fresco v1.13.0：[https://github.com/facebook/fresco](https://github.com/facebook/fresco)
 
 subsampling-scale-image-view v3.10.0：[https://github.com/davemorrissey/subsampling-scale-image-view](https://github.com/davemorrissey/subsampling-scale-image-view)
 
@@ -27,15 +27,16 @@ subsampling-scale-image-view v3.10.0：[https://github.com/davemorrissey/subsamp
     }
  }
 
-compile 'com.facebook.fresco.helper:fresco-helper:2.1.6'
+compile 'com.facebook.fresco.helper:fresco-helper:2.1.7'
 ```
 
-初始化
+### 初始化
 ```
 Phoenix.init(this); // Context
 ```
 
-xml布局文件
+### xml布局文件
+在xml布局文件中使用
 ```        
 <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sdv_1"
@@ -44,6 +45,54 @@ xml布局文件
         app:actualImageScaleType="centerCrop" />
 ```
 
+圆形
+``` 
+app:roundAsCircle="true"     
+```     
+
+圆形，添加边框
+``` 
+app:roundAsCircle="true"
+app:roundingBorderColor="#fff3cf44"
+app:roundingBorderWidth="2dp"   
+```   
+
+四个圆角
+``` 
+app:roundAsCircle="false"
+app:roundedCornerRadius="10dp"   
+```    
+
+上面直角，底部圆角
+``` 
+app:roundAsCircle="false"
+app:roundBottomLeft="true"
+app:roundBottomRight="true"
+app:roundTopLeft="false"
+app:roundTopRight="false"
+app:roundedCornerRadius="10dp" 
+```   
+
+占位图
+``` 
+app:placeholderImage="@mipmap/ic_launcher"
+app:placeholderImageScaleType="centerCrop"
+```  
+
+加载失败时，显示的图，默认使用占位图
+``` 
+app:failureImage="@mipmap/ic_launcher"
+app:failureImageScaleType="centerInside"
+``` 
+
+加载失败后，重试显示的图，默认使用占位图
+``` 
+app:retryImage="@mipmap/ic_launcher"
+app:retryImageScaleType="centerCrop"
+``` 
+
+
+### 图片加载部分
 从网络加载一张图片
 ```
 String url = "http://ww3.sinaimg.cn/large/610dc034jw1f6m4aj83g9j20zk1hcww3.jpg";
@@ -58,6 +107,16 @@ SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
 Phoenix.with(simpleDraweeView)
 .setControllerListener(new SingleImageControllerListener(simpleDraweeView))
 .load(url);
+```
+
+从网络加载一张图片，按原图等比缩放显示，添加限制最大宽高值（在指定的区域内等比缩放）
+```
+String url = "https://ws1.sinaimg.cn/large/0065oQSqly1fymj13tnjmj30r60zf79k.jpg";
+SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
+Phoenix.with(simpleDraweeView)
+       .setControllerListener(new SingleImageControllerListener(simpleDraweeView,
+                        DensityUtil.dipToPixels(this, 200), DensityUtil.dipToPixels(this, 200)))
+       .load(url);
 ```
 
 从网络加载一张图片，想加上自己的后处理
@@ -211,6 +270,19 @@ Phoenix.with(url)
            }).loadLocalDiskCache();
 ```
 
+## 在列表滚动中暂停加载图片，等滚动停止后再继续加载
+```
+mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+       super.onScrollStateChanged(recyclerView, newState);
+       if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+           Fresco.getImagePipeline().resume();
+       } else {
+           Fresco.getImagePipeline().pause();
+       }
+    }
+});
+```
 
 ## 从网络加载一张超大图
 大小以M为单位，目标图片宽度大于手机屏幕宽的2倍以上或者高度大于手机屏幕高的2倍以上
@@ -497,3 +569,22 @@ public class PhotoBrowseActivity extends PictureBrowseActivity {
 更详细的讲解，请查阅我的这篇博客：[Android图片加载神器之Fresco，基于各种使用场景的讲解。](http://blog.csdn.net/android_ls/article/details/53137867)
 
 在使用过程中有满足不了的使用场景或遇到bug，欢迎提issuse ! 若你觉得还不错，请点Star, 谢谢！
+
+
+### License
+```
+Copyright (C) 2019 android_ls@163.com
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+```
