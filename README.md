@@ -565,6 +565,16 @@ public class PhotoBrowseActivity extends PictureBrowseActivity {
 
 ```
 
+### 查看LOG
+```
+ FLog.setMinimumLoggingLevel(FLog.VERBOSE);
+```
+
+```
+  adb logcat -v threadtime | grep -iE 'LoggingListener|AbstractDraweeController|BufferedDiskCache'
+```
+
+
 
 更详细的讲解，请查阅我的这篇博客：[Android图片加载神器之Fresco，基于各种使用场景的讲解。](http://blog.csdn.net/android_ls/article/details/53137867)
 

@@ -42,7 +42,9 @@
 
         <activity
             android:name=".photo.PhotoWallActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/PhotoTheme"/>
+
         <activity android:name=".photo.PhotoAlbumActivity"/>
 
         <activity

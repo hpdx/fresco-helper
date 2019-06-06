@@ -15,15 +15,17 @@
         android:id="@+id/rl_top_deleted"
         android:layout_width="60dp"
         android:layout_height="50dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true">
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp">
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="right|top"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="6dp"
+            android:layout_marginRight="10dp"
             android:src="@drawable/icon_delete"/>
 
     </FrameLayout>

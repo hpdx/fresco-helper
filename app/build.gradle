@@ -39,8 +39,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    implementation project(':fresco-helper')
-    implementation 'com.facebook.fresco.helper:fresco-helper:2.1.8'
+    implementation project(':fresco-helper')
+//    implementation 'com.facebook.fresco.helper:fresco-helper:2.1.8'
 
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
@@ -48,5 +48,9 @@ dependencies {
 
     implementation 'com.android.support:appcompat-v7:' + rootProject.ext.supportLibVersion
     implementation 'com.android.support:recyclerview-v7:' + rootProject.ext.supportLibVersion
+
+    implementation ('com.github.niorgai:StatusBarCompat:2.1.4', {
+        exclude group: 'com.android.support'
+    })
 
 }

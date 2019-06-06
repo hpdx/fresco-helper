@@ -13,6 +13,8 @@ import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
 
 import java.util.ArrayList;
 
+import qiu.niorgai.StatusBarCompat;
+
 /**
  * Created by android_ls on 16/11/2.
  */
@@ -27,6 +29,13 @@ public class PhotoWallActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_wall);
+
+        StatusBarCompat.translucentStatusBar(this);
+//        if (translucent) {
+//            StatusBarCompat.translucentStatusBar(this);
+//        } else {
+//            StatusBarCompat.setStatusBarColor(this, Color.rgb(255, 255, 255));
+//        }
 
         String[] images = {
                 "https://ws1.sinaimg.cn/large/0065oQSqly1fymj13tnjmj30r60zf79k.jpg",
