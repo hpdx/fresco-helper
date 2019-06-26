@@ -1,13 +1,14 @@
 package com.android.fresco.demo;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.Phoenix;
 import com.facebook.fresco.helper.controller.SingleImageControllerListener;
 import com.facebook.fresco.helper.utils.DensityUtil;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * 用于演示加载大图

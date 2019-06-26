@@ -3,29 +3,35 @@ package com.android.fresco.demo.photo;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.anbetter.log.MLog;
 import com.android.fresco.demo.R;
 import com.facebook.fresco.helper.photoview.PhotoX;
 import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
+import com.hjq.permissions.OnPermission;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 显示加载本地相册
- *
+ * <p>
  * Created by android_ls on 16/11/11.
  */
-public class PhotoAlbumActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+public class PhotoAlbumActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private final String[] IMAGE_PROJECTION = {
             MediaStore.Images.Media.DATA,
@@ -54,7 +60,7 @@ public class PhotoAlbumActivity extends AppCompatActivity implements LoaderManag
 //                MLog.i("position = " + position);
 //                MLog.i("photos.get(position).thumbnailUrl = " + photos.get(position).thumbnailUrl);
 
-                if(photos.size() > 100) {
+                if (photos.size() > 100) {
                     PhotoX.with(PhotoAlbumActivity.this)
                             .setPhotoInfo(photos.get(position))
                             .setCurrentPosition(position)
@@ -69,7 +75,32 @@ public class PhotoAlbumActivity extends AppCompatActivity implements LoaderManag
         });
         mRecyclerView.setAdapter(mPhotoWallAdapter);
 
-        getSupportLoaderManager().initLoader(0, null, this);
+        if (XXPermissions.isHasPermission(this, Permission.Group.STORAGE)) {
+            LoaderManager.getInstance(PhotoAlbumActivity.this).initLoader(0, null, PhotoAlbumActivity.this);
+        } else {
+            XXPermissions.with(this)
+                    .constantRequest() // 可设置被拒绝后继续申请，直到用户授权或者永久拒绝
+                    .permission(Permission.Group.STORAGE) // 不指定权限则自动获取清单中的危险权限
+                    .request(new OnPermission() {
+
+                        @Override
+                        public void hasPermission(List<String> granted, boolean isAll) {
+                            LoaderManager.getInstance(PhotoAlbumActivity.this).initLoader(0, null, PhotoAlbumActivity.this);
+                        }
+
+                        @Override
+                        public void noPermission(List<String> denied, boolean quick) {
+                            if (quick) {
+                                MLog.i("被永久拒绝授权，请手动授予权限");
+                                // 如果是被永久拒绝就跳转到应用权限系统设置页面
+                                XXPermissions.gotoPermissionSettings(PhotoAlbumActivity.this);
+                            } else {
+                                MLog.i("获取权限失败");
+                            }
+                        }
+                    });
+        }
+
     }
 
     @Override
@@ -80,7 +111,7 @@ public class PhotoAlbumActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        if(cursor == null) {
+        if (cursor == null) {
             return;
         }
 

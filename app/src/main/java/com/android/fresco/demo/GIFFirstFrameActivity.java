@@ -2,12 +2,14 @@ package com.android.fresco.demo;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.Phoenix;
 import com.facebook.fresco.helper.listener.IResult;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * 用于演示从网络加载gif图片，返回Bitmap对象
@@ -19,6 +21,7 @@ import com.facebook.fresco.helper.listener.IResult;
 public class GIFFirstFrameActivity extends AppCompatActivity {
 
     private ImageView mImageView;
+    private SimpleDraweeView sdv_1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,6 +29,7 @@ public class GIFFirstFrameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fresco_gif_bitmap);
 
         mImageView = (ImageView) findViewById(R.id.iv_thumbnail);
+        sdv_1 = (SimpleDraweeView) findViewById(R.id.sdv_1);
 
 //        String url = "https://ws1.sinaimg.cn/large/610dc034ly1fjgfyxgwgnj20u00gvgmt.jpg";
 //        String url = "http://ww1.sinaimg.cn/large/610dc034jw1fahy9m7xw0j20u00u042l.jpg";
@@ -41,6 +45,10 @@ public class GIFFirstFrameActivity extends AppCompatActivity {
                         mImageView.setImageBitmap(result);
                     }
                 }).load();
+
+
+        Phoenix.with(sdv_1).load(url);
+
     }
 
 }

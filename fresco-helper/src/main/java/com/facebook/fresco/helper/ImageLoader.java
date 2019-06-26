@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -44,6 +43,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import androidx.annotation.Nullable;
 
 /**
  * 提供基于Fresco的图片加载工具类
@@ -308,10 +309,16 @@ public class ImageLoader {
      * @param url  URL
      */
     public static void loadImageBlur(final View view, String url) {
+        if (view == null || TextUtils.isEmpty(url)) {
+            return;
+        }
         loadImage(view.getContext(), url, new IResult<Bitmap>() {
 
             @Override
             public void onResult(Bitmap source) {
+                if (source == null) {
+                    return;
+                }
                 Bitmap blurBitmap = BitmapBlurHelper.blur(view.getContext(), source);
                 view.setBackground(new BitmapDrawable(view.getContext().getResources(), blurBitmap));
             }
@@ -323,6 +330,9 @@ public class ImageLoader {
 
             @Override
             public void onResult(Bitmap source) {
+                if (source == null) {
+                    return;
+                }
                 Bitmap blurBitmap = BitmapBlurHelper.blur(view.getContext(), source);
                 view.setBackground(new BitmapDrawable(view.getContext().getResources(), blurBitmap));
             }
@@ -338,6 +348,9 @@ public class ImageLoader {
 
             @Override
             public void process(Bitmap bitmap) {
+                if (bitmap == null) {
+                    return;
+                }
                 BitmapBlurHelper.blur(bitmap, 35);
             }
         });
@@ -352,6 +365,9 @@ public class ImageLoader {
 
             @Override
             public void process(Bitmap bitmap) {
+                if (bitmap == null) {
+                    return;
+                }
                 BitmapBlurHelper.blur(bitmap, 35);
             }
         });
@@ -366,6 +382,9 @@ public class ImageLoader {
 
             @Override
             public void process(Bitmap bitmap) {
+                if (bitmap == null) {
+                    return;
+                }
                 BitmapBlurHelper.blur(bitmap, 35);
             }
         });
@@ -380,6 +399,9 @@ public class ImageLoader {
 
             @Override
             public void process(Bitmap bitmap) {
+                if (bitmap == null) {
+                    return;
+                }
                 BitmapBlurHelper.blur(bitmap, 35);
             }
         });
@@ -394,6 +416,9 @@ public class ImageLoader {
 
             @Override
             public void process(Bitmap bitmap) {
+                if (bitmap == null) {
+                    return;
+                }
                 BitmapBlurHelper.blur(bitmap, 35);
             }
         });
@@ -408,6 +433,9 @@ public class ImageLoader {
 
             @Override
             public void process(Bitmap bitmap) {
+                if (bitmap == null) {
+                    return;
+                }
                 BitmapBlurHelper.blur(bitmap, 35);
             }
         });
@@ -453,7 +481,7 @@ public class ImageLoader {
             draweeControllerBuilder.setControllerListener(controllerListener);
         }
 
-        draweeControllerBuilder.setTapToRetryEnabled(true); // 开启重试功能
+        draweeControllerBuilder.setTapToRetryEnabled(false); // 在加载失败后，禁用点击重试功能
         draweeControllerBuilder.setAutoPlayAnimations(true); // 自动播放gif动画
         DraweeController draweeController = draweeControllerBuilder.build();
         simpleDraweeView.setController(draweeController);

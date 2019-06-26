@@ -1,4 +1,4 @@
-package com.facebook.fresco.helper.photoview.loading;
+package com.facebook.fresco.helper.loading;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -13,8 +13,8 @@ import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorRes;
-import android.support.annotation.NonNull;
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
 
 /**
  * Created by android_ls on 2017/5/16.

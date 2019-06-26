@@ -1,11 +1,12 @@
 package com.android.fresco.demo;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.ImageLoader;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * 用于演示高斯模糊的实现
@@ -20,11 +21,10 @@ public class GifActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fresco_gif);
 
-        String url = "http://img4.178.com/acg1/201506/227753817857/227754566617.gif";
+        String url = "https://n.sinaimg.cn/tech/transform/34/w512h322/20190626/ff7c-hyvnhqr0149633.gif";
 
         SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
         ImageLoader.loadImage(simpleDraweeView, url);
-
 
     }
 

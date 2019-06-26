@@ -1,4 +1,4 @@
-package com.facebook.fresco.helper.photoview.loading;
+package com.facebook.fresco.helper.loading;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -12,13 +12,14 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.util.LruCache;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.facebook.fresco.helper.R;
+
+import androidx.collection.LruCache;
 
 /**
  * Created by android_ls on 2017/5/16.

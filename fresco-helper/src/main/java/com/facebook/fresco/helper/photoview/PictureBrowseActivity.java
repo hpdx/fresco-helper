@@ -2,8 +2,6 @@ package com.facebook.fresco.helper.photoview;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,6 +13,9 @@ import com.facebook.fresco.helper.photoview.photodraweeview.OnPhotoTapListener;
 
 import java.util.ArrayList;
 import java.util.Locale;
+
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by android_ls on 16/9/13.

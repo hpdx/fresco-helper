@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -13,6 +12,8 @@ import com.facebook.fresco.helper.photoview.anim.ViewOptionsCompat;
 import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
 
 import java.util.ArrayList;
+
+import androidx.recyclerview.widget.GridLayoutManager;
 
 /**
  * Created by android_ls on 16/9/19.

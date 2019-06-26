@@ -2,12 +2,13 @@ package com.facebook.fresco.helper.photoview.photodraweeview;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import androidx.annotation.NonNull;
 
 public class PhotoDraweeView extends SimpleDraweeView implements IAttacher {
 

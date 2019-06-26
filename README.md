@@ -1,9 +1,7 @@
 # fresco-helper
-滚滚长江东逝水，浪花淘尽英雄，是非成败转头空，青山依旧在，几度夕阳红。
-白发渔樵江楮上，惯看秋月春风，一壶浊酒喜相逢，古今多少事，都付笑谈中。
 
 ## 依赖的开源库：
-fresco v1.13.0：[https://github.com/facebook/fresco](https://github.com/facebook/fresco)
+fresco v2.0.0：[https://github.com/facebook/fresco](https://github.com/facebook/fresco)
 
 subsampling-scale-image-view v3.10.0：[https://github.com/davemorrissey/subsampling-scale-image-view](https://github.com/davemorrissey/subsampling-scale-image-view)
 
@@ -27,8 +25,18 @@ subsampling-scale-image-view v3.10.0：[https://github.com/davemorrissey/subsamp
     }
  }
 
-compile 'com.facebook.fresco.helper:fresco-helper:2.1.8'
+use AndroidX
+implementation 'com.facebook.fresco.helper:fresco-helper:2.2.0'
 ```
+
+##不使用AndroidX
+```
+fresco v1.13.0
+
+implementation 'com.facebook.fresco.helper:fresco-helper:2.1.8'
+
+```
+
 
 ### 初始化
 ```
@@ -579,6 +587,11 @@ public class PhotoBrowseActivity extends PictureBrowseActivity {
 更详细的讲解，请查阅我的这篇博客：[Android图片加载神器之Fresco，基于各种使用场景的讲解。](http://blog.csdn.net/android_ls/article/details/53137867)
 
 在使用过程中有满足不了的使用场景或遇到bug，欢迎提issuse ! 若你觉得还不错，请点Star, 谢谢！
+
+
+##
+滚滚长江东逝水，浪花淘尽英雄，是非成败转头空，青山依旧在，几度夕阳红。
+白发渔樵江楮上，惯看秋月春风，一壶浊酒喜相逢，古今多少事，都付笑谈中。
 
 
 ### License

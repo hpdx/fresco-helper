@@ -43,6 +43,7 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
     api 'com.facebook.fresco:fresco:' + rootProject.ext.frescoVersion
+    api 'com.facebook.fresco:animated-base:' + rootProject.ext.frescoVersion
     api 'com.facebook.fresco:animated-gif:' + rootProject.ext.frescoVersion
     api 'com.facebook.fresco:webpsupport:' + rootProject.ext.frescoVersion
     api 'com.facebook.fresco:animated-webp:' + rootProject.ext.frescoVersion

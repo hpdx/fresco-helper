@@ -3,12 +3,13 @@ package com.facebook.fresco.helper.photoview.anim;
 import android.app.Activity;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
+
+import androidx.recyclerview.widget.GridLayoutManager;
 
 public class ViewOptionsCompat {
 

@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.PointF;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -25,7 +23,7 @@ import com.facebook.fresco.helper.Phoenix;
 import com.facebook.fresco.helper.R;
 import com.facebook.fresco.helper.listener.OnProgressListener;
 import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
-import com.facebook.fresco.helper.photoview.loading.LoadingProgressBarView;
+import com.facebook.fresco.helper.loading.LoadingProgressBarView;
 import com.facebook.fresco.helper.photoview.photodraweeview.OnPhotoTapListener;
 import com.facebook.fresco.helper.photoview.photodraweeview.OnViewTapListener;
 import com.facebook.fresco.helper.photoview.photodraweeview.PhotoDraweeView;
@@ -35,6 +33,9 @@ import com.facebook.imagepipeline.image.ImageInfo;
 
 import java.util.ArrayList;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
 
 /**
  * Created by android_ls on 16/9/13.

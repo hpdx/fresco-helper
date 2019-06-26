@@ -1,13 +1,14 @@
 package com.android.fresco.demo;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.ImageLoader;
 import com.facebook.fresco.helper.utils.DensityUtil;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * 用于演示高斯模糊的实现
@@ -22,15 +23,14 @@ public class BlurActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fresco_blur);
 
-        String url = "http://a.hiphotos.baidu.com/image/pic/item/55e736d12f2eb938d3de795ad0628535e4dd6fe2.jpg";
+        String url = "https://ww1.sinaimg.cn/large/610dc034jw1fahy9m7xw0j20u00u042l.jpg";
 
         SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
         simpleDraweeView.setAspectRatio(0.7f);
         ViewGroup.LayoutParams lvp = simpleDraweeView.getLayoutParams();
         lvp.width = DensityUtil.getDisplayWidth(this);
 
-        ImageLoader.loadImageBlur(simpleDraweeView, url,
-                DensityUtil.getDisplayWidth(this), DensityUtil.getDisplayHeight(this));
+        ImageLoader.loadImageBlur(simpleDraweeView, url);
 
     }
 

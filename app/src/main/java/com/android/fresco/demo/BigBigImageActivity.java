@@ -2,8 +2,6 @@ package com.android.fresco.demo;
 
 import android.graphics.PointF;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,6 +10,9 @@ import com.anbetter.log.MLog;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.facebook.fresco.helper.LargePhotoView;
 import com.facebook.fresco.helper.Phoenix;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 
 /**
@@ -80,7 +81,7 @@ public class BigBigImageActivity extends AppCompatActivity {
 //        String fileCacheDir = getCacheDir().getAbsolutePath();
 //        MLog.i("fileCacheDir = " + fileCacheDir);
 
-        String url = "http://img5q.duitang.com/uploads/item/201402/24/20140224212510_eQRG5.thumb.700_0.jpeg";
+        String url = "https://img5q.duitang.com/uploads/item/201402/24/20140224212510_eQRG5.thumb.700_0.jpeg";
 //        Phoenix.with(imageView)
 //                .setDiskCacheDir(fileCacheDir)
 //                .load(url);

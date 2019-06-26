@@ -1,13 +1,14 @@
 package com.facebook.fresco.helper.controller;
 
 import android.graphics.drawable.Animatable;
-import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.utils.DensityUtil;
 import com.facebook.imagepipeline.image.ImageInfo;
+
+import androidx.annotation.Nullable;
 
 /**
  * 单张图片显示控制器

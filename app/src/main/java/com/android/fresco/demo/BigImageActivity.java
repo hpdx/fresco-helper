@@ -2,8 +2,6 @@ package com.android.fresco.demo;
 
 import android.graphics.drawable.Animatable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.anbetter.log.MLog;
 import com.facebook.drawee.controller.ControllerListener;
@@ -11,6 +9,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.Phoenix;
 import com.facebook.fresco.helper.utils.DensityUtil;
 import com.facebook.imagepipeline.image.ImageInfo;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * 用于演示加载大图

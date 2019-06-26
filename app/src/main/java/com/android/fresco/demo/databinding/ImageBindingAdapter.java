@@ -1,6 +1,5 @@
 package com.android.fresco.demo.databinding;
 
-import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -10,6 +9,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.ImageLoader;
 import com.facebook.fresco.helper.listener.IResult;
 import com.facebook.fresco.helper.utils.DensityUtil;
+
+import androidx.databinding.BindingAdapter;
 
 /**
  * Created by android_ls on 16/11/11.

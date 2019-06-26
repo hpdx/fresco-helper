@@ -3,12 +3,13 @@ package com.facebook.fresco.helper.photoview.anim;
 import android.animation.TimeInterpolator;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.facebook.fresco.helper.R;
+
+import androidx.core.content.ContextCompat;
 
 public abstract class TransitionAnimator {
 
