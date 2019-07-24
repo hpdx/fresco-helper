@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:supportsRtl,android:label">
+        tools:replace="android:supportsRtl,android:label"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -49,8 +50,7 @@
         <activity
             android:name=".photo.PhotoBrowseActivity"
             android:fitsSystemWindows="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/picture_browse_activity_style"/>
+            android:theme="@style/PhotoBrowseTheme"/>
 
     </application>
 

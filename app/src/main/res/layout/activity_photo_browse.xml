@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mPhotoMainRelLayout"
+    android:id="@+id/rl_photo_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000016">
 
-    <com.facebook.fresco.helper.photoview.MViewPager
-        android:id="@+id/vp_picture_browse"
+    <FrameLayout
+        android:id="@+id/fl_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <com.facebook.fresco.helper.photoview.MViewPager
+            android:id="@+id/vp_picture_browse"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/rl_top_deleted"
@@ -31,7 +38,7 @@
     </FrameLayout>
 
     <RelativeLayout
-        android:id="@+id/photo_bottom_view"
+        android:id="@+id/rl_photo_bottom"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_alignParentBottom="true"

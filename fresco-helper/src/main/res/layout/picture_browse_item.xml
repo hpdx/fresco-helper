@@ -5,14 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<com.facebook.drawee.view.SimpleDraweeView-->
-        <!--android:id="@+id/iv_thumbnail"-->
-        <!--android:layout_width="90dp"-->
-        <!--android:layout_height="90dp"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:visibility="gone"-->
-        <!--app:actualImageScaleType="centerCrop"/>-->
-
     <com.facebook.fresco.helper.loading.LoadingProgressBarView
         android:id="@+id/progress_view"
         android:layout_width="60dp"

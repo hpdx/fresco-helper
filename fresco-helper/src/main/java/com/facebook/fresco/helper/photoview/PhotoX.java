@@ -10,6 +10,7 @@ import android.view.View;
 import com.anbetter.log.MLog;
 import com.facebook.fresco.helper.photoview.anim.ViewOptionsCompat;
 import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
+import com.facebook.fresco.helper.utils.PhotoConstant;
 
 import java.util.ArrayList;
 
@@ -19,12 +20,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
  * Created by android_ls on 16/9/19.
  */
 public class PhotoX {
-
-    public static final String PHOTO_LIST_KEY = "photo_list";
-    public static final String PHOTO_CURRENT_POSITION_KEY = "photo_current_position";
-    public static final String PHOTO_IS_ANIMATION_KEY = "isAnimation";
-    public static final String PHOTO_ONLY_ONE_KEY = "only_one";
-    public static final String PHOTO_LONGCLICK_KEY = "onLongClick";
 
     public static Builder with(Context context) {
         return new Builder(context);
@@ -57,11 +52,11 @@ public class PhotoX {
             mThumbnailList = new ArrayList<>();
             for (int i = 0; i < size; i++) {
                 PhotoInfo photoInfo = data.get(i);
-                if(!TextUtils.isEmpty(photoInfo.thumbnailUrl)) {
+                if (!TextUtils.isEmpty(photoInfo.thumbnailUrl)) {
                     mThumbnailList.add(photoInfo.thumbnailUrl);
                 }
             }
-            mIntent.putParcelableArrayListExtra(PHOTO_LIST_KEY, data);
+            mIntent.putParcelableArrayListExtra(PhotoConstant.PHOTO_LIST_KEY, data);
             return this;
         }
 
@@ -73,7 +68,7 @@ public class PhotoX {
                 photoInfo.originalUrl = data.get(i);
                 photos.add(photoInfo);
             }
-            mIntent.putParcelableArrayListExtra(PHOTO_LIST_KEY, photos);
+            mIntent.putParcelableArrayListExtra(PhotoConstant.PHOTO_LIST_KEY, photos);
             return this;
         }
 
@@ -85,8 +80,8 @@ public class PhotoX {
             photoInfo.originalUrl = originalUrl;
             photos.add(photoInfo);
 
-            mIntent.putParcelableArrayListExtra(PHOTO_LIST_KEY, photos);
-            mIntent.putExtra(PHOTO_ONLY_ONE_KEY, true);
+            mIntent.putParcelableArrayListExtra(PhotoConstant.PHOTO_LIST_KEY, photos);
+            mIntent.putExtra(PhotoConstant.PHOTO_ONLY_ONE_KEY, true);
             return this;
         }
 
@@ -96,8 +91,8 @@ public class PhotoX {
             ArrayList<PhotoInfo> photos = new ArrayList<>();
             photos.add(photoInfo);
 
-            mIntent.putParcelableArrayListExtra(PHOTO_LIST_KEY, photos);
-            mIntent.putExtra(PHOTO_ONLY_ONE_KEY, true);
+            mIntent.putParcelableArrayListExtra(PhotoConstant.PHOTO_LIST_KEY, photos);
+            mIntent.putExtra(PhotoConstant.PHOTO_ONLY_ONE_KEY, true);
             return this;
         }
 
@@ -105,25 +100,40 @@ public class PhotoX {
          * 当前被点击的View在照片墙中的索引
          */
         public Builder setCurrentPosition(int position) {
-            mIntent.putExtra(PHOTO_CURRENT_POSITION_KEY, position);
+            mIntent.putExtra(PhotoConstant.PHOTO_CURRENT_POSITION_KEY, position);
             return this;
         }
 
         /**
          * 是否响应长按事件
+         *
          * @param onLongClick
          * @return
          */
         public Builder toggleLongClick(boolean onLongClick) {
-            mIntent.putExtra(PHOTO_LONGCLICK_KEY, onLongClick);
+            mIntent.putExtra(PhotoConstant.PHOTO_LONG_CLICK_KEY, onLongClick);
+            return this;
+        }
+
+        /**
+         * 是否启用向下拖动关闭功能
+         *
+         * @param isDragClose
+         * @return
+         */
+        public Builder enabledDragClose(boolean isDragClose) {
+            mIntent.putExtra(PhotoConstant.PHOTO_DRAG_CLOSE, isDragClose);
             return this;
         }
 
         /**
          * 在打开/关闭大图浏览界面时，是否启用动画效果
+         *
+         * @param isAnimation
+         * @return
          */
         public Builder enabledAnimation(boolean isAnimation) {
-            mIntent.putExtra(PHOTO_IS_ANIMATION_KEY, isAnimation);
+            mIntent.putExtra(PhotoConstant.PHOTO_ANIMATION_KEY, isAnimation);
 
             if (isAnimation) {
                 if (mLayoutManager != null && mThumbnailList != null && mThumbnailList.size() > 0) {

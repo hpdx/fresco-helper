@@ -2,7 +2,10 @@ package com.facebook.fresco.helper.photoview;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anbetter.log.MLog;
@@ -10,6 +13,8 @@ import com.facebook.fresco.helper.R;
 import com.facebook.fresco.helper.photoview.anim.TransitionCompat;
 import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
 import com.facebook.fresco.helper.photoview.photodraweeview.OnPhotoTapListener;
+import com.facebook.fresco.helper.utils.DragCloseHelper;
+import com.facebook.fresco.helper.utils.PhotoConstant;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -25,8 +30,10 @@ public class PictureBrowseActivity extends FragmentActivity
 
     protected int mPhotoIndex;
     protected int mPhotoCount;
-    protected PhotoInfo mLookPhoto;
 
+    protected RelativeLayout rlPhotoContainer;
+    protected RelativeLayout rlPhotoBottom;
+    protected FrameLayout flContainer;
     protected TextView tvPhotoIndex;
     protected MViewPager mViewPager;
 
@@ -34,8 +41,11 @@ public class PictureBrowseActivity extends FragmentActivity
     protected ArrayList<PhotoInfo> mItems;
 
     protected TransitionCompat mTransitionCompat;
+    protected DragCloseHelper mDragCloseHelper;
+
     protected boolean mPhotoOnlyOne;
-    protected boolean mIsAnimation;
+    protected boolean isAnimation;
+    protected boolean isDragClose;
     protected boolean mLongClick;
 
     @Override
@@ -44,28 +54,34 @@ public class PictureBrowseActivity extends FragmentActivity
         setContentView(getLayoutResId());
 
         Intent data = getIntent();
-        mItems = data.getParcelableArrayListExtra(PhotoX.PHOTO_LIST_KEY);
+        mItems = data.getParcelableArrayListExtra(PhotoConstant.PHOTO_LIST_KEY);
         if (mItems == null || mItems.size() == 0) {
-            MLog.i("mItems is NULL");
+            MLog.e("photos data is NULL");
             onBackPressed();
             return;
         }
 
-        mPhotoIndex = data.getIntExtra(PhotoX.PHOTO_CURRENT_POSITION_KEY, 0);
+        mPhotoIndex = data.getIntExtra(PhotoConstant.PHOTO_CURRENT_POSITION_KEY, 0);
+        isAnimation = data.getBooleanExtra(PhotoConstant.PHOTO_ANIMATION_KEY, false);
+        mPhotoOnlyOne = data.getBooleanExtra(PhotoConstant.PHOTO_ONLY_ONE_KEY, false);
+        mLongClick = data.getBooleanExtra(PhotoConstant.PHOTO_LONG_CLICK_KEY, true);
+        isDragClose = data.getBooleanExtra(PhotoConstant.PHOTO_DRAG_CLOSE, false);
         MLog.i("mPhotoIndex = " + mPhotoIndex);
-        mIsAnimation = data.getBooleanExtra(PhotoX.PHOTO_IS_ANIMATION_KEY, false);
-        MLog.i("isAnimation = " + mIsAnimation);
-        mPhotoOnlyOne = data.getBooleanExtra(PhotoX.PHOTO_ONLY_ONE_KEY, false);
-        MLog.i("mPhotoOnlyOne = " + mPhotoOnlyOne);
-        mLongClick = data.getBooleanExtra(PhotoX.PHOTO_LONGCLICK_KEY, true);
         MLog.i("mLongClick = " + mLongClick);
+        MLog.i("mPhotoOnlyOne = " + mPhotoOnlyOne);
+        MLog.i("isAnimation = " + isAnimation);
+        MLog.i("isDragClose = " + isDragClose);
 
         setupViews();
 
-        if (mIsAnimation) {
+        if (isAnimation) {
             mTransitionCompat = new TransitionCompat(PictureBrowseActivity.this);
             mTransitionCompat.setCurrentPosition(mPhotoIndex);
             mTransitionCompat.startTransition();
+        }
+
+        if (isDragClose) {
+            setDragClose();
         }
     }
 
@@ -80,14 +96,14 @@ public class PictureBrowseActivity extends FragmentActivity
 
     @Override
     public void onPageSelected(int position) {
-        if(mPhotoOnlyOne) {
+        if (mPhotoOnlyOne) {
             return;
         }
 
         mPhotoIndex = position;
         setPhotoIndex();
 
-        if (mTransitionCompat != null && mIsAnimation) {
+        if (mTransitionCompat != null && isAnimation) {
             MLog.i("onPageSelected mPhotoIndex = " + mPhotoIndex);
             mTransitionCompat.setCurrentPosition(mPhotoIndex);
         }
@@ -100,10 +116,9 @@ public class PictureBrowseActivity extends FragmentActivity
 
     @Override
     public void onBackPressed() {
-        if (mTransitionCompat != null && mIsAnimation) {
+        if (mTransitionCompat != null && isAnimation) {
             mTransitionCompat.finishAfterTransition();
         } else {
-//            super.onBackPressed();
             finish();
             overridePendingTransition(0, 0);
         }
@@ -115,15 +130,15 @@ public class PictureBrowseActivity extends FragmentActivity
     }
 
     protected void setupViews() {
+        rlPhotoContainer = findViewById(R.id.rl_photo_container);
+        flContainer = findViewById(R.id.fl_container);
+        rlPhotoBottom = findViewById(R.id.rl_photo_bottom);
+        tvPhotoIndex = (TextView) findViewById(R.id.tv_photo_count);
         mViewPager = (MViewPager) findViewById(R.id.vp_picture_browse);
         mViewPager.clearOnPageChangeListeners();
         mViewPager.addOnPageChangeListener(this);
 
-        if(mLongClick) {
-            mAdapter = new PictureBrowseAdapter(this, mItems, this, this);
-        } else {
-            mAdapter = new PictureBrowseAdapter(this, mItems, this, null);
-        }
+        mAdapter = new PictureBrowseAdapter(this, mItems, this, mLongClick ? this : null);
         mViewPager.setAdapter(mAdapter);
 
         mPhotoCount = mItems.size();
@@ -132,17 +147,20 @@ public class PictureBrowseActivity extends FragmentActivity
     }
 
     protected void setupBottomViews() {
-        tvPhotoIndex = (TextView) findViewById(R.id.tv_photo_count);
-        if(mPhotoOnlyOne) {
-            findViewById(R.id.photo_bottom_view).setVisibility(View.GONE);
-            tvPhotoIndex.setVisibility(View.GONE);
+        if (mPhotoOnlyOne) {
+            if (rlPhotoBottom != null) {
+                rlPhotoBottom.setVisibility(View.GONE);
+                tvPhotoIndex.setVisibility(View.GONE);
+            }
         } else {
             setPhotoIndex();
         }
     }
 
     protected void setPhotoIndex() {
-        tvPhotoIndex.setText(String.format(Locale.getDefault(), "%d/%d", mPhotoIndex + 1, mPhotoCount));
+        if (tvPhotoIndex != null) {
+            tvPhotoIndex.setText(String.format(Locale.getDefault(), "%d/%d", mPhotoIndex + 1, mPhotoCount));
+        }
     }
 
     @Override
@@ -164,10 +182,11 @@ public class PictureBrowseActivity extends FragmentActivity
 
     /**
      * 获取当前PhotoInfo在集合中Position
+     *
      * @return
      */
     public int getCurrentPosition() {
-       return mPhotoIndex;
+        return mPhotoIndex;
     }
 
     public PhotoInfo getCurrentPhotoInfo() {
@@ -177,12 +196,59 @@ public class PictureBrowseActivity extends FragmentActivity
         return null;
     }
 
+    /**
+     * 向下拖动关闭
+     */
+    protected void setDragClose() {
+        mDragCloseHelper = new DragCloseHelper(this);
+        mDragCloseHelper.setShareElementMode(true);
+        mDragCloseHelper.setMinScale(0.2f);
+        mDragCloseHelper.setDragCloseViews(rlPhotoContainer, flContainer);
+        mDragCloseHelper.setDragCloseListener(new DragCloseHelper.OnDragCloseListener() {
+            @Override
+            public boolean intercept() {
+                return false;
+            }
+
+            @Override
+            public void onDragStart() {
+                if (rlPhotoBottom != null) {
+                    rlPhotoBottom.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onDragging(float percent) {
+
+            }
+
+            @Override
+            public void onDragCancel() {
+                if (rlPhotoBottom != null) {
+                    rlPhotoBottom.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onDragClose(boolean isShareElementMode) {
+                if (isShareElementMode) {
+                    onBackPressed();
+                }
+            }
+        });
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (mDragCloseHelper != null && mDragCloseHelper.handleEvent(ev)) {
+            return true;
+        } else {
+            return super.dispatchTouchEvent(ev);
+        }
+    }
+
     @Override
     protected void onDestroy() {
-        if (mLookPhoto != null) {
-            mLookPhoto = null;
-        }
-
         if (mItems != null) {
             mItems = null;
         }

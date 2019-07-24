@@ -181,34 +181,43 @@ public class PhotoWallActivity extends AppCompatActivity {
 //                MLog.i("position = " + position);
 //                MLog.i("photos.get(position).thumbnailUrl = " + photos.get(position).thumbnailUrl);
 
-                PhotoX.with(PhotoWallActivity.this, PhotoBrowseActivity.class)
+                // 自定义浏览大图的UI
+//                PhotoX.with(PhotoWallActivity.this, PhotoBrowseActivity.class)
+//                        .setLayoutManager(mLayoutManager)
+//                        .setPhotoList(photos)
+//                        .setCurrentPosition(position)
+//                        .enabledAnimation(true)
+//                        .toggleLongClick(false)
+//                        .start();
+
+                PhotoX.with(PhotoWallActivity.this)
                         .setLayoutManager(mLayoutManager)
                         .setPhotoList(photos)
                         .setCurrentPosition(position)
                         .enabledAnimation(true)
-                        .toggleLongClick(false)
+                        .enabledDragClose(true)
                         .start();
 
-//                PictureBrowse.with(PhotoWallActivity.this)
+//                PhotoX.with(PhotoWallActivity.this)
 //                        .setPhotoList(photos)
 //                        .setCurrentPosition(position)
 //                        .start();
 
 //                String originalUrl = photos.get(position).originalUrl;
-//                PictureBrowse.with(PhotoWallActivity.this)
+//                PhotoX.with(PhotoWallActivity.this)
 //                        .setThumbnailView(view)
 //                        .setOriginalUrl(originalUrl)
 //                        .enabledAnimation(true)
 //                        .start();
 
-//                PictureBrowse.with(PhotoWallActivity.this)
+//                PhotoX.with(PhotoWallActivity.this)
 //                        .setThumbnailView(view)
 //                        .setPhotoInfo(photos.get(position))
 //                        .enabledAnimation(true)
 //                        .start();
 
 //                String originalUrl = photos.get(position).originalUrl;
-//                PictureBrowse.with(PhotoWallActivity.this)
+//                PhotoX.with(PhotoWallActivity.this)
 //                        .setOriginalUrl(originalUrl)
 //                        .start();
 

@@ -1,11 +1,11 @@
 # fresco-helper
 
-## 依赖的开源库：
+## 依赖开源库：
 fresco v2.0.0：[https://github.com/facebook/fresco](https://github.com/facebook/fresco)
 
 subsampling-scale-image-view v3.10.0：[https://github.com/davemorrissey/subsampling-scale-image-view](https://github.com/davemorrissey/subsampling-scale-image-view)
 
-## Demo运行后的效果图：
+## Demo运行后效果图：
 <img src="https://github.com/hpdx/fresco-helper/blob/master/images/demo.jpg"  width="270px"/>  <img src="https://github.com/hpdx/fresco-helper/blob/master/images/demo1.jpg" width="270px"/>
 
 <img src="https://github.com/hpdx/fresco-helper/blob/master/images/photo_wall.jpg" width="270px"/>  <img src="https://github.com/hpdx/fresco-helper/blob/master/images/big_image_browse.jpg" width="270px"/>
@@ -26,7 +26,7 @@ subsampling-scale-image-view v3.10.0：[https://github.com/davemorrissey/subsamp
  }
 
 use AndroidX
-implementation 'com.facebook.fresco.helper:fresco-helper:2.2.0'
+implementation 'com.facebook.fresco.helper:fresco-helper:2.2.1'
 ```
 
 ##不使用AndroidX
@@ -42,63 +42,6 @@ implementation 'com.facebook.fresco.helper:fresco-helper:2.1.8'
 ```
 Phoenix.init(this); // Context
 ```
-
-### xml布局文件
-在xml布局文件中使用
-```        
-<com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/sdv_1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:actualImageScaleType="centerCrop" />
-```
-
-圆形
-``` 
-app:roundAsCircle="true"     
-```     
-
-圆形，添加边框
-``` 
-app:roundAsCircle="true"
-app:roundingBorderColor="#fff3cf44"
-app:roundingBorderWidth="2dp"   
-```   
-
-四个圆角
-``` 
-app:roundAsCircle="false"
-app:roundedCornerRadius="10dp"   
-```    
-
-上面直角，底部圆角
-``` 
-app:roundAsCircle="false"
-app:roundBottomLeft="true"
-app:roundBottomRight="true"
-app:roundTopLeft="false"
-app:roundTopRight="false"
-app:roundedCornerRadius="10dp" 
-```   
-
-占位图
-``` 
-app:placeholderImage="@mipmap/ic_launcher"
-app:placeholderImageScaleType="centerCrop"
-```  
-
-加载失败时，显示的图，默认使用占位图
-``` 
-app:failureImage="@mipmap/ic_launcher"
-app:failureImageScaleType="centerInside"
-``` 
-
-加载失败后，重试显示的图，默认使用占位图
-``` 
-app:retryImage="@mipmap/ic_launcher"
-app:retryImageScaleType="centerCrop"
-``` 
-
 
 ### 图片加载部分
 从网络加载一张图片
@@ -477,13 +420,25 @@ Phoenix.clearCaches();
 ```
 
 ## 照片墙、浏览大图
-* 点击照片墙中的缩略图，打开和关闭效果类似微信朋友圈的图片查看效果
+* 支持向下拖动关闭
 * 支持双击放大效果
 * 支持单击关闭大图浏览
 * 支持手势缩放功能
 * 支持屏蔽长按事件
 * 支持扩展，可以自定义浏览大图的UI风格
 
+
+### 带动画的效果打开，支持向下拖动关闭
+```
+ArrayList<PhotoInfo> photos = null;
+PhotoX.with(PhotoWallActivity.this)
+             .setLayoutManager(mLayoutManager)
+             .setPhotoList(photos)
+             .setCurrentPosition(position)
+             .enabledAnimation(true)
+             .enabledDragClose(true) // true->向下拖动关闭
+             .start();
+```
 
 带动画的效果打开方式（多图）
 ```
@@ -573,7 +528,7 @@ public class PhotoBrowseActivity extends PictureBrowseActivity {
 
 ```
 
-### 查看LOG
+## 查看LOG
 ```
  FLog.setMinimumLoggingLevel(FLog.VERBOSE);
 ```
@@ -583,14 +538,72 @@ public class PhotoBrowseActivity extends PictureBrowseActivity {
 ```
 
 
+## 附录
+在xml布局文件中使用
+```        
+<com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:actualImageScaleType="centerCrop" />
+```
 
+圆形
+``` 
+app:roundAsCircle="true"     
+```     
+
+圆形，添加边框
+``` 
+app:roundAsCircle="true"
+app:roundingBorderColor="#fff3cf44"
+app:roundingBorderWidth="2dp"   
+```   
+
+四个圆角
+``` 
+app:roundAsCircle="false"
+app:roundedCornerRadius="10dp"   
+```    
+
+上面直角，底部圆角
+``` 
+app:roundAsCircle="false"
+app:roundBottomLeft="true"
+app:roundBottomRight="true"
+app:roundTopLeft="false"
+app:roundTopRight="false"
+app:roundedCornerRadius="10dp" 
+```   
+
+占位图
+``` 
+app:placeholderImage="@mipmap/ic_launcher"
+app:placeholderImageScaleType="centerCrop"
+```  
+
+加载失败时，显示的图，默认使用占位图
+``` 
+app:failureImage="@mipmap/ic_launcher"
+app:failureImageScaleType="centerInside"
+``` 
+
+加载失败后，重试显示的图，默认使用占位图
+``` 
+app:retryImage="@mipmap/ic_launcher"
+app:retryImageScaleType="centerCrop"
+``` 
+
+### 
 更详细的讲解，请查阅我的这篇博客：[Android图片加载神器之Fresco，基于各种使用场景的讲解。](http://blog.csdn.net/android_ls/article/details/53137867)
 
 在使用过程中有满足不了的使用场景或遇到bug，欢迎提issuse ! 若你觉得还不错，请点Star, 谢谢！
 
 
+
 ##
 滚滚长江东逝水，浪花淘尽英雄，是非成败转头空，青山依旧在，几度夕阳红。
+
 白发渔樵江楮上，惯看秋月春风，一壶浊酒喜相逢，古今多少事，都付笑谈中。
 
 
