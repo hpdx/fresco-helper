@@ -23,10 +23,10 @@ allprojects {
         mavenCentral()
         google()
 
+//        maven { url "https://plugins.gradle.org/m2/" }
         maven { url "https://jitpack.io" }
-        maven {
-            url 'https://dl.bintray.com/hpdx/maven/'
-        }
+        maven { url 'https://dl.bintray.com/hpdx/maven/' }
+
     }
 }
 
@@ -46,6 +46,6 @@ ext {
 
     frescoVersion = '2.0.0'
     SSIVVersion = '3.10.0'
-    frescoHelperVersion = '2.2.1'
+    frescoHelperVersion = '2.3.0'
 
 }

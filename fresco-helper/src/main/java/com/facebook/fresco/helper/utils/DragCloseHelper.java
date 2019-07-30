@@ -2,14 +2,11 @@ package com.facebook.fresco.helper.utils;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.animation.LinearInterpolator;
-
-import com.facebook.fresco.helper.R;
 
 import androidx.annotation.FloatRange;
 
@@ -242,11 +239,6 @@ public class DragCloseHelper {
             public void onAnimationEnd(Animator animation) {
                 if (dragCloseListener != null) {
                     dragCloseListener.onDragClose(false);
-                }
-
-                if(mContext != null) {
-                    ((Activity) mContext).finish();
-                    ((Activity) mContext).overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 }
             }
 

@@ -203,6 +203,7 @@ public class PictureBrowseActivity extends FragmentActivity
         mDragCloseHelper = new DragCloseHelper(this);
         mDragCloseHelper.setShareElementMode(true);
         mDragCloseHelper.setMinScale(0.2f);
+        mDragCloseHelper.setMaxExitY(200);
         mDragCloseHelper.setDragCloseViews(rlPhotoContainer, flContainer);
         mDragCloseHelper.setDragCloseListener(new DragCloseHelper.OnDragCloseListener() {
             @Override

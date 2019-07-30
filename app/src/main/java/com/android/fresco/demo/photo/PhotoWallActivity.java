@@ -37,7 +37,7 @@ public class PhotoWallActivity extends AppCompatActivity {
 //            StatusBarCompat.setStatusBarColor(this, Color.rgb(255, 255, 255));
 //        }
 
-        String[] images = {
+        final String[] images = {
                 "https://ws1.sinaimg.cn/large/0065oQSqly1fymj13tnjmj30r60zf79k.jpg",
                 "https://ww1.sinaimg.cn/large/0065oQSqgy1ftwcw4f4a5j30sg10j1g9.jpg",
                 "https://ww1.sinaimg.cn/large/0065oQSqly1ftzsj15hgvj30sg15hkbw.jpg",
@@ -187,6 +187,7 @@ public class PhotoWallActivity extends AppCompatActivity {
 //                        .setPhotoList(photos)
 //                        .setCurrentPosition(position)
 //                        .enabledAnimation(true)
+//                        .enabledDragClose(true)
 //                        .toggleLongClick(false)
 //                        .start();
 
@@ -197,6 +198,19 @@ public class PhotoWallActivity extends AppCompatActivity {
                         .enabledAnimation(true)
                         .enabledDragClose(true)
                         .start();
+
+//                ArrayList<String> photoList = new ArrayList<>();
+//                for (int i = 0; i < images.length; i++) {
+//                    photoList.add(images[i]);
+//                }
+//
+//                PhotoX.with(PhotoWallActivity.this)
+//                        .setLayoutManager(mLayoutManager)
+//                        .setPhotoStringList(photoList)
+//                        .setCurrentPosition(position)
+//                        .enabledAnimation(true)
+//                        .enabledDragClose(true)
+//                        .start();
 
 //                PhotoX.with(PhotoWallActivity.this)
 //                        .setPhotoList(photos)

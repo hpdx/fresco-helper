@@ -62,11 +62,15 @@ public class PhotoX {
 
         public Builder setPhotoStringList(ArrayList<String> data) {
             int size = data.size();
+            mThumbnailList = new ArrayList<>();
             ArrayList<PhotoInfo> photos = new ArrayList<>();
             for (int i = 0; i < size; i++) {
+                String imageUrl = data.get(i);
                 PhotoInfo photoInfo = new PhotoInfo();
-                photoInfo.originalUrl = data.get(i);
+                photoInfo.originalUrl = imageUrl;
+                photoInfo.thumbnailUrl = imageUrl;
                 photos.add(photoInfo);
+                mThumbnailList.add(imageUrl);
             }
             mIntent.putParcelableArrayListExtra(PhotoConstant.PHOTO_LIST_KEY, photos);
             return this;
