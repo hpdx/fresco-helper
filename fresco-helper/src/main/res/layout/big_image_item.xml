@@ -19,7 +19,7 @@
         app:ppvStrokeColor="#96FFFFFF"
         app:ppvStrokeWidth="2dp"/>
 
-    <com.facebook.fresco.helper.LargePhotoView
+    <com.facebook.fresco.helper.photoview.LargePhotoView
         android:id="@+id/photo_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

@@ -20,7 +20,7 @@
         app:ppvStrokeColor="#96FFFFFF"
         app:ppvStrokeWidth="2dp"/>
 
-    <com.facebook.fresco.helper.photoview.photodraweeview.PhotoDraweeView
+    <com.facebook.fresco.helper.photoview.PhotoDraweeView
         android:id="@+id/photo_drawee_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

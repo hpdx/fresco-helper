@@ -1,4 +1,4 @@
-package com.facebook.fresco.helper.photoview.photodraweeview;
+package com.facebook.fresco.helper.photoview;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,6 +7,11 @@ import android.view.GestureDetector;
 
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.fresco.helper.photoview.photodraweeview.Attacher;
+import com.facebook.fresco.helper.photoview.photodraweeview.IAttacher;
+import com.facebook.fresco.helper.photoview.photodraweeview.OnPhotoTapListener;
+import com.facebook.fresco.helper.photoview.photodraweeview.OnScaleChangeListener;
+import com.facebook.fresco.helper.photoview.photodraweeview.OnViewTapListener;
 
 import androidx.annotation.NonNull;
 

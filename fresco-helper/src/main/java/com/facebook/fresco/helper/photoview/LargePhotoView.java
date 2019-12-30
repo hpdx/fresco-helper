@@ -1,4 +1,4 @@
-package com.facebook.fresco.helper;
+package com.facebook.fresco.helper.photoview;
 
 import android.content.Context;
 import android.util.AttributeSet;

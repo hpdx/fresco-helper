@@ -5,8 +5,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.anbetter.log.MLog;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -15,6 +15,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.config.PhoenixConfig;
 import com.facebook.fresco.helper.listener.IDownloadResult;
 import com.facebook.fresco.helper.listener.IResult;
+import com.facebook.fresco.helper.photoview.LargePhotoView;
 import com.facebook.fresco.helper.utils.CircleBitmapTransform;
 import com.facebook.fresco.helper.utils.ImageFileUtils;
 import com.facebook.imagepipeline.core.ImagePipeline;
@@ -442,7 +443,7 @@ public final class Phoenix {
             ImageLoader.loadLocalDiskCache(mContext, mUrl, mResult);
         }
 
-        private void loadNormal(String url) {
+        private void loadNormal(final String url) {
 //            MLog.i("url = " + url);
             adjustLayoutParams();
 
@@ -502,8 +503,7 @@ public final class Phoenix {
                                             if(filePath != null) {
                                                 mSubsamplingScaleImageView.setImage(ImageSource.uri(filePath));
                                             } else {
-                                                Toast.makeText(mSubsamplingScaleImageView.getContext(),
-                                                        "加载图片失败，请检查网络", Toast.LENGTH_SHORT).show();
+                                                MLog.e("filePath = null\t url = " + url);
                                             }
                                         }
                                     });

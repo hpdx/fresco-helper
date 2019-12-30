@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.facebook.fresco.helper.LargePhotoView
+<com.facebook.fresco.helper.photoview.LargePhotoView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/image"
     android:layout_width="match_parent"

@@ -39,8 +39,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    implementation project(':fresco-helper')
-    implementation 'com.facebook.fresco.helper:fresco-helper:2.3.0'
+    implementation project(':fresco-helper')
+//    implementation 'com.facebook.fresco.helper:fresco-helper:2.3.0'
 
     implementation 'com.hjq:xxpermissions:5.5'
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'

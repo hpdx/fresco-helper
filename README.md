@@ -240,7 +240,7 @@ mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
 xml布局文件
 ```
-<com.facebook.fresco.helper.LargePhotoView
+<com.facebook.fresco.helper.photoview.LargePhotoView
     android:id="@+id/image"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>

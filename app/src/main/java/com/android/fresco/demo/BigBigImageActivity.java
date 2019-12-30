@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.anbetter.log.MLog;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
-import com.facebook.fresco.helper.LargePhotoView;
+import com.facebook.fresco.helper.photoview.LargePhotoView;
 import com.facebook.fresco.helper.Phoenix;
 
 import androidx.annotation.Nullable;

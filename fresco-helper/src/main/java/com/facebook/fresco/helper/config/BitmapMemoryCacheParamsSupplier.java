@@ -28,17 +28,17 @@ public class BitmapMemoryCacheParamsSupplier implements Supplier<MemoryCachePara
     public MemoryCacheParams get() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return new MemoryCacheParams(getMaxCacheSize(), // 内存缓存中总图片的最大大小,以字节为单位。
-                    56,                                     // 内存缓存中图片的最大数量。
+                    56,                                     // 内存缓存中图片的最大数量。(最大缓存条目)
                     Integer.MAX_VALUE,                      // 内存缓存中准备清除但尚未被删除的总图片的最大大小,以字节为单位。
                     Integer.MAX_VALUE,                      // 内存缓存中准备清除的总图片的最大数量。
                     Integer.MAX_VALUE);                     // 内存缓存中单个图片的最大大小。
         } else {
             return new MemoryCacheParams(
                     getMaxCacheSize(),
-                    256,
-                    Integer.MAX_VALUE,
-                    Integer.MAX_VALUE,
-                    Integer.MAX_VALUE);
+                    256, // MAX_CACHE_ENTRIES
+                    Integer.MAX_VALUE, // MAX_EVICTION_QUEUE_SIZE
+                    Integer.MAX_VALUE, // MAX_EVICTION_QUEUE_ENTRIES
+                    Integer.MAX_VALUE); // MAX_CACHE_ENTRY_SIZE
         }
     }
 
