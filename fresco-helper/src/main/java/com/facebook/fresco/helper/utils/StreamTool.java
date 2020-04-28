@@ -63,7 +63,6 @@ public final class StreamTool {
      * @param inStream
      * @return  byte[]
      * @throws IOException
-     * @throws Exception
      */
     public static byte[] read(InputStream inStream) throws IOException {
         ByteArrayOutputStream outSteam = new ByteArrayOutputStream();

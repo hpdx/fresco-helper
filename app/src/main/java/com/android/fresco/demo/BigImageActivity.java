@@ -3,11 +3,11 @@ package com.android.fresco.demo;
 import android.graphics.drawable.Animatable;
 import android.os.Bundle;
 
-import com.anbetter.log.MLog;
 import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.Phoenix;
 import com.facebook.fresco.helper.utils.DensityUtil;
+import com.facebook.fresco.helper.utils.MLog;
 import com.facebook.imagepipeline.image.ImageInfo;
 
 import androidx.annotation.Nullable;
@@ -26,7 +26,8 @@ public class BigImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fresco_big);
 
-        final String url = "https://ws1.sinaimg.cn/large/610dc034ly1fgi3vd6irmj20u011i439.jpg";
+//        final String url = "https://ws1.sinaimg.cn/large/610dc034ly1fgi3vd6irmj20u011i439.jpg";
+        final String url = "https://ae01.alicdn.com/kf/U566616d0d92348ca849d35df59653fb4u.jpg";
         SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
 
 

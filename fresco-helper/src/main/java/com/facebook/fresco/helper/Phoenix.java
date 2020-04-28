@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.view.ViewGroup;
 
-import com.anbetter.log.MLog;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -18,6 +17,7 @@ import com.facebook.fresco.helper.listener.IResult;
 import com.facebook.fresco.helper.photoview.LargePhotoView;
 import com.facebook.fresco.helper.utils.CircleBitmapTransform;
 import com.facebook.fresco.helper.utils.ImageFileUtils;
+import com.facebook.fresco.helper.utils.MLog;
 import com.facebook.imagepipeline.core.ImagePipeline;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.image.ImageInfo;

@@ -49,9 +49,8 @@ dependencies {
     api 'com.facebook.fresco:animated-webp:' + rootProject.ext.frescoVersion
     api 'com.davemorrissey.labs:subsampling-scale-image-view:' + rootProject.ext.SSIVVersion
 
-    implementation 'com.android.support:support-v4:' + rootProject.ext.supportLibVersion
-    implementation 'com.android.support:recyclerview-v7:' + rootProject.ext.supportLibVersion
-    api 'com.anbetter:MLog:1.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 }
 
 // Maven Group ID

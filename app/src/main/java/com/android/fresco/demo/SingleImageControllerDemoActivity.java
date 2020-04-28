@@ -24,7 +24,7 @@ public class SingleImageControllerDemoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fresco_scale);
 
 //        String url = "https://ws1.sinaimg.cn/large/0065oQSqly1g0ajj4h6ndj30sg11xdmj.jpg";
-        String url = "https://ws1.sinaimg.cn/large/0065oQSqly1fymj13tnjmj30r60zf79k.jpg";
+        String url = "https://ae01.alicdn.com/kf/U566616d0d92348ca849d35df59653fb4u.jpg";
         SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
         Phoenix.with(simpleDraweeView)
                 .setControllerListener(new SingleImageControllerListener(simpleDraweeView,

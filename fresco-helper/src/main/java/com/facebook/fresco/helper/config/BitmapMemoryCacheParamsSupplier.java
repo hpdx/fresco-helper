@@ -3,9 +3,9 @@ package com.facebook.fresco.helper.config;
 import android.app.ActivityManager;
 import android.os.Build;
 
-import com.anbetter.log.MLog;
 import com.facebook.common.internal.Supplier;
 import com.facebook.common.util.ByteConstants;
+import com.facebook.fresco.helper.utils.MLog;
 import com.facebook.imagepipeline.cache.MemoryCacheParams;
 
 import java.util.Locale;

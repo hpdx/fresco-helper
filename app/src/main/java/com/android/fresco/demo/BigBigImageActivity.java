@@ -6,10 +6,10 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.anbetter.log.MLog;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.facebook.fresco.helper.photoview.LargePhotoView;
 import com.facebook.fresco.helper.Phoenix;
+import com.facebook.fresco.helper.utils.MLog;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;

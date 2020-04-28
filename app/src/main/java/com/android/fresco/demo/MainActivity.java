@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.anbetter.log.MLog;
 import com.android.fresco.demo.photo.PhotoAlbumActivity;
 import com.android.fresco.demo.photo.PhotoWallActivity;
 import com.facebook.fresco.helper.Phoenix;
 import com.facebook.fresco.helper.listener.IDownloadResult;
 import com.facebook.fresco.helper.listener.IResult;
 import com.facebook.fresco.helper.utils.ImageFileUtils;
+import com.facebook.fresco.helper.utils.MLog;
 
 import androidx.appcompat.app.AppCompatActivity;
 

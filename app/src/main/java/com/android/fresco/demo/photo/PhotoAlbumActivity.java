@@ -6,10 +6,10 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.anbetter.log.MLog;
 import com.android.fresco.demo.R;
 import com.facebook.fresco.helper.photoview.PhotoX;
 import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
+import com.facebook.fresco.helper.utils.MLog;
 import com.hjq.permissions.OnPermission;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;

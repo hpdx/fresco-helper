@@ -3,9 +3,9 @@ package com.facebook.fresco.helper.photoview;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.anbetter.log.MLog;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.facebook.fresco.helper.listener.OnProgressListener;
+import com.facebook.fresco.helper.utils.MLog;
 
 /**
  * Created by android_ls on 2017/5/17.

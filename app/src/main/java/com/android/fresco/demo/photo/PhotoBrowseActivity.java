@@ -2,10 +2,10 @@ package com.android.fresco.demo.photo;
 
 import android.view.View;
 
-import com.anbetter.log.MLog;
 import com.android.fresco.demo.R;
 import com.facebook.fresco.helper.photoview.PictureBrowseActivity;
 import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
+import com.facebook.fresco.helper.utils.MLog;
 
 /**
  * 查看大图

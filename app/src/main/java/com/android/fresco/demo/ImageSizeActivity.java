@@ -23,7 +23,8 @@ public class ImageSizeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fresco_big);
 
-        String url = "https://ws1.sinaimg.cn/large/610dc034ly1fga6auw8ycj20u00u00uw.jpg";
+//        String url = "https://ws1.sinaimg.cn/large/610dc034ly1fga6auw8ycj20u00u00uw.jpg";
+        String url = "https://ae01.alicdn.com/kf/U566616d0d92348ca849d35df59653fb4u.jpg";
         SimpleDraweeView simpleDraweeView = (SimpleDraweeView)findViewById(R.id.sdv_1);
         // ImageLoader.loadImage(simpleDraweeView, url, new SingleImageControllerListener(simpleDraweeView));
 

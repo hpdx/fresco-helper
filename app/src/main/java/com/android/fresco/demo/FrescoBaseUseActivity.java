@@ -3,10 +3,10 @@ package com.android.fresco.demo;
 import android.os.Bundle;
 import android.view.View;
 
-import com.anbetter.log.MLog;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.ImageLoader;
 import com.facebook.fresco.helper.Phoenix;
+import com.facebook.fresco.helper.utils.MLog;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;

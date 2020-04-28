@@ -1,7 +1,7 @@
 # fresco-helper
 
 ## 依赖开源库：
-fresco v2.0.0：[https://github.com/facebook/fresco](https://github.com/facebook/fresco)
+fresco v2.2.0：[https://github.com/facebook/fresco](https://github.com/facebook/fresco)
 
 subsampling-scale-image-view v3.10.0：[https://github.com/davemorrissey/subsampling-scale-image-view](https://github.com/davemorrissey/subsampling-scale-image-view)
 

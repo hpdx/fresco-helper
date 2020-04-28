@@ -6,11 +6,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.anbetter.log.MLog;
 import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.fresco.helper.Phoenix;
 import com.facebook.fresco.helper.listener.IResult;
+import com.facebook.fresco.helper.utils.MLog;
 import com.facebook.imagepipeline.image.ImageInfo;
 
 import androidx.annotation.Nullable;

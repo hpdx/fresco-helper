@@ -9,7 +9,7 @@ import android.renderscript.RSRuntimeException;
 
 /**
  * 对Bitmap进行高斯模糊处理
- * <p/>
+ *
  * Created by android_ls on 16/9/27.
  */
 public final class BitmapBlurHelper {

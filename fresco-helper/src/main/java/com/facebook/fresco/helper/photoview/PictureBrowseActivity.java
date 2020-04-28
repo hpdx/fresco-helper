@@ -8,12 +8,12 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.anbetter.log.MLog;
 import com.facebook.fresco.helper.R;
 import com.facebook.fresco.helper.photoview.anim.TransitionCompat;
 import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
 import com.facebook.fresco.helper.photoview.photodraweeview.OnPhotoTapListener;
 import com.facebook.fresco.helper.utils.DragCloseHelper;
+import com.facebook.fresco.helper.utils.MLog;
 import com.facebook.fresco.helper.utils.PhotoConstant;
 
 import java.util.ArrayList;

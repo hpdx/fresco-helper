@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.anbetter.log.MLog;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -26,6 +25,7 @@ import com.facebook.fresco.helper.loading.LoadingProgressBarView;
 import com.facebook.fresco.helper.photoview.photodraweeview.OnPhotoTapListener;
 import com.facebook.fresco.helper.photoview.photodraweeview.OnViewTapListener;
 import com.facebook.fresco.helper.utils.DensityUtil;
+import com.facebook.fresco.helper.utils.MLog;
 import com.facebook.imagepipeline.core.ImagePipeline;
 import com.facebook.imagepipeline.image.ImageInfo;
 

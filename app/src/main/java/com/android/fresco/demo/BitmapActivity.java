@@ -4,10 +4,10 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.anbetter.log.MLog;
 import com.facebook.fresco.helper.Phoenix;
 import com.facebook.fresco.helper.listener.IResult;
 import com.facebook.fresco.helper.utils.DensityUtil;
+import com.facebook.fresco.helper.utils.MLog;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
