@@ -39,6 +39,12 @@ android {
 
 }
 
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        rootProject.unifyDependencyVersion(details)
+    }
+}
+
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 

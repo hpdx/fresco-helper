@@ -1,0 +1,37 @@
+<resources>
+
+    <declare-styleable name="ButtonBarContainerTheme">
+        <attr name="easyMetaButtonBarStyle" format="reference" />
+        <attr name="easyMetaButtonBarButtonStyle" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="PuzzleView">
+        <attr name="easy_line_size" format="integer" />
+        <attr name="easy_line_color" format="color" />
+        <attr name="easy_selected_line_color" format="color" />
+        <attr name="easy_handle_bar_color" format="color" />
+        <attr name="easy_need_draw_line" format="boolean" />
+        <attr name="easy_need_draw_outer_line" format="boolean" />
+        <attr name="easy_piece_padding" format="dimension" />
+        <attr name="easy_animation_duration" format="integer" />
+        <attr name="easy_radian" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="JCameraView">
+        <attr name="easy_iconSize" format="dimension" />
+        <attr name="easy_iconMargin" format="dimension" />
+        <attr name="easy_iconSrc" format="reference" />
+        <attr name="easy_iconLeft" format="dimension" />
+        <attr name="easy_iconRight" format="dimension" />
+        <attr name="easy_duration_max" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="SubsamplingScaleImageView">
+        <attr name="easy_src" format="reference" />
+        <attr name="easy_assetName" format="string" />
+        <attr name="easy_panEnabled" format="boolean" />
+        <attr name="easy_zoomEnabled" format="boolean" />
+        <attr name="easy_quickScaleEnabled" format="boolean" />
+        <attr name="easy_tileBackgroundColor" format="color" />
+    </declare-styleable>
+</resources>

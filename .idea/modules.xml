@@ -5,6 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/FrescoUtils.iml" filepath="$PROJECT_DIR$/FrescoUtils.iml" group="FrescoUtils" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="FrescoUtils/app" />
       <module fileurl="file://$PROJECT_DIR$/fresco-helper/fresco-helper.iml" filepath="$PROJECT_DIR$/fresco-helper/fresco-helper.iml" group="FrescoUtils/fresco-helper" />
+      <module fileurl="file://$PROJECT_DIR$/image-picker/image-picker.iml" filepath="$PROJECT_DIR$/image-picker/image-picker.iml" group="FrescoUtils/image-picker" />
+      <module fileurl="file://$PROJECT_DIR$/oka/oka.iml" filepath="$PROJECT_DIR$/oka/oka.iml" group="FrescoUtils/oka" />
+      <module fileurl="file://$PROJECT_DIR$/ucrop/ucrop.iml" filepath="$PROJECT_DIR$/ucrop/ucrop.iml" group="FrescoUtils/ucrop" />
     </modules>
   </component>
 </project>

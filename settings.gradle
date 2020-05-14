@@ -1,2 +1,5 @@
 include ':app',
-        ':fresco-helper'
+        ':fresco-helper',
+        ':image-picker',
+        ':ucrop',
+        ':oka'

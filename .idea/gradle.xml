@@ -14,6 +14,9 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/fresco-helper" />
+            <option value="$PROJECT_DIR$/image-picker" />
+            <option value="$PROJECT_DIR$/oka" />
+            <option value="$PROJECT_DIR$/ucrop" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

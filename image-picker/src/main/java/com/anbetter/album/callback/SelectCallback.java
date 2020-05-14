@@ -1,0 +1,22 @@
+package com.anbetter.album.callback;
+
+import com.anbetter.album.models.album.entity.PhotoInfo;
+
+import java.util.ArrayList;
+
+/**
+ * SelectCallback
+ *
+ * @author joker
+ * @date 2019/4/9.
+ */
+public abstract class SelectCallback {
+    /**
+     * 选择结果回调
+     *
+     * @param photoInfos     返回对象集合：如果你需要了解图片的宽、高、大小、用户是否选中原图选项等信息，可以用这个
+     * @param paths      返回图片最终地址集合：如果你只需要获取图片的最终地址，可以用这个（最终地址：对应图片没裁剪就是原图地址，进行了裁剪就是裁剪后地址）
+     * @param isOriginal 返回图片地址集合时如果你需要知道用户选择图片时是否选择了原图选项，用如下方法获取
+     */
+    public abstract void onResult(ArrayList<PhotoInfo> photoInfos, ArrayList<String> paths, boolean isOriginal);
+}

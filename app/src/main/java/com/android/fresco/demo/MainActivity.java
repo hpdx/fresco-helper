@@ -8,6 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.anbetter.album.EasyPhotos;
+import com.anbetter.album.callback.SelectCallback;
+import com.anbetter.album.engine.FrescoImageEngine;
+import com.anbetter.album.engine.LubanCompressEngine;
+import com.anbetter.album.models.album.entity.PhotoInfo;
+import com.anbetter.album.setting.Setting;
 import com.android.fresco.demo.photo.PhotoAlbumActivity;
 import com.android.fresco.demo.photo.PhotoWallActivity;
 import com.facebook.fresco.helper.Phoenix;
@@ -17,6 +23,8 @@ import com.facebook.fresco.helper.utils.ImageFileUtils;
 import com.facebook.fresco.helper.utils.MLog;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,7 +50,27 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_open_photo_album).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, PhotoAlbumActivity.class));
+                // startActivity(new Intent(MainActivity.this, PhotoAlbumActivity.class));
+
+                EasyPhotos.createAlbum(MainActivity.this, true,
+                        FrescoImageEngine.getInstance())
+                        .setCameraLocation(Setting.LIST_FIRST)// 设置为相册第一张图片的位置
+                        .setCount(9)// 参数说明：最大可选数，默认1
+                        .setPuzzleMenu(false)
+                        .setCleanMenu(false)
+                        .enableSystemCamera(true)
+                        .isCompress(true)
+                        .setCompressEngine(LubanCompressEngine.getInstance())
+                        .start(new SelectCallback() {
+
+                            @Override
+                            public void onResult(ArrayList<PhotoInfo> photoInfos, ArrayList<String> photos, boolean isOriginal) {
+                                MLog.i("photos = " + photos.toString());
+
+
+                            }
+                        });
+
             }
         });
 
