@@ -12,12 +12,12 @@
         android:textColor="@android:color/white"
         android:textSize="14sp"
         android:visibility="gone"
-        app:ppvBackgroundColor="#00000000"
-        app:ppvProgress="0"
-        app:ppvProgressColor="#96ffffff"
-        app:ppvProgressFillType="radial"
-        app:ppvStrokeColor="#96FFFFFF"
-        app:ppvStrokeWidth="2dp"/>
+        app:ffBackgroundColor="#00000000"
+        app:ffProgress="0"
+        app:ffProgressColor="#96ffffff"
+        app:ffProgressFillType="radial"
+        app:ffStrokeColor="#96FFFFFF"
+        app:ffStrokeWidth="2dp"/>
 
     <com.facebook.fresco.helper.photoview.LargePhotoView
         android:id="@+id/photo_view"

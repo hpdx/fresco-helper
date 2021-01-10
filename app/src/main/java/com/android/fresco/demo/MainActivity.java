@@ -8,12 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.anbetter.album.EasyPhotos;
-import com.anbetter.album.callback.SelectCallback;
-import com.anbetter.album.engine.FrescoImageEngine;
-import com.anbetter.album.engine.LubanCompressEngine;
-import com.anbetter.album.models.album.entity.PhotoInfo;
-import com.anbetter.album.setting.Setting;
 import com.android.fresco.demo.photo.PhotoAlbumActivity;
 import com.android.fresco.demo.photo.PhotoWallActivity;
 import com.facebook.fresco.helper.Phoenix;
@@ -23,8 +17,6 @@ import com.facebook.fresco.helper.utils.ImageFileUtils;
 import com.facebook.fresco.helper.utils.MLog;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,27 +42,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_open_photo_album).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // startActivity(new Intent(MainActivity.this, PhotoAlbumActivity.class));
-
-                EasyPhotos.createAlbum(MainActivity.this, true,
-                        FrescoImageEngine.getInstance())
-                        .setCameraLocation(Setting.LIST_FIRST)// 设置为相册第一张图片的位置
-                        .setCount(9)// 参数说明：最大可选数，默认1
-                        .setPuzzleMenu(false)
-                        .setCleanMenu(false)
-                        .enableSystemCamera(true)
-                        .isCompress(true)
-                        .setCompressEngine(LubanCompressEngine.getInstance())
-                        .start(new SelectCallback() {
-
-                            @Override
-                            public void onResult(ArrayList<PhotoInfo> photoInfos, ArrayList<String> photos, boolean isOriginal) {
-                                MLog.i("photos = " + photos.toString());
-
-
-                            }
-                        });
-
+                startActivity(new Intent(MainActivity.this, PhotoAlbumActivity.class));
             }
         });
 
@@ -84,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_clear_memory).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Phoenix.clearCaches();
-                ((Button)findViewById(R.id.btn_get_cache_size)).setText("获取已使用的缓存大小");
+                Phoenix.clearCaches();
+                ((Button) findViewById(R.id.btn_get_cache_size)).setText("获取已使用的缓存大小");
             }
         });
 
@@ -115,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 long cacheSize = Phoenix.getMainDiskStorageCacheSize();
                 MLog.i("cacheSize = " + cacheSize);
-                ((Button)findViewById(R.id.btn_get_cache_size)).setText("缓存:" + (cacheSize/1024) + "kb");
+                ((Button) findViewById(R.id.btn_get_cache_size)).setText("缓存:" + (cacheSize / 1024) + "kb");
             }
         });
 
@@ -206,43 +178,43 @@ public class MainActivity extends AppCompatActivity {
         String url = "http://ww1.sinaimg.cn/large/610dc034jw1fahy9m7xw0j20u00u042l.jpg";
         String filePath = "";
         Phoenix.with(context)
-                .setUrl(url)
-                .setResult(new IDownloadResult(filePath) {
-                    @Override
-                    public void onResult(String filePath) {
-                        MLog.i("filePath = " + filePath);
-                        // 在子线程，要显示到View上，需要切换到主线程
-                    }
-                })
-                .download();
+            .setUrl(url)
+            .setResult(new IDownloadResult(filePath) {
+                @Override
+                public void onResult(String filePath) {
+                    MLog.i("filePath = " + filePath);
+                    // 在子线程，要显示到View上，需要切换到主线程
+                }
+            })
+            .download();
     }
 
     public void downloadBitmap(Context context) {
         String url = "http://ww1.sinaimg.cn/large/610dc034jw1fahy9m7xw0j20u00u042l.jpg";
         Phoenix.with(context)
-                .setUrl(url)
-                .setResult(new IResult<Bitmap>() {
-            @Override
-            public void onResult(Bitmap result) {
-                // 在主线程
+            .setUrl(url)
+            .setResult(new IResult<Bitmap>() {
+                @Override
+                public void onResult(Bitmap result) {
+                    // 在主线程
 
-            }
-        }).load();
+                }
+            }).load();
     }
 
     public void downloadImageGif(Context context) {
         String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496383829892&di=ac88e62a1424eaddcc03502e99e8168f&imgtype=0&src=http%3A%2F%2Fi3.17173cdn.com%2F2fhnvk%2FYWxqaGBf%2Fcms3%2FVqLgYAbkkbmrjhy.gif";
         String filePath = ImageFileUtils.getImageDownloadPath(context, url);
         Phoenix.with(context)
-                .setUrl(url)
-                .setResult(new IDownloadResult(filePath) {
-                    @Override
-                    public void onResult(String filePath) {
-                        MLog.i("filePath = " + filePath);
-                        // 在子线程，要显示到View上，需要切换到主线程
-                    }
-                })
-                .download();
+            .setUrl(url)
+            .setResult(new IDownloadResult(filePath) {
+                @Override
+                public void onResult(String filePath) {
+                    MLog.i("filePath = " + filePath);
+                    // 在子线程，要显示到View上，需要切换到主线程
+                }
+            })
+            .download();
     }
 
 }

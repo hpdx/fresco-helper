@@ -1,5 +1,6 @@
 package com.android.fresco.demo.photo;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.android.fresco.demo.R;

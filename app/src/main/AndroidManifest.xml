@@ -49,7 +49,6 @@
 
         <activity
             android:name=".photo.PhotoBrowseActivity"
-            android:fitsSystemWindows="true"
             android:theme="@style/PhotoBrowseTheme"/>
 
     </application>

@@ -11,7 +11,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:4.1.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
     }
@@ -42,7 +42,7 @@ ext {
     minSdk = 19
     targetSdk = 29
 
-    frescoVersion = '2.2.0'
+    frescoVersion = '2.3.0'
     SSIVVersion = '3.10.0'
     frescoHelperVersion = '2.3.7'
 

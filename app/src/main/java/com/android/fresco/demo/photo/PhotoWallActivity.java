@@ -6,6 +6,7 @@ import android.view.View;
 import com.android.fresco.demo.R;
 import com.facebook.fresco.helper.photoview.PhotoX;
 import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
+import com.facebook.fresco.helper.statusbar.StatusBarCompat;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import qiu.niorgai.StatusBarCompat;
 
 /**
  * Created by android_ls on 16/11/2.

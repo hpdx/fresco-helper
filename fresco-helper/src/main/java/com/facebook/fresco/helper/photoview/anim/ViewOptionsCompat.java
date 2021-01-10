@@ -7,9 +7,9 @@ import android.util.SparseArray;
 import android.view.View;
 import android.view.WindowManager;
 
-import java.util.ArrayList;
-
 import androidx.recyclerview.widget.GridLayoutManager;
+
+import java.util.ArrayList;
 
 public class ViewOptionsCompat {
 

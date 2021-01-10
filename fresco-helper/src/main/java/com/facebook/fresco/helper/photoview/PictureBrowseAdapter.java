@@ -10,6 +10,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
+
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -20,8 +23,8 @@ import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.fresco.helper.Phoenix;
 import com.facebook.fresco.helper.R;
 import com.facebook.fresco.helper.listener.OnProgressListener;
-import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
 import com.facebook.fresco.helper.loading.LoadingProgressBarView;
+import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
 import com.facebook.fresco.helper.photoview.photodraweeview.OnPhotoTapListener;
 import com.facebook.fresco.helper.photoview.photodraweeview.OnViewTapListener;
 import com.facebook.fresco.helper.utils.DensityUtil;
@@ -31,9 +34,6 @@ import com.facebook.imagepipeline.image.ImageInfo;
 
 import java.util.ArrayList;
 import java.util.Locale;
-
-import androidx.annotation.NonNull;
-import androidx.viewpager.widget.PagerAdapter;
 
 /**
  * Created by android_ls on 16/9/13.

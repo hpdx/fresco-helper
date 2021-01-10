@@ -95,30 +95,30 @@ public class LoadingProgressBarView extends View {
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LoadingProgressBarView);
         final Resources res = getResources();
 
-        mMax = a.getInteger(R.styleable.LoadingProgressBarView_ppvMax, mMax);
-        mProgress = a.getInteger(R.styleable.LoadingProgressBarView_ppvProgress, mProgress);
-        mStartAngle = a.getInt(R.styleable.LoadingProgressBarView_ppvStartAngle, mStartAngle);
-        mInverted = a.getBoolean(R.styleable.LoadingProgressBarView_ppvInverted, mInverted);
-        mCounterclockwise = a.getBoolean(R.styleable.LoadingProgressBarView_ppvCounterclockwise, mCounterclockwise);
-        mStrokeWidth = a.getDimension(R.styleable.LoadingProgressBarView_ppvStrokeWidth, mStrokeWidth);
-        mTypeface = a.getString(R.styleable.LoadingProgressBarView_ppvTypeface);
+        mMax = a.getInteger(R.styleable.LoadingProgressBarView_ffMax, mMax);
+        mProgress = a.getInteger(R.styleable.LoadingProgressBarView_ffProgress, mProgress);
+        mStartAngle = a.getInt(R.styleable.LoadingProgressBarView_ffStartAngle, mStartAngle);
+        mInverted = a.getBoolean(R.styleable.LoadingProgressBarView_ffInverted, mInverted);
+        mCounterclockwise = a.getBoolean(R.styleable.LoadingProgressBarView_ffCounterclockwise, mCounterclockwise);
+        mStrokeWidth = a.getDimension(R.styleable.LoadingProgressBarView_ffStrokeWidth, mStrokeWidth);
+        mTypeface = a.getString(R.styleable.LoadingProgressBarView_ffTypeface);
         mTextSize = a.getDimension(R.styleable.LoadingProgressBarView_android_textSize, mTextSize);
         mText = a.getString(R.styleable.LoadingProgressBarView_android_text);
 
-        mShowStroke = a.getBoolean(R.styleable.LoadingProgressBarView_ppvShowStroke, mShowStroke);
-        mShowText = a.getBoolean(R.styleable.LoadingProgressBarView_ppvShowText, mShowText);
-        mImage = a.getDrawable(R.styleable.LoadingProgressBarView_ppvImage);
+        mShowStroke = a.getBoolean(R.styleable.LoadingProgressBarView_ffShowStroke, mShowStroke);
+        mShowText = a.getBoolean(R.styleable.LoadingProgressBarView_ffShowText, mShowText);
+        mImage = a.getDrawable(R.styleable.LoadingProgressBarView_ffImage);
 
         int backgroundColor = res.getColor(R.color.default_background_color);
-        backgroundColor = a.getColor(R.styleable.LoadingProgressBarView_ppvBackgroundColor, backgroundColor);
+        backgroundColor = a.getColor(R.styleable.LoadingProgressBarView_ffBackgroundColor, backgroundColor);
         int progressColor = res.getColor(R.color.default_progress_color);
-        progressColor = a.getColor(R.styleable.LoadingProgressBarView_ppvProgressColor, progressColor);
+        progressColor = a.getColor(R.styleable.LoadingProgressBarView_ffProgressColor, progressColor);
         int strokeColor = res.getColor(R.color.default_stroke_color);
-        strokeColor = a.getColor(R.styleable.LoadingProgressBarView_ppvStrokeColor, strokeColor);
+        strokeColor = a.getColor(R.styleable.LoadingProgressBarView_ffStrokeColor, strokeColor);
         int textColor = res.getColor(R.color.default_text_color);
         textColor = a.getColor(R.styleable.LoadingProgressBarView_android_textColor, textColor);
 
-        mProgressFillType = a.getInteger(R.styleable.LoadingProgressBarView_ppvProgressFillType, mProgressFillType);
+        mProgressFillType = a.getInteger(R.styleable.LoadingProgressBarView_ffProgressFillType, mProgressFillType);
 
         a.recycle();
 

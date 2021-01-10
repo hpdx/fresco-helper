@@ -8,19 +8,20 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager.widget.ViewPager;
+
 import com.facebook.fresco.helper.R;
 import com.facebook.fresco.helper.photoview.anim.TransitionCompat;
 import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
 import com.facebook.fresco.helper.photoview.photodraweeview.OnPhotoTapListener;
+import com.facebook.fresco.helper.statusbar.StatusBarCompat;
 import com.facebook.fresco.helper.utils.DragCloseHelper;
 import com.facebook.fresco.helper.utils.MLog;
 import com.facebook.fresco.helper.utils.PhotoConstant;
 
 import java.util.ArrayList;
 import java.util.Locale;
-
-import androidx.fragment.app.FragmentActivity;
-import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by android_ls on 16/9/13.
@@ -52,6 +53,7 @@ public class PictureBrowseActivity extends FragmentActivity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResId());
+        StatusBarCompat.translucentStatusBar(this);
 
         Intent data = getIntent();
         mItems = data.getParcelableArrayListExtra(PhotoConstant.PHOTO_LIST_KEY);

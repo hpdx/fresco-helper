@@ -11,6 +11,8 @@
             android:name=".photoview.PictureBrowseActivity"
             android:theme="@style/picture_browse_activity_style"/>
 
+
+
     </application>
 
 </manifest>
