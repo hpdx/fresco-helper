@@ -1,3 +1,6 @@
+
+### glide-helper的地址：https://github.com/hpdx/glide-helper
+
 # fresco-helper
 
 ## 依赖开源库：
