@@ -29,7 +29,7 @@ subsampling-scale-image-view v3.10.0：[https://github.com/davemorrissey/subsamp
  }
 
 use AndroidX
-implementation 'com.facebook.fresco.helper:fresco-helper:2.3.0'
+implementation 'com.facebook.fresco.helper:fresco-helper:2.4.0'
 ```
 
 ##不使用AndroidX
