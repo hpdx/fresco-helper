@@ -1,21 +1,21 @@
-
-### glide-helper的地址：https://github.com/hpdx/glide-helper
-
 # fresco-helper
 
-## 依赖开源库：
+## Glide的使用示例
+https://github.com/hpdx/glide-helper
+
+## 依赖开源库
 fresco v2.3.0：[https://github.com/facebook/fresco](https://github.com/facebook/fresco)
 
 subsampling-scale-image-view v3.10.0：[https://github.com/davemorrissey/subsampling-scale-image-view](https://github.com/davemorrissey/subsampling-scale-image-view)
 
-## Demo运行后效果图：
+## Demo运行后效果图
 <img src="https://github.com/hpdx/fresco-helper/blob/master/images/demo.jpg"  width="270px"/>  <img src="https://github.com/hpdx/fresco-helper/blob/master/images/demo1.jpg" width="270px"/>
 
 <img src="https://github.com/hpdx/fresco-helper/blob/master/images/photo_wall.jpg" width="270px"/>  <img src="https://github.com/hpdx/fresco-helper/blob/master/images/big_image_browse.jpg" width="270px"/>
 
 [下载示例Apk](https://github.com/hpdx/fresco-helper/blob/master/app-debug.apk)
 
-## 使用：
+## 使用
 在使用到fresco-helper库的Module中的build.gradle文件里，添加以下依赖：
 ```
  allprojects {
@@ -32,7 +32,7 @@ use AndroidX
 implementation 'com.facebook.fresco.helper:fresco-helper:2.4.0'
 ```
 
-##不使用AndroidX
+### 不使用AndroidX
 ```
 fresco v1.13.0
 
@@ -224,7 +224,7 @@ Phoenix.with(url)
            }).loadLocalDiskCache();
 ```
 
-## 在列表滚动中暂停加载图片，等滚动停止后再继续加载
+### 在列表滚动中暂停加载图片，等滚动停止后再继续加载
 ```
 mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -238,7 +238,7 @@ mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 });
 ```
 
-## 从网络加载一张超大图
+### 从网络加载一张超大图
 大小以M为单位，目标图片宽度大于手机屏幕宽的2倍以上或者高度大于手机屏幕高的2倍以上
 
 xml布局文件
