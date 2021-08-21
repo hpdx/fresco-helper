@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -88,62 +86,4 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 artifacts {
     archives javadocJar
     archives sourcesJar
-}
-
-install {
-    repositories.mavenInstaller {
-        pom.project {
-            name 'fresco-helper'
-            description 'Android上图片加载库Fresco的使用帮助类'
-            url 'https://github.com/hpdx/fresco-helper'
-            inceptionYear '2016'
-
-            packaging 'aar'
-            groupId 'com.facebook.fresco.helper'
-            artifactId 'fresco-helper'
-            version rootProject.ext.frescoHelperVersion
-
-            licenses {
-                license {
-                    name 'The Apache Software License, Version 2.0'
-                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    distribution 'repo'
-                }
-            }
-
-            scm {
-                connection 'https://github.com/hpdx/fresco-helper.git' // Git仓库地址。
-                developerConnection 'https://github.com/hpdx/fresco-helper.git' // Git仓库地址。
-                url 'https://github.com/hpdx/fresco-helper' // 项目主页。
-            }
-
-            developers {
-                developer {
-                    id 'android_ls'
-                    name 'android_ls'
-                    email 'android_ls@163.com'
-                }
-            }
-        }
-    }
-}
-
-Properties properties = new Properties()
-// 读取properties的配置信息
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-    configurations = ['archives']
-    pkg {
-        repo = 'maven'
-        name = 'fresco-helper'
-        userOrg = user
-        licenses = ['Apache-2.0']
-        websiteUrl = 'https://github.com/hpdx/fresco-helper'
-        vcsUrl = 'https://github.com/hpdx/fresco-helper.git'
-        publish = true
-        publicDownloadNumbers = true
-    }
 }

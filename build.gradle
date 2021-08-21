@@ -12,8 +12,6 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.1'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
     }
 }
 
@@ -24,7 +22,6 @@ allprojects {
         google()
 
         maven { url "https://jitpack.io" }
-        maven { url 'https://dl.bintray.com/hpdx/maven/' }
     }
 }
 
@@ -44,7 +41,7 @@ ext {
 
     frescoVersion = '2.5.0'
     SSIVVersion = '3.10.0'
-    frescoHelperVersion = '2.4.0'
+    frescoHelperVersion = '2.5.0'
 
     // Dependencies Libraries
     dependencies = ["support-v4"         : "androidx.legacy:legacy-support-v4:1.0.0",
