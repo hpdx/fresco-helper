@@ -4,7 +4,7 @@
 https://github.com/hpdx/glide-helper
 
 ## 依赖开源库
-fresco v2.3.0：[https://github.com/facebook/fresco](https://github.com/facebook/fresco)
+fresco v2.5.0：[https://github.com/facebook/fresco](https://github.com/facebook/fresco)
 
 subsampling-scale-image-view v3.10.0：[https://github.com/davemorrissey/subsampling-scale-image-view](https://github.com/davemorrissey/subsampling-scale-image-view)
 
@@ -28,18 +28,8 @@ subsampling-scale-image-view v3.10.0：[https://github.com/davemorrissey/subsamp
     }
  }
 
-use AndroidX
 implementation 'com.facebook.fresco.helper:fresco-helper:2.4.0'
 ```
-
-### 不使用AndroidX
-```
-fresco v1.13.0
-
-implementation 'com.facebook.fresco.helper:fresco-helper:2.1.8'
-
-```
-
 
 ### 初始化
 ```
