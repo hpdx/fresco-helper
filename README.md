@@ -18,17 +18,14 @@ subsampling-scale-image-view v3.10.0：[https://github.com/davemorrissey/subsamp
 ## 使用
 在使用到fresco-helper库的Module中的build.gradle文件里，添加以下依赖：
 ```
- allprojects {
+allprojects {
     repositories {
-        jcenter()
-
-        maven {
-            url 'https://dl.bintray.com/hpdx/maven/'
-        }
+        ...
+        maven { url 'https://jitpack.io' }
     }
- }
+}
 
-implementation 'com.facebook.fresco.helper:fresco-helper:2.4.0'
+implementation 'com.github.hpdx:fresco-helper:2.5.0'
 ```
 
 ### 初始化
