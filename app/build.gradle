@@ -2,15 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.android.fresco.demo"
         minSdkVersion rootProject.ext.minSdk
         targetSdkVersion rootProject.ext.targetSdk
-        versionCode 1
-        versionName "1.0"
-        flavorDimensions "versionCode"
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
     }
 
     dataBinding {
@@ -24,35 +22,22 @@ android {
         }
     }
 
-    // 强制改变所有引用com.android.support版本为rootProject.ext.supportLibVersion
-    configurations.all {
-        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-            def requested = details.requested
-            if (requested.group == 'com.android.support') {
-                if (!requested.name.startsWith("multidex")) {
-                    details.useVersion rootProject.ext.supportLibVersion
-                }
-            }
-        }
-    }
-}
-
-configurations.all {
-    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-        rootProject.unifyDependencyVersion(details)
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    implementation project(':fresco-helper')
-    implementation 'com.github.hpdx:fresco-helper:2.5.0'
+    implementation project(':fresco-helper')
+//    implementation 'com.github.hpdx:fresco-helper:2.5.0'
 
-    implementation 'com.hjq:xxpermissions:5.5'
-    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
-//    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+    // https://github.com/getActivity/XXPermissions
+    implementation 'com.github.getActivity:XXPermissions:13.2'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
 
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
 }

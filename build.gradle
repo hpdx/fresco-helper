@@ -5,7 +5,6 @@
 
 buildscript {
     repositories {
-        jcenter()
         mavenCentral()
         google()
     }
@@ -17,7 +16,6 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
         mavenCentral()
         google()
 
@@ -30,94 +28,14 @@ task clean(type: Delete) {
 }
 
 ext {
-    versionCode = 1
-    versionName = '1.0.0'
+    versionCode = 34
+    versionName = '34.0.0'
 
-    buildToolsVersion = '30.0.3'
-    compileSdkVersion = 30
-
+    compileSdkVersion = 31
     minSdk = 19
-    targetSdk = 23
+    targetSdk = 29
 
-    frescoVersion = '2.5.0'
+    frescoVersion = '2.6.0'
     SSIVVersion = '3.10.0'
-    frescoHelperVersion = '2.5.0'
-
-    // Dependencies Libraries
-    dependencies = ["support-v4"         : "androidx.legacy:legacy-support-v4:1.0.0",
-                    "recyclerview"       : "androidx.recyclerview:recyclerview:1.1.0",
-                    "cardview"           : "androidx.cardview:cardview:1.0.0",
-                    "annotation"         : "androidx.annotation:annotation:1.1.0",
-                    "appcompat"          : "androidx.appcompat:appcompat:1.1.0",
-                    "design"             : "com.google.android.material:material:1.1.0",
-                    "constraint-layout"  : "androidx.constraintlayout:constraintlayout:1.1.3",
-                    "okhttp"             : "com.squareup.okhttp3:okhttp:4.4.0", // 3.14.4
-                    "gson"               : "com.google.code.gson:gson:2.8.5",
-    ]
-}
-
-// 统一依赖androidx库的版本号
-def static final unifyDependencyVersion(DependencyResolveDetails details) {
-//    println "======================unifyDependencyVersion====================="
-//    println "MLog -->group = " + details.requested.group
-//    println "MLog -->name = " + details.requested.name
-
-    if (details.requested.group == 'androidx.activity') {
-        details.useVersion "1.1.0"
-    }
-
-    if (details.requested.group == 'androidx.fragment') {
-        details.useVersion "1.2.0"
-    }
-
-    if (details.requested.group == 'androidx.core') {
-        details.useVersion "1.2.0"
-    }
-
-    if (details.requested.group == 'androidx.appcompat') {
-        details.useVersion "1.1.0"
-    }
-
-    if (details.requested.group == 'androidx.annotation') {
-        details.useVersion "1.1.0"
-    }
-
-    if (details.requested.group == 'androidx.arch.core') {
-        details.useVersion "2.1.0"
-    }
-
-    if (details.requested.group == 'androidx.collection') {
-        details.useVersion "1.1.0"
-    }
-
-    if (details.requested.group == 'androidx.constraintlayout') {
-        details.useVersion "1.1.3" // 2.0.0-beta4
-    }
-
-    if (details.requested.group == 'androidx.coordinatorlayout') {
-        details.useVersion "1.1.0"
-    }
-
-    if (details.requested.group == 'androidx.versionedparcelable') {
-        details.useVersion "1.1.0"
-    }
-
-    if (details.requested.group == 'androidx.transition') {
-        details.useVersion "1.3.1"
-    }
-
-    if (details.requested.group == 'androidx.lifecycle') {
-        if (details.requested.name == 'lifecycle-livedata') {
-            details.useVersion "2.2.0"
-        } else if (details.requested.name == 'lifecycle-livedata-core') {
-            details.useVersion "2.2.0"
-        } else if (details.requested.name == 'lifecycle-runtime') {
-            details.useVersion "2.2.0"
-        } else if (details.requested.name == 'lifecycle-viewmodel') {
-            details.useVersion "2.2.0"
-        } else if (details.requested.name == 'lifecycle-common') {
-            details.useVersion "2.2.0"
-        }
-    }
-
+    frescoHelperVersion = '2.6.0'
 }

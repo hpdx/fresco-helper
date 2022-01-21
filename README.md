@@ -4,7 +4,7 @@
 https://github.com/hpdx/glide-helper
 
 ## 依赖开源库
-fresco v2.5.0：[https://github.com/facebook/fresco](https://github.com/facebook/fresco)
+fresco v2.6.0：[https://github.com/facebook/fresco](https://github.com/facebook/fresco)
 
 subsampling-scale-image-view v3.10.0：[https://github.com/davemorrissey/subsampling-scale-image-view](https://github.com/davemorrissey/subsampling-scale-image-view)
 
@@ -25,7 +25,7 @@ allprojects {
     }
 }
 
-implementation 'com.github.hpdx:fresco-helper:2.5.0'
+implementation 'com.github.hpdx:fresco-helper:2.6.0'
 ```
 
 ### 初始化

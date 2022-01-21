@@ -10,7 +10,7 @@ import com.android.fresco.demo.R;
 import com.facebook.fresco.helper.photoview.PhotoX;
 import com.facebook.fresco.helper.photoview.entity.PhotoInfo;
 import com.facebook.fresco.helper.utils.MLog;
-import com.hjq.permissions.OnPermission;
+import com.hjq.permissions.OnPermissionCallback;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
 
@@ -75,25 +75,24 @@ public class PhotoAlbumActivity extends AppCompatActivity implements LoaderManag
         });
         mRecyclerView.setAdapter(mPhotoWallAdapter);
 
-        if (XXPermissions.isHasPermission(this, Permission.Group.STORAGE)) {
+        if (XXPermissions.isGranted(this, Permission.Group.STORAGE)) {
             LoaderManager.getInstance(PhotoAlbumActivity.this).initLoader(0, null, PhotoAlbumActivity.this);
         } else {
             XXPermissions.with(this)
-                    .constantRequest() // 可设置被拒绝后继续申请，直到用户授权或者永久拒绝
                     .permission(Permission.Group.STORAGE) // 不指定权限则自动获取清单中的危险权限
-                    .request(new OnPermission() {
+                    .request(new OnPermissionCallback() {
 
                         @Override
-                        public void hasPermission(List<String> granted, boolean isAll) {
+                        public void onGranted(List<String> permissions, boolean all) {
                             LoaderManager.getInstance(PhotoAlbumActivity.this).initLoader(0, null, PhotoAlbumActivity.this);
                         }
 
                         @Override
-                        public void noPermission(List<String> denied, boolean quick) {
-                            if (quick) {
+                        public void onDenied(List<String> permissions, boolean never) {
+                            if (never) {
                                 MLog.i("被永久拒绝授权，请手动授予权限");
                                 // 如果是被永久拒绝就跳转到应用权限系统设置页面
-                                XXPermissions.gotoPermissionSettings(PhotoAlbumActivity.this);
+                                XXPermissions.startPermissionActivity(PhotoAlbumActivity.this);
                             } else {
                                 MLog.i("获取权限失败");
                             }
@@ -117,11 +116,11 @@ public class PhotoAlbumActivity extends AppCompatActivity implements LoaderManag
 
         try {
             while (cursor.moveToNext()) {
-                String path = cursor.getString(cursor.getColumnIndex(IMAGE_PROJECTION[0]));
+                String path = cursor.getString(cursor.getColumnIndexOrThrow(IMAGE_PROJECTION[0]));
                 if (!TextUtils.isEmpty(path)) {
                     File mFile = new File(path);
                     if (mFile.exists() && mFile.isFile()) {
-                        String name = cursor.getString(cursor.getColumnIndex(IMAGE_PROJECTION[1]));
+                        String name = cursor.getString(cursor.getColumnIndexOrThrow(IMAGE_PROJECTION[1]));
                         if (TextUtils.isEmpty(name)) {
                             continue;
                         }
