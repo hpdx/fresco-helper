@@ -30,8 +30,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':fresco-helper')
-//    implementation 'com.github.hpdx:fresco-helper:2.5.0'
+//    implementation project(':fresco-helper')
+    implementation 'com.github.hpdx:fresco-helper:2.6.0'
 
     // https://github.com/getActivity/XXPermissions
     implementation 'com.github.getActivity:XXPermissions:13.2'
